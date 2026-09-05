@@ -487,8 +487,11 @@ isinya temuan, bukan komitmen. Itulah yang `--write` lakukan.
 - **Pemeriksaan bahasa terbatas pada kebakuan lema.** Tata kalimat, koherensi
   paragraf, dan ketepatan istilah dalam konteks tidak dinilai. Untuk kasus yang
   menentukan, KBBI Daring resmi tetap rujukannya.
-- **Tidak menulis skripsimu untukmu.** Isi dan gagasannya tetap tanggung
-  jawabmu.
+- **Tidak menggantikan kepengarangan.** Plugin menyusun draf paragraf demi
+  paragraf, tapi tiap unit baru berlaku setelah kamu menyetujuinya. Gagasan
+  penelitiannya (rumusan masalah, celah, pilihan metode, tafsir hasil) tetap
+  milikmu, dan kamu yang menjawab di sidang. Yang dijaga plugin adalah
+  disiplin bukti dan konsistensi.
 - **Tidak menjamin kelulusan.** Vonis `ready` berarti pemeriksaan otomatis
   bersih, tidak lebih.
 
