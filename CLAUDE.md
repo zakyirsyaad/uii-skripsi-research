@@ -303,6 +303,30 @@ A first version of the eval-table test only checked that each case name appeared
 so deleting a table row still passed. A guard verified only against the happy
 path is not a guard.
 
+## A new project must pass its own init check
+
+`/skripsi-init` ends by running `audit_references.py`. The shipped
+`templates/sources.md` used to include an `artikel` placeholder row, and with
+three sources the cap is `floor(3 × 0.20) = 0` — so every freshly initialised
+project reported `not_ready` and exit 1 before the student had written anything.
+The template violated the rule the same file teaches.
+
+The third row is now `prosiding`. Do not add an `artikel` example row back: the
+type is explained in the prose above the table, which costs nothing.
+`tests/test_templates.py` copies the templates into a temp directory and fails on
+any blocker.
+
+Templates are the one thing in this repo that gets copied into a student's
+project, so a defect there ships to every user and is never seen again by us.
+
+## Every parsed frontmatter key belongs in the template
+
+`ThesisContext` parses `active_unit_status` and `active_workstream`; the
+SessionStart hook renders both. Neither appeared in
+`templates/thesis-context.md`, so students had nowhere to record the drafting
+state that `skripsi-naskah` tracks. A test now walks the dataclass fields and
+requires each scalar one in the shipped frontmatter.
+
 ## Naming
 
 Skills, commands, and agents share **one namespace**. A skill directory and a

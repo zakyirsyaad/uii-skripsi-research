@@ -24,14 +24,20 @@ Aturan pengisian:
   `retracted`. `not_found` berarti karyanya dicari di tempat yang memang
   mengindeksnya dan tidak ada — dugaan kuat sitasi halusinasi. `unverifiable`
   berarti jenis sumbernya (biasanya `institusi` atau `artikel`) tidak diindeks
-  basis data sitasi ilmiah; itu normal, dan harus diperiksa manual.
+  basis data sitasi ilmiah; itu normal. Keterjangkauan tautannya sudah dicek
+  skrip; yang tersisa untukmu adalah memastikan penerbitnya bernama, tanggalnya
+  ada, dan lembaganya benar pemilik data.
 - `tgl_verifikasi` — ISO `YYYY-MM-DD`, diisi otomatis saat verifikasi.
 
 Baris di bawah adalah **placeholder struktur**, bukan sitasi sungguhan. Ganti
 seluruhnya; jangan pernah menyalin baris contoh ke daftar pustaka.
 
+Sengaja tidak ada baris bertipe `artikel`: dengan tiga sumber, kuotanya
+`floor(3 × 0.20) = 0`, jadi satu baris contoh saja sudah membuat proyek baru
+gagal audit sebelum mahasiswanya menulis apa pun.
+
 | id | tipe | penulis | tahun | judul | venue | doi_url | klaim | status_verifikasi | tgl_verifikasi |
 |---|---|---|---|---|---|---|---|---|---|
 | s001 | jurnal | NamaKeluarga | 2024 | Judul artikel jurnal | Nama Jurnal | 10.xxxx/contoh | Klaim spesifik yang didukung sumber ini | unverified |  |
 | s002 | institusi | Badan Pusat Statistik | 2025 | Judul publikasi resmi | BPS | https://contoh.go.id/publikasi | Data statistik yang dirujuk di Bab 1 | unverified |  |
-| s003 | artikel | Nama Media | 2025 | Judul artikel populer | Nama Media | https://contoh.com/artikel | Konteks non-akademik, terkena kuota 20% | unverified |  |
+| s003 | prosiding | NamaKeluarga | 2023 | Judul makalah konferensi | Nama Konferensi | 10.xxxx/contoh2 | Klaim lain yang didukung sumber ini | unverified |  |

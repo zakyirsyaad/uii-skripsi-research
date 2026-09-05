@@ -5,7 +5,9 @@ last_checkpoint_at: ""
 last_checkpoint_source: ""
 word_sync_status: unknown
 active_unit: ""
+active_unit_status: ""
 active_artifact: ""
+active_workstream: ""
 ---
 
 # Konteks Skripsi
@@ -18,6 +20,10 @@ material, bukan brainstorming atau usulan yang belum disetujui.
 
 `kind`: `factual_claim` | `user_decision` | `assistant_proposal` | `inference`
 `status`: `proposed` | `approved` | `rejected` | `superseded` | `unconfirmed`
+
+`active_unit_status` di frontmatter memakai daftar sendiri: `draft`,
+`awaiting_review`, `approved`, `revision_requested`, `superseded`. Hook
+SessionStart menampilkannya di samping unit aktif.
 
 Status keputusan dan status bukti adalah dua sumbu terpisah: persetujuanmu atas
 sebuah paragraf mengesahkan kata-katanya, bukan kebenaran klaim di dalamnya.

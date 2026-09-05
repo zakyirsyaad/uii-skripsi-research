@@ -6,13 +6,17 @@ Menimpanya bisa menghapus komentar pembimbing, field Mendeley, penomoran, dan
 riwayat revisi yang tidak terlihat dari Markdown — dan sering tidak bisa
 dipulihkan.
 
-Aturan izinnya dulu hanya prosa yang bisa dilupakan model. Hook ini
-menjadikannya jaminan.
+Aturan izinnya dulu hanya prosa yang bisa dilupakan model. Hook ini membuat
+kelalaian sulit — bukan menjadikannya jaminan. Matcher-nya `Write|Edit|
+NotebookEdit`, jadi membongkar `.docx` lewat `unzip` dari Bash tidak dicegat.
+Aturan untuk tidak melakukannya ada di `skripsi-naskah/SKILL.md`.
 
 Cara pengguna memberi izin: buat `.skripsi-word-authorized` di root proyek,
 berisi satu jalur berkas per baris. Baris yang diawali `#` diabaikan.
 
-    echo "naskah/bab3.docx" > .skripsi-word-authorized
+    echo "naskah/bab3.docx" >> .skripsi-word-authorized   # `>>`, bukan `>`:
+                                                         # `>` menghapus izin
+                                                         # yang sudah ada
 
 Hook tidak boleh pernah menggagalkan sesi karena kesalahannya sendiri: bila
 terjadi galat tak terduga, ia mengizinkan dan diam.
