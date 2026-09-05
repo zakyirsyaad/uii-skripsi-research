@@ -18,11 +18,13 @@ dan menjaga konteks skripsimu tetap konsisten antar-sesi.
 - [Alur kerja sehari-hari](#alur-kerja-sehari-hari)
 - [Daftar perintah](#daftar-perintah)
 - [Berkas di proyek skripsimu](#berkas-di-proyek-skripsimu)
+- [Patokan panjang naskah](#patokan-panjang-naskah)
 - [Kebijakan sumber dan kuota 20%](#kebijakan-sumber-dan-kuota-20)
 - [Enam status sitasi](#enam-status-sitasi)
 - [Perlindungan dokumen Word](#perlindungan-dokumen-word)
 - [Menjalankan skripnya langsung](#menjalankan-skripnya-langsung)
 - [Masalah umum](#masalah-umum)
+- [Plugin tidak menambah sumber sendiri](#plugin-tidak-menambah-sumber-sendiri)
 - [Yang TIDAK bisa dilakukan plugin ini](#yang-tidak-bisa-dilakukan-plugin-ini)
 - [Privasi dan data](#privasi-dan-data)
 - [Untuk pengembang](#untuk-pengembang)
@@ -235,6 +237,10 @@ skrip memparsenya.
 
 ### `references/thesis-context.md`
 
+Catatan istilah: **abstrak di template UII bernama SARI.** Kata "abstrak" maupun
+"abstract" tidak pernah dipakai, jadi mencarinya dengan istilah umum akan
+menghasilkan temuan palsu.
+
 Frontmatter YAML berisi `project_id`, `active_unit`, `last_checkpoint_at`, dan
 `word_sync_status`, diikuti tabel keputusan, item terbuka, dan artefak.
 
@@ -250,6 +256,30 @@ terverifikasi.
 Ledger ini **bukan bukti ilmiah** dan tidak pernah boleh disitasi.
 
 ---
+
+## Patokan panjang naskah
+
+Diukur dari skripsi Informatika UII yang sudah lolos sidang. Untuk skripsi
+**pengembangan sistem** — yang membangun aplikasi atau platform:
+
+| Bab | Kata |
+|---|---|
+| I Pendahuluan | ±1.900 |
+| II Kajian Pustaka | ±2.100 |
+| III Metodologi | 5.800–6.800 |
+| IV Hasil dan Pembahasan | 1.800–2.600 |
+| V Kesimpulan dan Saran | 850–1.200 |
+| **Total isi** | **±13.500** |
+
+Panjang kalimat yang lazim **19–23 kata** rata-rata. Prosa yang seluruhnya di
+bawah 15 kata terbaca patah-patah.
+
+Kepadatan halaman berbeda tajam antar bab: BAB I dan II sekitar 260–300 kata per
+halaman, BAB IV hanya 119–163 karena didominasi tangkapan layar. Jadi "BAB IV
+dua puluh halaman" sebenarnya hanya sekitar 2.500 kata tulisan.
+
+Rincian dan profil skripsi berbasis riset ada di
+`skills/skripsi-uii/references/format-uii.md`.
 
 ## Kebijakan sumber dan kuota 20%
 
@@ -340,6 +370,12 @@ echo "naskah/bab3.docx" >> .skripsi-word-authorized
 
 Izinnya **per berkas**, bukan menyeluruh. Berkas `.docx` lain tetap terblokir.
 
+**Batasnya:** hook menjaga operasi tulis-berkas (`Write`, `Edit`), bukan Bash.
+Membongkar `.docx` lewat `unzip`, menyunting XML-nya, lalu memampatkan ulang
+tidak dicegat. Aturan untuk tidak melakukannya ada di skill, dan model
+mematuhinya saat diuji — tapi hook ini membuat kelalaian sulit, bukan
+pengakalan mustahil. Jangan perlakukan sebagai jaminan mutlak.
+
 ---
 
 ## Menjalankan skripnya langsung
@@ -427,6 +463,23 @@ Naikkan `version` di kedua manifest, jalankan `claude plugin update`, lalu
 restart. `update` menolak menyegarkan bila nomor versinya sama.
 
 ---
+
+## Plugin tidak menambah sumber sendiri
+
+Plugin **tidak akan** menambahkan baris ke `references/sources.md` tanpa kamu
+minta — bahkan ketika sumbernya jelas tak terhindarkan, dan bahkan setelah
+memverifikasi DOI-nya.
+
+Alasannya: verifikasi membuktikan karyanya ada, bukan bahwa isinya mendukung
+klaimmu. Kolom `klaim` hanya bisa diisi jujur oleh yang sudah membaca teks
+lengkapnya. Daftar pustaka yang tumbuh berisi sumber yang belum kamu baca akan
+runtuh di sidang, saat penguji menanyakan isinya.
+
+Yang kamu dapat sebagai gantinya: baris siap tempel dengan metadata kanonik dan
+kolom `klaim` dikosongkan. Kamu yang memutuskan masuk atau tidak.
+
+Kolom `status_verifikasi` dan `tgl_verifikasi` **boleh** ditulis perkakas — itu
+temuan, bukan komitmen. Itulah yang `--write` lakukan.
 
 ## Yang TIDAK bisa dilakukan plugin ini
 
