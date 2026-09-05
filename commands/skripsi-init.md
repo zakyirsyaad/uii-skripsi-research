@@ -11,13 +11,17 @@ Siapkan proyek skripsi di direktori kerja saat ini.
    - `templates/skripsi.yaml` → `.skripsi.yaml`
    - `templates/thesis-context.md` → `references/thesis-context.md`
    - `templates/sources.md` → `references/sources.md`
-3. Tanyakan hal yang hanya pengguna yang tahu, lalu isikan ke `.skripsi.yaml`:
+3. Tanyakan hanya yang benar-benar khas proyek ini, lalu isikan ke
+   `.skripsi.yaml`:
    - `project_id` — pengenal proyek yang stabil
-   - `mailto` — email untuk polite pool Crossref/OpenAlex. Jelaskan bahwa ini
-     dikirim ke API publik sebagai perkenalan, bukan autentikasi, dan tanpa itu
-     verifikasi akan lambat. Jangan isi sendiri dari sumber mana pun.
-   - `kbbi_db_path` — opsional, jalur SQLite KBBI lokal bila punya
-   - `recency_years` — default 5
+   - `recency_years` — batas kebaruan sumber empiris, default 5
+
+   **Jangan tanyakan `mailto` maupun `kbbi_db_path`.** Keduanya setelan tingkat
+   pengguna yang sudah ditanyakan sekali saat plugin dipasang, dan dibaca
+   otomatis dari konfigurasi plugin. Bila `audit_references.py` mengeluh
+   `mailto` kosong, arahkan ke `/plugin configure uii-skripsi-research` —
+   jangan menambahkannya ke `.skripsi.yaml`, dan jangan mengisinya sendiri dari
+   sumber mana pun.
 4. Isi frontmatter `references/thesis-context.md` dengan `project_id` yang sama.
 5. Validasi hasilnya:
    `python3 ${CLAUDE_PLUGIN_ROOT}/scripts/audit_references.py`

@@ -1,6 +1,6 @@
 {
   "name": "uii-skripsi-research",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "description": "Skripsi S1 Informatika UII: verifikasi sitasi ke Crossref/OpenAlex, pencarian literatur, audit naskah, dan kontinuitas konteks antar-sesi.",
   "author": {
     "name": "Local developer"
@@ -15,5 +15,19 @@
     "mendeley",
     "bahasa-indonesia"
   ],
-  "license": "MIT"
+  "license": "MIT",
+  "userConfig": {
+    "mailto": {
+      "type": "string",
+      "title": "Email untuk polite pool Crossref/OpenAlex",
+      "description": "Dikirim ke Crossref, OpenAlex, dan DataCite sebagai perkenalan agar verifikasi sitasi tidak kena rate limit ketat. Bukan autentikasi dan tidak membuat akun. Boleh dikosongkan — verifikasi tetap jalan, hanya lebih lambat.",
+      "default": ""
+    },
+    "kbbi_db_path": {
+      "type": "string",
+      "title": "Jalur basis data SQLite KBBI (opsional)",
+      "description": "Hanya untuk memeriksa kata baku bahasa Indonesia. Basis datanya tidak disertakan plugin; kosongkan bila tidak punya.",
+      "default": ""
+    }
+  }
 }

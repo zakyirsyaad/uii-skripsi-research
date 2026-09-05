@@ -1,5 +1,5 @@
 ---
-name: skripsi-audit
+name: skripsi-kesiapan
 description: Use before declaring a thesis chapter complete, moving to the next chapter, or preparing for a defense in a UII Informatics thesis — a read-only consistency and readiness check covering claims without evidence, terminology drift, alignment between research questions and results, the 20% source quota, and unresolved drafting state.
 ---
 

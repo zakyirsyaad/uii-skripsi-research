@@ -91,7 +91,7 @@ eksperimen, atau studi kasus hanya karena mirip.
 | Menambah, memeriksa, mengekspor sitasi; kelayakan sumber; kuota 20% | `skripsi-sitasi` |
 | Mencari literatur, menyaring kandidat, celah penelitian | `skripsi-pustaka` |
 | Menulis dan merevisi prosa, status unit, impact sweep, bahasa | `skripsi-naskah` |
-| Memeriksa kesiapan bab atau sidang | `skripsi-audit` |
+| Memeriksa kesiapan bab atau sidang | `skripsi-kesiapan` |
 
 ## Rujukan lanjutan
 

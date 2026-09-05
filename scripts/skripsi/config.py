@@ -6,12 +6,27 @@ semua yang spesifik proyek diparameterisasi lewat file ini.
 from __future__ import annotations
 
 import math
+import os
 from dataclasses import dataclass, field
 from pathlib import Path
 
-import yaml
+from .minyaml import MiniYamlError
+from .minyaml import safe_load as _yaml_load
 
 CONFIG_FILENAME = ".skripsi.yaml"
+
+
+class ConfigError(ValueError):
+    """`.skripsi.yaml` ada tapi tidak bisa dibaca — jangan diam-diam pakai default."""
+
+# Setelan milik PENGGUNA, bukan proyek: satu mahasiswa punya satu email dan satu
+# basis data KBBI untuk semua skripsinya. Claude Code menanyakannya sekali saat
+# install (userConfig di plugin.json) dan mengeksposnya lewat env var ini, jadi
+# `/skripsi-init` tidak perlu bertanya lagi di tiap proyek baru.
+USER_SCOPED = {
+    "mailto": "CLAUDE_PLUGIN_OPTION_MAILTO",
+    "kbbi_db_path": "CLAUDE_PLUGIN_OPTION_KBBI_DB_PATH",
+}
 
 DEFAULTS = {
     "schema_version": 1,
@@ -71,17 +86,28 @@ def load_config(start: Path | None = None) -> Config:
     """Muat config; kalau tidak ada, kembalikan default agar perkakas tetap jalan."""
     path = find_config(start)
     if path is None:
-        return Config(root=(start or Path.cwd()).resolve())
+        # Tanpa .skripsi.yaml pun, setelan tingkat pengguna tetap berlaku.
+        return Config(
+            root=(start or Path.cwd()).resolve(),
+            **{k: os.environ.get(env, "").strip() for k, env in USER_SCOPED.items()},
+        )
 
-    raw = yaml.safe_load(path.read_text(encoding="utf-8")) or {}
-    if not isinstance(raw, dict):
-        raw = {}
+    try:
+        raw = _yaml_load(path.read_text(encoding="utf-8")) or {}
+    except MiniYamlError as exc:
+        raise ConfigError(f"{path}: {exc}") from exc
 
     merged = {**DEFAULTS, **{k: v for k, v in raw.items() if k in DEFAULTS}}
     # Nilai kosong di YAML (`mailto: ""`) sah; nilai None diperlakukan sebagai absen.
     for key, default in DEFAULTS.items():
         if merged.get(key) is None:
             merged[key] = default
+
+    # Urutan: nilai eksplisit di .skripsi.yaml menang (override per proyek),
+    # kalau kosong ambil dari userConfig plugin, kalau tidak ada juga baru default.
+    for key, env in USER_SCOPED.items():
+        if not merged.get(key):
+            merged[key] = os.environ.get(env, "").strip() or DEFAULTS[key]
 
     return Config(
         **merged,

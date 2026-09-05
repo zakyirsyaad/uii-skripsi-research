@@ -14,7 +14,8 @@ from dataclasses import dataclass, field
 from datetime import date
 from pathlib import Path
 
-import yaml
+from .minyaml import MiniYamlError
+from .minyaml import safe_load as _yaml_load
 
 SOURCE_COLUMNS = [
     "id", "tipe", "penulis", "tahun", "judul", "venue",
@@ -286,9 +287,12 @@ def _parse_frontmatter(lines: list[str]) -> tuple[dict, list[Issue]]:
         return {}, [Issue(1, "frontmatter", "Frontmatter tidak pernah ditutup dengan `---`.")]
 
     try:
-        data = yaml.safe_load("\n".join(lines[1:end])) or {}
-    except yaml.YAMLError as exc:
-        return {}, [Issue(1, "frontmatter", f"YAML frontmatter tidak valid: {exc}")]
+        data = _yaml_load("\n".join(lines[1:end])) or {}
+    except MiniYamlError as exc:
+        # Nomor baris dari parser relatif ke isi frontmatter; geser 1
+        # agar menunjuk baris sebenarnya di berkas.
+        return {}, [Issue(exc.line + 1, "frontmatter",
+                          f"Frontmatter tidak valid: {exc.message}")]
 
     if not isinstance(data, dict):
         return {}, [Issue(1, "frontmatter", "Frontmatter harus berupa peta kunci-nilai.")]

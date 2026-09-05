@@ -1,21 +1,19 @@
-# Konfigurasi proyek skripsi. Simpan sebagai `.skripsi.yaml` di root proyek skripsi.
+# Konfigurasi PROYEK skripsi. Simpan sebagai `.skripsi.yaml` di root proyek.
+#
+# Berkas ini hanya memuat setelan yang berbeda antar proyek. Setelan yang
+# melekat pada dirimu — email polite pool dan jalur basis data KBBI — ditanyakan
+# sekali saat plugin dipasang, bukan di sini. Ubah kapan saja lewat:
+#
+#     /plugin configure uii-skripsi-research
+#
 schema_version: 1
 
 # Identitas proyek. Bebas, tapi harus stabil — dipakai ledger untuk mencegah
 # konteks satu proyek terbawa ke proyek lain.
 project_id: skripsi-informatika-uii
 
-# Email untuk "polite pool" Crossref/OpenAlex. Bukan autentikasi; API publik ini
-# memberi rate limit lebih longgar kalau kita memperkenalkan diri.
-# WAJIB diisi agar verifikasi sitasi tidak kena throttle.
-mailto: ""
-
-# Path SQLite KBBI lokal (opsional). Hanya untuk validasi bahasa Indonesia,
-# tidak pernah sebagai bukti klaim ilmiah.
-kbbi_db_path: ""
-
-# Batas kebaruan sumber empiris, dalam tahun. Teori/metode/standar fundamental
-# boleh lebih tua, tapi harus dijustifikasi terpisah.
+# Batas kebaruan sumber empiris, dalam tahun. Teori, metode, dan standar
+# fundamental boleh lebih tua, tapi harus dijustifikasi terpisah.
 recency_years: 5
 
 # Porsi maksimum sumber non-akademik (tipe `artikel`) dalam daftar pustaka.
@@ -25,3 +23,8 @@ article_cap_ratio: 0.20
 citation_style: IEEE
 
 cache_dir: .skripsi-cache
+
+# Override opsional, hanya bila proyek ini perlu berbeda dari setelan pluginmu.
+# Biarkan tetap dikomentari agar nilai dari /plugin configure yang dipakai.
+# mailto: ""
+# kbbi_db_path: ""

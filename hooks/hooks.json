@@ -5,7 +5,8 @@
         "hooks": [
           {
             "type": "command",
-            "command": "python3 \"${CLAUDE_PLUGIN_ROOT}/hooks/session_start_context.py\"",
+            "command": "\"${CLAUDE_PLUGIN_ROOT}/hooks/run-hook.sh\" session_start_context.py",
+            "shell": "bash",
             "timeout": 10
           }
         ]
@@ -17,7 +18,8 @@
         "hooks": [
           {
             "type": "command",
-            "command": "python3 \"${CLAUDE_PLUGIN_ROOT}/hooks/guard_word_artifact.py\"",
+            "command": "\"${CLAUDE_PLUGIN_ROOT}/hooks/run-hook.sh\" guard_word_artifact.py",
+            "shell": "bash",
             "timeout": 10
           }
         ]

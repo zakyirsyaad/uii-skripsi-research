@@ -22,12 +22,54 @@ Yang bisa dihitung, dihitung — tidak diserahkan ke ingatan model.
 
 ## Pasang
 
+Claude Code menemukan plugin lewat marketplace, bukan dengan menyalin folder ke
+`~/.claude/plugins/`. Menyalin manual tidak akan memunculkan apa pun.
+
 ```bash
-git clone <repo> ~/.claude/plugins/uii-skripsi-research
+claude plugin marketplace add zakyirsyaad/uii-skripsi-research
+claude plugin install uii-skripsi-research@uii-skripsi
 ```
 
-Butuh Python 3.9+. Tidak ada dependensi selain `PyYAML`; skrip jaringan hanya
-memakai pustaka standar.
+Atau dari salinan lokal — pakai jalur absolut, `.` tidak diterima:
+
+```bash
+claude plugin marketplace add /jalur/absolut/ke/uii-skripsi-research
+claude plugin install uii-skripsi-research@uii-skripsi
+```
+
+Saat memasang, kamu ditanya dua hal **sekali saja** — bukan tiap proyek:
+
+- **`mailto`** — email yang dikirim ke Crossref/OpenAlex/DataCite sebagai
+  perkenalan agar verifikasi tidak kena rate limit ketat. Bukan autentikasi,
+  tidak membuat akun. Boleh dikosongkan; verifikasi tetap jalan, hanya lambat.
+- **`kbbi_db_path`** — opsional, hanya untuk memeriksa kata baku. Basis datanya
+  tidak disertakan; kosongkan bila tidak punya.
+
+Ubah kapan saja lewat `/plugin configure uii-skripsi-research`.
+
+**Restart Claude Code** setelah memasang. Periksa dengan `claude plugin list`
+dan `claude plugin details uii-skripsi-research`.
+
+### Yang dibutuhkan
+
+Hanya **Python 3.9+**. Tidak ada dependensi pihak ketiga sama sekali — termasuk
+tidak butuh PyYAML. Semua skrip memakai pustaka standar saja, jadi tidak ada
+langkah instalasi.
+
+Windows didukung: hook dijalankan lewat pembungkus bash yang mencari `python3`,
+`python`, atau peluncur `py`. Butuh Git for Windows (Git Bash) terpasang. Bila
+Python tidak ditemukan, plugin mengatakannya di awal sesi alih-alih diam.
+
+### Mengembangkan plugin ini
+
+Marketplace terdaftar sebagai sumber `directory`, tapi salinan terpasangnya ada
+di `~/.claude/plugins/cache/`. Suntingan di repo **belum berlaku** sampai:
+
+```bash
+claude plugin update uii-skripsi-research
+```
+
+lalu restart sesi.
 
 ## Pakai
 
