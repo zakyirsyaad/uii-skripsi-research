@@ -365,6 +365,9 @@ python3 <plugin>/scripts/search_literature.py "kata kunci" --since 2021 --oa --l
 python3 <plugin>/scripts/export_mendeley.py --format bibtex > pustaka.bib
 python3 <plugin>/scripts/export_mendeley.py --format ris > pustaka.ris
 
+# audit naskah Word terhadap template resmi UII
+python3 <plugin>/scripts/audit_naskah.py naskah.docx
+
 # analisis bentuk skripsi UII lain sebagai rujukan kerangka
 python3 <plugin>/scripts/analisis_dspace.py ~/Downloads/skripsi-uii/
 

@@ -170,6 +170,22 @@ The chapter-proportion figures in `skills/skripsi-uii/references/format-uii.md`
 and the sentence-length range in `bahasa-akademik.md` came from running it on
 three real theses. Revise those numbers from measurement, never from impression.
 
+## Reading Word is not writing Word
+
+`guard_word_artifact.py` blocks **writes** to `.docx`. Reading is different and
+necessary: the manuscript handed to the supervisor is a Word file, and some
+defects exist only there — leftover template boilerplate, a stale table of
+contents, a missing SARI.
+
+`scripts/skripsi/docx.py` reads `.docx` with stdlib `zipfile` alone; no
+python-docx. `audit_naskah.py` uses it to compare a manuscript against the
+official UII template, and reports findings for the student to fix in Word
+themselves.
+
+`judul()` filters out table-of-contents entries on purpose. A TOC field caches
+the text of its last render, so it can show template placeholders long after the
+real headings were filled in — reading it as structure produces false findings.
+
 ## Naming
 
 Skills, commands, and agents share **one namespace**. A skill directory and a

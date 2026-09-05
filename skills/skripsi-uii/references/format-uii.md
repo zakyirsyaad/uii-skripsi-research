@@ -33,8 +33,12 @@ dirujuk adalah temuan, bukan kelebihan.
 ### Halaman awal yang diminta
 
 Halaman Judul · Pengesahan Dosen Pembimbing · Pengesahan Dosen Penguji ·
-Pernyataan Keaslian · Persembahan · Moto · Kata Pengantar · **Glosarium** ·
-Daftar Isi · Daftar Tabel · Daftar Gambar
+Pernyataan Keaslian · Persembahan · Moto · Kata Pengantar · **SARI** ·
+**Glosarium** · Daftar Isi · Daftar Tabel · Daftar Gambar
+
+**Abstrak di UII bernama SARI.** Template tidak pernah memakai kata "abstrak"
+maupun "abstract". Mencarinya dengan istilah umum menghasilkan temuan palsu —
+bagiannya ada, hanya namanya berbeda.
 
 Glosarium sering terlewat karena tidak semua contoh di DSpace memakainya.
 

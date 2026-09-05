@@ -14,7 +14,14 @@ memintanya dan izin artefaknya mengizinkan.
 ```bash
 python3 <plugin>/scripts/audit_references.py
 python3 <plugin>/scripts/verify_citation.py --ledger references/sources.md --only-unverified
+python3 <plugin>/scripts/audit_naskah.py naskah.docx
 ```
+
+`audit_naskah.py` **membaca** naskah Word. Membaca berbeda dari menulis:
+menyunting `.docx` tetap diblokir hook, tapi memeriksanya justru wajib — naskah
+yang diserahkan ke pembimbing memang berformat Word, dan sebagian cacat hanya
+kelihatan di sana. Ia menemukan sisa teks template, daftar isi yang belum
+di-update, halaman awal yang hilang, dan gaya sitasi yang salah.
 
 Ini sudah menutup kuota 20%, kebaruan, duplikat, kelengkapan metadata, dan
 keberadaan sumber. Jangan menilai ulang hal-hal itu dengan mata; bacalah
@@ -60,7 +67,8 @@ Blocker minimal: sitasi `not_found` atau `retracted`, kuota 20% jebol, klaim
 faktual tanpa bukti, pertanyaan penelitian yang tidak terjawab, atau revisi
 yang belum selesai pada unit yang diklaim selesai.
 
-Audit atas Markdown **tidak bisa** mengesahkan hal yang hanya ada di Word —
+`audit_naskah.py` menutup sebagian celah Word, tapi tidak seluruhnya. Audit
+**tidak bisa** mengesahkan hal yang hanya ada di Word —
 penomoran halaman, field Mendeley, komentar, caption, daftar isi, referensi
 silang. Nyatakan batas ini, jangan diam-diam melewatinya.
 
