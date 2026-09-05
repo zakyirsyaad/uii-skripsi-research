@@ -32,6 +32,42 @@ dihitung dari halaman isi (BAB I sampai BAB V), bukan total berkas.
 | IV Hasil dan Pembahasan | 15–20 hal (~20%) | 20 hal (~19%) |
 | V Kesimpulan dan Saran | 5–6 hal (~8%) | 12 hal (~11%) |
 
+## Jumlah kata — patokan yang lebih andal
+
+Halaman berubah kalau font, spasi, atau ukuran gambar diubah. Jumlah kata tidak,
+dan itulah yang terlihat di Word.
+
+| Bab | Skripsi pengembangan sistem | Skripsi berbasis riset |
+|---|---|---|
+| I Pendahuluan | ±1.900 | 2.350 |
+| II Kajian Pustaka | ±2.100 | 9.968 |
+| III Metodologi | 5.800–6.800 | 6.974 |
+| IV Hasil dan Pembahasan | 1.800–2.600 | 3.268 |
+| V Kesimpulan dan Saran | 850–1.200 | 2.159 |
+| **Total isi** | **±13.500** | **24.719** |
+
+Dua skripsi pengembangan yang ditulis orang berbeda berselisih hanya 68 kata
+dari total 13.500, dan BAB I keduanya berselisih 5 kata. Itu konvensi, bukan
+kebetulan.
+
+Angka ini untuk isi BAB I sampai BAB V — tanpa lampiran, daftar pustaka, dan
+halaman awal.
+
+### Kepadatan halaman
+
+| Bab | Kata per halaman |
+|---|---|
+| I dan II | 260–300 |
+| III | 175–186 |
+| IV | 119–163 |
+
+BAB III yang 39 halaman bukan 39 halaman tulisan — sebagian besar diagram,
+tabel, dan rancangan antarmuka. BAB IV lebih jauh lagi: 119 kata per halaman
+berarti halamannya didominasi tangkapan layar.
+
+Jadi menargetkan "BAB IV dua puluh halaman" sebenarnya hanya berarti sekitar
+2.500 kata tulisan. Jangan panik melihat jumlah halaman yang harus diisi.
+
 Bedanya tajam dan menentukan. Pada **skripsi pengembangan sistem** — yang
 membangun aplikasi atau platform — bobot terbesar ada di BAB III, hampir
 separuh isi, karena analisis kebutuhan dan perancangan tinggal di sana. Kajian

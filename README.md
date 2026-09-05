@@ -281,9 +281,10 @@ peramban biasa, simpan PDF-nya, lalu:
 python3 <plugin>/scripts/analisis_dspace.py ~/Downloads/skripsi-uii/
 ```
 
-Skrip itu melaporkan kerangka bab, proporsi halaman, struktur subbab, statistik
-panjang kalimat, metode yang disebut, dan ukuran daftar pustaka — dan sengaja
-tidak pernah mencetak kalimat dari sumbernya.
+Skrip itu melaporkan kerangka bab, jumlah kata dan halaman per bab, kepadatan
+kata per halaman, struktur subbab, statistik panjang kalimat, metode yang
+disebut, dan ukuran daftar pustaka — dan sengaja tidak pernah mencetak kalimat
+dari sumbernya.
 
 ---
 

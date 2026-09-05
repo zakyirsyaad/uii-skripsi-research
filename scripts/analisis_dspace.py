@@ -64,6 +64,11 @@ def bersihkan(text: str) -> str:
     return re.sub(r"\s+", " ", text)
 
 
+def hitung_kata(text: str) -> int:
+    """Kata yang mengandung huruf — nomor halaman dan penanda tidak ikut."""
+    return sum(1 for w in re.sub(r"\s+", " ", text).split() if any(c.isalpha() for c in w))
+
+
 def peta_bab(pages: list[str]) -> list[dict]:
     """Halaman mulai tiap BAB. Kemunculan pertama menang — sisanya daftar isi."""
     ketemu, urut = {}, []
@@ -81,6 +86,8 @@ def peta_bab(pages: list[str]) -> list[dict]:
     for i, b in enumerate(urut):
         b["akhir"] = urut[i + 1]["mulai"] - 1 if i + 1 < len(urut) else len(pages)
         b["halaman"] = b["akhir"] - b["mulai"] + 1
+        b["kata"] = hitung_kata("\n".join(pages[b["mulai"] - 1:b["akhir"]]))
+        b["kata_per_halaman"] = b["kata"] // max(b["halaman"], 1)
     total = sum(b["halaman"] for b in urut) or 1
     for b in urut:
         b["persen"] = round(b["halaman"] / total * 100)
@@ -145,8 +152,11 @@ def cetak(a: dict) -> None:
         for b in a["bab"]:
             bar = "#" * max(1, round(b["persen"] / 3))
             print(f"    BAB {b['bab']:<4} hal {b['mulai']:>3}-{b['akhir']:<3} "
-                  f"{b['halaman']:>3} hal  {b['persen']:>3}%  {bar}")
+                  f"{b['halaman']:>3} hal  {b['kata']:>6,} kata  "
+                  f"{b['kata_per_halaman']:>3}/hal  {b['persen']:>3}%  {bar}")
             print(f"    {'':>13}{b['judul']}")
+        print(f"    {'TOTAL':<8} {'':>13}{sum(b['halaman'] for b in a['bab']):>3} hal  "
+              f"{sum(b['kata'] for b in a['bab']):>6,} kata isi")
     else:
         print("  Kerangka bab tidak terdeteksi — mungkin PDF hasil pindaian "
               "tanpa lapisan teks.")
@@ -181,6 +191,25 @@ def ringkasan(semua: list[dict]) -> None:
             if n in per_bab:
                 v = per_bab[n]
                 print(f"    BAB {n:<4} {min(v):>3}-{max(v):<3}%   median {int(statistics.median(v))}%")
+
+    per_kata: dict[str, list[int]] = {}
+    total_isi = []
+    for a in semua:
+        for b in a["bab"]:
+            per_kata.setdefault(b["bab"], []).append(b["kata"])
+        if a["bab"]:
+            total_isi.append(sum(b["kata"] for b in a["bab"]))
+    if per_kata:
+        print("\n  Kata per bab")
+        for n in ("I", "II", "III", "IV", "V"):
+            if n in per_kata:
+                v = sorted(per_kata[n])
+                print(f"    BAB {n:<4} {min(v):>6,} - {max(v):<6,}  median {int(statistics.median(v)):,}")
+    if total_isi:
+        print(f"    {'TOTAL':<8} {min(total_isi):>6,} - {max(total_isi):<6,}  "
+              f"median {int(statistics.median(total_isi)):,} kata isi")
+        print("\n  Jumlah kata lebih andal daripada jumlah halaman: halaman berubah")
+        print("  kalau font, spasi, atau ukuran gambar diubah.")
 
     rr = [a["bahasa"]["rata_rata"] for a in semua if a["bahasa"]]
     if rr:
