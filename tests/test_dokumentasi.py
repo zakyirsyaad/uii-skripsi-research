@@ -216,6 +216,39 @@ class TestTanpaHitunganTesYangMembusuk(unittest.TestCase):
                 f"{path} memaku jumlah tes; angka itu akan membusuk")
 
 
+class TestPetaCLAUDEmd(unittest.TestCase):
+    """Diagram pohon di CLAUDE.md menyebut angka; angka itu membusuk.
+
+    "scripts/*.py 6 CLIs" tertinggal dua skrip, karena audit_naskah.py dan
+    analisis_dspace.py ditambahkan setelah diagramnya ditulis.
+    """
+
+    CLAUDE = (ROOT / "CLAUDE.md").read_text(encoding="utf-8")
+
+    def cocokkan(self, pola, nyata, label):
+        m = re.search(pola, self.CLAUDE)
+        self.assertIsNotNone(m, f"CLAUDE.md kehilangan baris {label}")
+        self.assertEqual(nyata, int(m.group(1)),
+                         f"CLAUDE.md menyebut {m.group(1)} {label}, yang ada {nyata}")
+
+    def test_jumlah_skrip(self):
+        self.cocokkan(r"scripts/\*\.py\s+(\d+) CLIs",
+                      len(list((ROOT / "scripts").glob("*.py"))), "CLI")
+
+    def test_jumlah_skill(self):
+        self.cocokkan(r"skills/skripsi-\*/\s+(\d+) focused skills",
+                      len([d for d in (ROOT / "skills").iterdir() if d.is_dir()]),
+                      "skill")
+
+    def test_jumlah_command(self):
+        self.cocokkan(r"commands/\s+(\d+) slash commands",
+                      len(list((ROOT / "commands").glob("*.md"))), "command")
+
+    def test_jumlah_agent(self):
+        self.cocokkan(r"agents/\s+(\d+) read-only subagents",
+                      len(list((ROOT / "agents").glob("*.md"))), "agent")
+
+
 class TestRujukanTidakYatim(unittest.TestCase):
     def test_setiap_berkas_rujukan_ditautkan_skill_nya(self):
         """Rujukan yang tidak ditautkan tidak akan pernah dibaca model."""

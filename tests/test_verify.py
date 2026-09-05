@@ -5,6 +5,7 @@ from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).resolve().parents[1] / "scripts"))
 
+import skripsi.verify as verify_mod  # noqa: E402
 from skripsi.sources import NetworkUnavailable, Work  # noqa: E402
 from skripsi.verify import (  # noqa: E402
     STATUS_MISMATCH, STATUS_NOT_FOUND, STATUS_OK, STATUS_RETRACTED,
@@ -142,7 +143,19 @@ class TestUnindexedSourceTypes(unittest.TestCase):
     """Halaman institusi dan artikel berita memang tidak diindeks Crossref.
 
     Menandainya NOT_FOUND berarti menuduh sumber sah sebagai fiktif.
+
+    Jalur UNVERIFIABLE memanggil `url_is_reachable`, yang mengirim HEAD sungguhan
+    ke situs sumbernya. Tanpa stub, tes ini menghubungi bps.go.id dan
+    kontan.co.id tiap kali dijalankan — melanggar janji "tidak menyentuh
+    jaringan" dan membuat hasilnya bergantung koneksi.
     """
+
+    def setUp(self):
+        self._asli = verify_mod.url_is_reachable
+        verify_mod.url_is_reachable = lambda url, timeout=10: True
+
+    def tearDown(self):
+        verify_mod.url_is_reachable = self._asli
 
     def test_institutional_source_without_doi_is_unverifiable(self):
         from skripsi.verify import STATUS_UNVERIFIABLE

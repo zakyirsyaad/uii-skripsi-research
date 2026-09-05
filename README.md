@@ -544,7 +544,8 @@ isinya temuan, bukan komitmen. Itulah yang `--write` lakukan.
 ```bash
 git clone https://github.com/zakyirsyaad/uii-skripsi-research
 cd uii-skripsi-research
-python3 -m unittest discover -s tests -v     # tes unit, nol menyentuh jaringan
+python3 -m unittest discover -s tests -v     # tes unit; ada penjaga yang
+                                             # membuktikan nol jaringan
 claude plugin eval .                         # eval perilaku skill (early access)
 claude plugin validate .
 claude plugin validate .claude-plugin/marketplace.json

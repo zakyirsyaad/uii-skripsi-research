@@ -17,7 +17,7 @@ commands/                    6 slash commands
 agents/                      2 read-only subagents
 hooks/                       SessionStart + Word guard, via run-hook.sh
 scripts/skripsi/             shared Python package
-scripts/*.py                 6 CLIs
+scripts/*.py                 8 CLIs
 templates/                   the 3 artifacts a thesis project needs
 tests/                       stdlib unittest, no network
 ```
@@ -25,7 +25,8 @@ tests/                       stdlib unittest, no network
 ## Commands
 
 ```bash
-python3 -m unittest discover -s tests -v     # all tests; none touch the network
+python3 -m unittest discover -s tests -v     # all tests; a guard proves none
+                                             # touch the network
 python3 -m unittest tests.test_verify -v     # one module
 ```
 
@@ -132,7 +133,10 @@ the README promises the deterrent again.
 
 Throughout the skills and the ledger, **decision status**
 (`proposed`/`approved`/`rejected`/`superseded`/`unconfirmed`) and **evidence
-status** (`verified`/`unverified`/`retracted`/`superseded`) are independent.
+status** (`verified`/`unverified`/`unverifiable`/`mismatch`/`not_found`/
+`retracted`) are independent. The two lists differ in content, not just in
+name: `superseded` is valid for a decision and rejected by the parser in
+`status_verifikasi`.
 
 A user approving a paragraph approves its wording, never the truth of a claim
 inside it. Any change that lets approval imply verification defeats the plugin's
@@ -326,6 +330,27 @@ SessionStart hook renders both. Neither appeared in
 `templates/thesis-context.md`, so students had nowhere to record the drafting
 state that `skripsi-naskah` tracks. A test now walks the dataclass fields and
 requires each scalar one in the shipped frontmatter.
+
+## "No network" was written, not proven
+
+README and CLAUDE.md both promised the unit tests never touch the network. They
+did: the `UNVERIFIABLE` branch in `verify.py` calls `url_is_reachable`, and two
+tests in `test_verify.py` passed it a URL. Instrumenting `urlopen` showed two
+real outbound requests per run, to `bps.go.id` and `kontan.co.id`.
+
+That is why the suite sometimes took twenty seconds and sometimes half of one.
+A test that depends on the network gives different answers on a train, in CI
+without egress, and when the source site is down — and the mismatch gets
+misread as a bug in the code.
+
+`tests/test_tanpa_jaringan.py` now runs every other test module with `urlopen`
+tapped and fails on any outbound call, or if blocking the network makes anything
+fail. Stub `url_is_reachable` in any new test that reaches the `UNVERIFIABLE`
+path.
+
+Its first version loaded modules by bare name, which cannot resolve under
+`tests.test_*`; nothing ran and the guard reported success on an empty suite.
+Check that a guard actually executes what it claims to cover.
 
 ## Naming
 
