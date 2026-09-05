@@ -1,8 +1,8 @@
 # UII Skripsi Research
 
-Plugin Claude Code untuk mahasiswa S1 Informatika UII. Ia **memverifikasi sitasi
-ke basis data ilmiah sungguhan**, mencari literatur, mengaudit daftar pustaka,
-dan menjaga konteks skripsimu tetap konsisten antar-sesi.
+Plugin Claude Code untuk mahasiswa S1 Informatika UII. Plugin ini memverifikasi
+sitasi ke basis data ilmiah sungguhan, mencari literatur, mengaudit daftar
+pustaka, dan menjaga konteks skripsi tetap konsisten antar-sesi.
 
 > Bahasa Indonesia sepenuhnya. Gratis, tanpa API key, tanpa akun.
 
@@ -35,23 +35,22 @@ dan menjaga konteks skripsimu tetap konsisten antar-sesi.
 
 Model bahasa punya beberapa kesalahan khas saat dipakai menulis skripsi:
 
-- **Mengarang sitasi.** Judul, penulis, tahun, bahkan DOI yang terdengar sangat
-  meyakinkan — tapi karyanya tidak pernah ada. Ini kegagalan paling berbahaya,
-  karena penguji akan mengeceknya dan kamu yang menanggung akibatnya.
+- **Mengarang sitasi.** Judul, penulis, tahun, bahkan DOI yang terdengar
+  meyakinkan, padahal karyanya tidak pernah ada.
 - **Menggeser istilah.** "Pengguna" di Bab 1 menjadi "pemakai" di Bab 4.
-- **Melupakan keputusan.** Sesi kemarin sudah sepakat memakai satu metode; sesi
-  hari ini mengusulkan metode lain seolah pembicaraan itu tak pernah terjadi.
+- **Melupakan keputusan.** Sesi kemarin sudah sepakat memakai satu metode, sesi
+  hari ini mengusulkan metode lain.
 
-Plugin ini membagi tugas jadi tiga. Apa pun yang bisa dihitung komputer,
-dihitung — tidak diserahkan pada ingatan model.
+Plugin ini membagi pekerjaan menjadi tiga lapis. Apa pun yang bisa dihitung
+komputer dihitung oleh skrip, tidak diserahkan pada ingatan model.
 
 | Bagian | Mengerjakan apa | Contoh |
 |---|---|---|
 | **Skrip** | Hal yang jawabannya pasti | DOI ini terdaftar? Kuota 20% sudah lewat? |
-| **Skill** | Hal yang perlu dibaca dan dinilai | Sumber ini benar mendukung klaimnya? |
-| **Hook** | Hal yang gampang terlupa | Memuat konteks; melindungi file Word |
+| **Skill** | Hal yang perlu dibaca dan dinilai | Sumber ini mendukung klaimnya? |
+| **Hook** | Hal yang gampang terlupa | Memuat konteks, melindungi berkas Word |
 
-Jadi saat kamu menulis sitasi, plugin ini benar-benar menghubungi Crossref,
+Jadi saat kamu memverifikasi sitasi, plugin benar-benar menghubungi Crossref,
 OpenAlex, dan DataCite untuk memastikan karyanya ada.
 
 ---
@@ -60,10 +59,10 @@ OpenAlex, dan DataCite untuk memastikan karyanya ada.
 
 - **Claude Code** (versi yang mendukung plugin).
 - **Python 3.9 atau lebih baru**, ada di PATH.
-- **Git for Windows (Git Bash)** — hanya bagi pengguna Windows.
+- **Git for Windows (Git Bash)**, hanya bagi pengguna Windows.
 
-Tidak ada dependensi pihak ketiga sama sekali. Tidak perlu `pip install`.
-Seluruh skrip memakai pustaka standar Python.
+Tidak ada dependensi pihak ketiga. Tidak perlu `pip install`. Seluruh skrip
+memakai pustaka standar Python.
 
 Cek Python-mu:
 
@@ -80,14 +79,14 @@ dan centang **"Add Python to PATH"** saat memasang.
 ## Pasang
 
 Claude Code menemukan plugin lewat *marketplace*. Menyalin folder ke
-`~/.claude/plugins/` **tidak akan berhasil**.
+`~/.claude/plugins/` tidak akan berhasil.
 
 ```bash
 claude plugin marketplace add zakyirsyaad/uii-skripsi-research
 claude plugin install uii-skripsi-research@uii-skripsi
 ```
 
-Lalu **restart Claude Code**. Perubahan plugin hanya berlaku di sesi baru.
+Lalu restart Claude Code. Perubahan plugin hanya berlaku di sesi baru.
 
 Pastikan berhasil:
 
@@ -102,22 +101,22 @@ Kamu semestinya melihat 11 skill/perintah, 2 agent, dan 2 hook.
 
 ## Setelan pertama kali
 
-Saat memasang, kamu ditanya dua hal — **sekali saja**, bukan di tiap proyek.
+Saat memasang, kamu ditanya dua hal, sekali saja, bukan di tiap proyek.
 
 ### `mailto` (disarankan diisi)
 
-Email yang dikirim ke Crossref, OpenAlex, dan DataCite sebagai perkenalan. Ketiga
-API itu memberi jalur rate limit yang jauh lebih longgar bagi pemakai yang
-memperkenalkan diri.
+Email yang dikirim ke Crossref, OpenAlex, dan DataCite sebagai perkenalan.
+Ketiga API itu memberi jalur rate limit yang jauh lebih longgar untuk pemakai
+yang menyertakan alamat email.
 
-- **Bukan** autentikasi. Tidak membuat akun. Tidak memberi akses apa pun.
-- Boleh dikosongkan — verifikasi tetap jalan, hanya jauh lebih lambat.
-- Bacalah [Privasi dan data](#privasi-dan-data) sebelum memutuskan.
+- Ini bukan autentikasi. Tidak membuat akun dan tidak memberi akses apa pun.
+- Boleh dikosongkan. Verifikasi tetap jalan, hanya jauh lebih lambat.
+- Baca [Privasi dan data](#privasi-dan-data) sebelum memutuskan.
 
 ### `kbbi_db_path` (wajib untuk validasi bahasa)
 
-Jalur ke basis data SQLite KBBI. Tanpa ini, kebakuan kata **tidak bisa
-diverifikasi** — dan plugin akan menolak menebaknya, bukan diam-diam melewatinya.
+Jalur ke basis data SQLite KBBI. Tanpa ini kebakuan kata tidak bisa
+diverifikasi, dan plugin akan menolak menebaknya.
 
 Belum punya? Unduh dengan:
 
@@ -126,15 +125,15 @@ python3 <plugin>/scripts/setup_kbbi.py
 ```
 
 Skrip itu mengambil KBBI Edisi IV (115.978 lema, ~26 MB), menormalkannya, dan
-memverifikasi hasilnya. `/skripsi-init` juga akan menawarkannya bila belum ada.
+memverifikasi hasilnya. `/skripsi-init` juga menawarkannya bila belum ada.
 
 > **Hak cipta.** Data kamusnya milik Badan Pengembangan dan Pembinaan Bahasa
-> (Kemendikbud); sumbernya menyatakan penggunaan komersial dilarang, tunduk pada
-> UU No. 28 Tahun 2014. Skrip ini tidak mendistribusikan ulang data itu — ia
-> mengunduhkannya atas namamu untuk skripsimu sendiri.
+> (Kemendikbud). Sumbernya menyatakan penggunaan komersial dilarang, tunduk pada
+> UU No. 28 Tahun 2014. Skrip ini tidak mendistribusikan ulang data itu, hanya
+> mengunduhkannya untuk pemakaianmu sendiri.
 >
 > Hanya kamus utama Edisi IV yang diambil. Tabel baku/tidak-baku, sinonim, dan
-> antonim di repositori yang sama **sebagian dihasilkan AI** dan sengaja tidak
+> antonim di repositori yang sama sebagian dihasilkan AI, jadi sengaja tidak
 > diunduh.
 
 Mengubah keduanya kapan saja:
@@ -154,16 +153,16 @@ Buka Claude Code di folder skripsimu, lalu:
 ```
 
 Perintah itu membuat tiga berkas dan menanyakan `project_id` serta batas
-kebaruan sumber. Ia **tidak** akan menanyakan email atau KBBI lagi.
+kebaruan sumber. Email dan KBBI tidak ditanyakan lagi.
 
-Setelah itu, isi beberapa sumber di `references/sources.md`, lalu:
+Setelah itu isi beberapa sumber di `references/sources.md`, lalu:
 
 ```
 /skripsi-cek
 ```
 
-Plugin akan menghubungi Crossref/OpenAlex/DataCite untuk tiap sumber, menuliskan
-status verifikasinya kembali ke berkas, dan melaporkan kuota sumber
+Plugin menghubungi Crossref, OpenAlex, dan DataCite untuk tiap sumber,
+menuliskan status verifikasinya kembali ke berkas, dan melaporkan kuota sumber
 non-akademik.
 
 ---
@@ -193,7 +192,7 @@ Mau ganti bab →  /skripsi-audit        vonis kesiapan + daftar blocker
 | Perintah | Gunanya |
 |---|---|
 | `/skripsi-init` | Siapkan `.skripsi.yaml`, ledger konteks, dan source ledger |
-| `/skripsi-lanjut` | Lanjutkan dari konteks yang tersimpan; laporkan unit aktif dan item terbuka |
+| `/skripsi-lanjut` | Lanjutkan dari konteks tersimpan; laporkan unit aktif dan item terbuka |
 | `/skripsi-cari <klaim>` | Cari literatur untuk sebuah klaim spesifik |
 | `/skripsi-cek [DOI/judul]` | Verifikasi sitasi + audit kuota. Tanpa argumen: seluruh ledger |
 | `/skripsi-audit [bab]` | Audit read-only kesiapan bab atau menjelang sidang |
@@ -208,7 +207,7 @@ Selain perintah, ada lima **skill** yang aktif sendiri saat relevan
 
 ## Berkas di proyek skripsimu
 
-Plugin ini netral — ia tidak menyimpan apa pun tentang skripsimu. Semua yang
+Plugin ini netral dan tidak menyimpan apa pun tentang skripsimu. Semua yang
 spesifik proyek hidup di foldermu sendiri.
 
 ```text
@@ -222,17 +221,17 @@ proyek-skripsi/
 
 ### `references/sources.md`
 
-Tabel Markdown berkolom tetap. **Urutan dan nama kolomnya tidak boleh diubah** —
-skrip memparsenya.
+Tabel Markdown berkolom tetap. Urutan dan nama kolomnya tidak boleh diubah
+karena skrip memparsenya.
 
 ```
 | id | tipe | penulis | tahun | judul | venue | doi_url | klaim | status_verifikasi | tgl_verifikasi |
 ```
 
 - `tipe` — `jurnal`, `prosiding`, `buku`, `standar`, `institusi`, atau `artikel`.
-- `penulis` — nama keluarga penulis pertama, atau nama organisasi **utuh**.
+- `penulis` — nama keluarga penulis pertama, atau nama organisasi utuh.
 - `klaim` — klaim spesifik yang didukung sumber ini. Pipa di dalam sel ditulis `\|`.
-- `status_verifikasi` — **jangan diisi tangan**; `/skripsi-cek` yang mengisinya.
+- `status_verifikasi` — jangan diisi tangan. `/skripsi-cek` yang mengisinya.
 - `tgl_verifikasi` — format ISO `YYYY-MM-DD`.
 
 ### `references/thesis-context.md`
@@ -244,23 +243,22 @@ menghasilkan temuan palsu.
 Frontmatter YAML berisi `project_id`, `active_unit`, `last_checkpoint_at`, dan
 `word_sync_status`, diikuti tabel keputusan, item terbuka, dan artefak.
 
-Dua sumbu yang **sengaja dipisah** dan tidak boleh dicampur:
+Dua sumbu yang sengaja dipisah dan tidak boleh dicampur:
 
 - **Status keputusan** — `proposed`, `approved`, `rejected`, `superseded`, `unconfirmed`
 - **Status bukti** — `verified`, `unverified`, `unverifiable`, `mismatch`, `not_found`, `retracted`
 
-Kamu menyetujui sebuah paragraf berarti kamu menyetujui **kata-katanya**, bukan
-kebenaran klaim di dalamnya. Tiap klaim faktual tetap harus menunjuk sumber
-terverifikasi.
+Menyetujui sebuah paragraf berarti menyetujui kata-katanya, bukan kebenaran
+klaim di dalamnya. Tiap klaim faktual tetap harus menunjuk sumber terverifikasi.
 
-Ledger ini **bukan bukti ilmiah** dan tidak pernah boleh disitasi.
+Ledger ini bukan bukti ilmiah dan tidak boleh disitasi.
 
 ---
 
 ## Patokan panjang naskah
 
 Diukur dari skripsi Informatika UII yang sudah lolos sidang. Untuk skripsi
-**pengembangan sistem** — yang membangun aplikasi atau platform:
+**pengembangan sistem**, yang membangun aplikasi atau platform:
 
 | Bab | Kata |
 |---|---|
@@ -271,10 +269,10 @@ Diukur dari skripsi Informatika UII yang sudah lolos sidang. Untuk skripsi
 | V Kesimpulan dan Saran | 850–1.200 |
 | **Total isi** | **±13.500** |
 
-Panjang kalimat yang lazim **19–23 kata** rata-rata. Prosa yang seluruhnya di
-bawah 15 kata terbaca patah-patah.
+Panjang kalimat yang lazim 19–23 kata rata-rata. Prosa yang seluruhnya di bawah
+15 kata terbaca patah-patah.
 
-Kepadatan halaman berbeda tajam antar bab: BAB I dan II sekitar 260–300 kata per
+Kepadatan halaman berbeda tajam antar bab. BAB I dan II sekitar 260–300 kata per
 halaman, BAB IV hanya 119–163 karena didominasi tangkapan layar. Jadi "BAB IV
 dua puluh halaman" sebenarnya hanya sekitar 2.500 kata tulisan.
 
@@ -287,29 +285,29 @@ Susun inti akademik dengan urutan prioritas:
 
 1. Artikel jurnal peer-review, penelitian asli, prosiding bereputasi.
 2. Buku akademik dan standar resmi.
-3. Sumber institusional primer — hanya bila lembaga itu **pemilik** datanya.
+3. Sumber institusional primer, hanya bila lembaga itu pemilik datanya.
 4. Artikel populer untuk konteks terbatas, maksimum `floor(total × 0.20)`.
 
 Berita, editorial, explainer, dan blog komersial tetap dihitung `artikel` meski
-penerbitnya kredibel. **Melabelinya ulang sebagai `institusi` tidak menolong** —
-`audit_references.py` menghitung dari kolom `tipe`, jadi pelanggarannya hanya
+penerbitnya kredibel. Melabelinya ulang sebagai `institusi` tidak menolong,
+karena `audit_references.py` menghitung dari kolom `tipe`. Pelanggarannya hanya
 berpindah.
 
 Batas kebaruan (`recency_years`, default 5 tahun) berlaku untuk bukti empiris.
 `buku` dan `standar` dikecualikan, karena teori mendasar dan standar resmi tidak
 kedaluwarsa seperti data empiris.
 
-**Gaya sitasi APA 6th**, bukan IEEE. Template resmi Informatika UII
+Gaya sitasi **APA 6th**, bukan IEEE. Template resmi Informatika UII
 menetapkannya eksplisit, dan `templates/skripsi.yaml` sudah memakai itu sebagai
-bawaan. Template juga mewajibkan **setiap entri daftar pustaka disitasi di dalam
-teks** — sumber yang tercatat tapi tak pernah dirujuk adalah temuan.
+bawaan. Template juga mewajibkan setiap entri daftar pustaka disitasi di dalam
+teks. Sumber yang tercatat tapi tak pernah dirujuk adalah temuan.
 
 **Repositori DSpace UII bukan sumber.** Ia hanya rujukan untuk memeriksa nama
 bab, urutan bagian, dan cara metode disajikan. Tidak pernah masuk sitasi,
 catatan kaki, daftar pustaka, atau tinjauan pustaka.
 
 DSpace berada di balik proteksi bot Cloudflare, jadi plugin tidak bisa
-membukanya sendiri — dan tidak akan mencoba menembusnya. Buka tautannya di
+membukanya sendiri dan tidak akan mencoba menembusnya. Buka tautannya di
 peramban biasa, simpan PDF-nya, lalu:
 
 ```bash
@@ -318,7 +316,7 @@ python3 <plugin>/scripts/analisis_dspace.py ~/Downloads/skripsi-uii/
 
 Skrip itu melaporkan kerangka bab, jumlah kata dan halaman per bab, kepadatan
 kata per halaman, struktur subbab, statistik panjang kalimat, metode yang
-disebut, dan ukuran daftar pustaka — dan sengaja tidak pernah mencetak kalimat
+disebut, dan ukuran daftar pustaka. Ia sengaja tidak pernah mencetak kalimat
 dari sumbernya.
 
 ---
@@ -331,22 +329,19 @@ dari sumbernya.
 | `MISMATCH` | Karyanya ada, metadatamu salah | Perbaiki metadatanya, jangan buang sumbernya |
 | `NOT_FOUND` | Dicari di tempat yang mengindeksnya, tidak ada | **Dugaan kuat sitasi fiktif.** Jangan pakai |
 | `RETRACTED` | Karya sudah ditarik | Buang, dan periksa klaim yang bersandar padanya |
-| `UNVERIFIED` | Jaringan gagal | **Bukan bukti apa-apa.** Ulangi nanti |
+| `UNVERIFIED` | Jaringan gagal | Belum sempat dicari. Ulangi nanti |
 | `UNVERIFIABLE` | Jenis sumbernya tidak diindeks | Periksa manual: tautan hidup, penerbit bernama, tanggal ada |
 
-Tiga status "tidak OK" itu artinya berbeda-beda:
-
-- `NOT_FOUND` — sudah dicari di tempat yang tepat, dan memang tidak ada.
-  Ini temuan, dan tanda bahaya.
-- `UNVERIFIED` — jaringannya gagal, jadi belum sempat dicari. Ini **bukan**
-  tanda bahaya; coba lagi nanti.
-- `UNVERIFIABLE` — sumbernya jenis yang tidak pernah masuk basis data sitasi
-  ilmiah, seperti publikasi BPS atau artikel berita. Wajar, dan bukan tuduhan.
+Tiga status terakhir sering tertukar padahal artinya jauh berbeda. `NOT_FOUND`
+adalah temuan: pencarian sudah dilakukan di tempat yang tepat dan karyanya tidak
+ada. `UNVERIFIED` berarti jaringannya gagal, jadi belum ada yang diketahui.
+`UNVERIFIABLE` berarti jenis sumbernya memang tidak pernah masuk basis data
+sitasi ilmiah, seperti publikasi BPS atau artikel berita.
 
 Hanya `jurnal`, `prosiding`, `buku`, dan `standar` yang benar-benar diindeks.
 Tipe `institusi` dan `artikel` hampir selalu berakhir `UNVERIFIABLE`, dan itu
-normal. Tapi **DOI palsu tetap `NOT_FOUND` untuk semua tipe** — itu bukti, bukan
-soal cakupan indeks.
+normal. Tapi DOI palsu tetap `NOT_FOUND` untuk semua tipe, karena itu bukti,
+bukan soal cakupan indeks.
 
 Kegagalan jaringan tidak pernah diam-diam menjadi `OK`.
 
@@ -354,13 +349,13 @@ Kegagalan jaringan tidak pernah diam-diam menjadi `OK`.
 
 ## Perlindungan dokumen Word
 
-Sebuah hook **memblokir** penulisan ke `.docx`, `.doc`, `.docm`, `.dotx`, dan
-`.rtf`. Dokumen Word adalah artefak yang kamu serahkan ke pembimbing; menimpanya
-bisa menghapus komentar pembimbing, field Mendeley, penomoran halaman, dan
-riwayat revisi yang tidak terlihat dari Markdown.
+Sebuah hook memblokir penulisan ke `.docx`, `.doc`, `.docm`, `.dotx`, dan
+`.rtf`. Dokumen Word adalah artefak yang kamu serahkan ke pembimbing.
+Menimpanya bisa menghapus komentar pembimbing, field Mendeley, penomoran
+halaman, dan riwayat revisi yang tidak terlihat dari Markdown.
 
-Alur yang dianjurkan: kerjakan semuanya di Markdown, lalu **kamu sendiri** yang
-memindahkannya ke Word.
+Alur yang dianjurkan: kerjakan semuanya di Markdown, lalu pindahkan sendiri ke
+Word.
 
 Bila kamu memang ingin satu berkas boleh diubah:
 
@@ -368,12 +363,12 @@ Bila kamu memang ingin satu berkas boleh diubah:
 echo "naskah/bab3.docx" >> .skripsi-word-authorized
 ```
 
-Izinnya **per berkas**, bukan menyeluruh. Berkas `.docx` lain tetap terblokir.
+Izinnya per berkas, bukan menyeluruh. Berkas `.docx` lain tetap terblokir.
 
-**Batasnya:** hook menjaga operasi tulis-berkas (`Write`, `Edit`), bukan Bash.
-Membongkar `.docx` lewat `unzip`, menyunting XML-nya, lalu memampatkan ulang
-tidak dicegat. Aturan untuk tidak melakukannya ada di skill, dan model
-mematuhinya saat diuji — tapi hook ini membuat kelalaian sulit, bukan
+**Batasnya.** Hook ini menjaga operasi tulis-berkas (`Write`, `Edit`), bukan
+Bash. Membongkar `.docx` lewat `unzip`, menyunting XML-nya, lalu memampatkan
+ulang tidak dicegat. Aturan untuk tidak melakukannya ada di skill, dan model
+mematuhinya saat diuji, tapi hook ini membuat kelalaian sulit dan bukan
 pengakalan mustahil. Jangan perlakukan sebagai jaminan mutlak.
 
 ---
@@ -414,7 +409,8 @@ python3 <plugin>/scripts/setup_kbbi.py
 python3 <plugin>/scripts/kbbi_lookup.py --check "analisa,sistim,praktek"
 ```
 
-Keluaran pemeriksaan kebakuan menyebut bentuk yang benar, bukan sekadar menandai:
+Keluaran pemeriksaan kebakuan menyebut bentuk yang benar, tidak sekadar
+menandai:
 
 ```
 Diperiksa 3 kata; 3 bermasalah.
@@ -425,7 +421,7 @@ Diperiksa 3 kata; 3 bermasalah.
 
 **"Ada di KBBI" tidak berarti baku.** KBBI mencatat bentuk tidak baku sebagai
 lema tersendiri yang merujuk ke bentuk bakunya, jadi `analisa`, `praktek`, dan
-`obyek` semuanya *ada* di kamus. Plugin mendeteksi rujukan silang itu; pemeriksa
+`obyek` semuanya ada di kamus. Plugin mendeteksi rujukan silang itu. Pemeriksa
 yang hanya mengecek keberadaan kata akan meloloskan ketiganya.
 
 Tambahkan `--json` pada hampir semua skrip untuk keluaran yang bisa diolah.
@@ -439,7 +435,7 @@ Exit code `verify_citation.py`: `0`=OK, `1`=MISMATCH, `2`=NOT_FOUND,
 ## Masalah umum
 
 **Plugin tidak muncul setelah dipasang.**
-Restart Claude Code — perubahan plugin hanya berlaku di sesi baru. Lalu cek
+Restart Claude Code. Perubahan plugin hanya berlaku di sesi baru. Lalu cek
 `claude plugin list`.
 
 **Verifikasi sitasi sangat lambat.**
@@ -447,11 +443,11 @@ Restart Claude Code — perubahan plugin hanya berlaku di sesi baru. Lalu cek
 `/plugin configure uii-skripsi-research`.
 
 **Sumber BPS atau artikel berita ditandai `UNVERIFIABLE`.**
-Itu normal dan bukan kesalahan. Basis data sitasi ilmiah tidak mengindeks jenis
-sumber itu. Periksa manual bahwa tautannya hidup dan penerbitnya bernama.
+Itu normal. Basis data sitasi ilmiah tidak mengindeks jenis sumber itu. Periksa
+manual bahwa tautannya hidup dan penerbitnya bernama.
 
 **Hook tidak jalan di Windows.**
-Pastikan Git for Windows (Git Bash) terpasang, dan Python ada di PATH. Bila
+Pastikan Git for Windows (Git Bash) terpasang dan Python ada di PATH. Bila
 Python tidak ditemukan, plugin akan mengatakannya di awal sesi.
 
 **`audit_references.py` mengeluh format ledger.**
@@ -466,55 +462,51 @@ restart. `update` menolak menyegarkan bila nomor versinya sama.
 
 ## Plugin tidak menambah sumber sendiri
 
-Plugin **tidak akan** menambahkan baris ke `references/sources.md` tanpa kamu
-minta — bahkan ketika sumbernya jelas tak terhindarkan, dan bahkan setelah
-memverifikasi DOI-nya.
+Plugin tidak akan menambahkan baris ke `references/sources.md` tanpa kamu minta,
+bahkan ketika sumbernya jelas dibutuhkan, dan bahkan setelah DOI-nya
+terverifikasi.
 
 Alasannya: verifikasi membuktikan karyanya ada, bukan bahwa isinya mendukung
 klaimmu. Kolom `klaim` hanya bisa diisi jujur oleh yang sudah membaca teks
-lengkapnya. Daftar pustaka yang tumbuh berisi sumber yang belum kamu baca akan
-runtuh di sidang, saat penguji menanyakan isinya.
+lengkapnya.
 
-Yang kamu dapat sebagai gantinya: baris siap tempel dengan metadata kanonik dan
-kolom `klaim` dikosongkan. Kamu yang memutuskan masuk atau tidak.
+Yang kamu dapat sebagai gantinya adalah baris siap tempel dengan metadata
+kanonik dan kolom `klaim` dikosongkan. Kamu yang memutuskan masuk atau tidak.
 
-Kolom `status_verifikasi` dan `tgl_verifikasi` **boleh** ditulis perkakas — itu
-temuan, bukan komitmen. Itulah yang `--write` lakukan.
+Kolom `status_verifikasi` dan `tgl_verifikasi` boleh ditulis perkakas, karena
+isinya temuan, bukan komitmen. Itulah yang `--write` lakukan.
 
 ## Yang TIDAK bisa dilakukan plugin ini
 
-Penting kamu tahu batasnya, supaya tidak salah bersandar padanya.
-
-- **Skrip membuktikan sebuah karya nyata dan metadatanya benar — bukan bahwa
-  isinya mendukung klaimmu.** Itu tetap kamu yang harus membaca teks lengkapnya
-  dan memastikan.
+- **Skrip membuktikan sebuah karya nyata dan metadatanya benar.** Apakah isinya
+  mendukung klaimmu tetap harus kamu pastikan sendiri dari teks lengkapnya.
 - **Audit Markdown tidak bisa mengesahkan apa pun yang hanya ada di Word:**
   penomoran halaman, field Mendeley, komentar, caption, daftar isi, referensi
   silang.
 - **Tidak memeriksa plagiarisme atau kemiripan.** Pakai perkakas kampus untuk itu.
-- **Pemeriksaan bahasa terbatas pada kebakuan lema.** Ia tidak menilai tata
-  kalimat, koherensi paragraf, atau ketepatan istilah dalam konteks. Untuk kasus
-  yang menentukan, KBBI Daring resmi tetap rujukannya.
-- **Tidak menulis skripsimu untukmu.** Ia menjaga disiplin bukti dan
-  konsistensi; isi dan gagasannya tetap tanggung jawabmu.
+- **Pemeriksaan bahasa terbatas pada kebakuan lema.** Tata kalimat, koherensi
+  paragraf, dan ketepatan istilah dalam konteks tidak dinilai. Untuk kasus yang
+  menentukan, KBBI Daring resmi tetap rujukannya.
+- **Tidak menulis skripsimu untukmu.** Isi dan gagasannya tetap tanggung
+  jawabmu.
 - **Tidak menjamin kelulusan.** Vonis `ready` berarti pemeriksaan otomatis
-  bersih, bukan bahwa pembimbing dan penguji akan setuju.
+  bersih, tidak lebih.
 
 ---
 
 ## Privasi dan data
 
-- **`mailto` benar-benar dikirim keluar** — ke `api.crossref.org`,
+- **`mailto` benar-benar dikirim keluar**, ke `api.crossref.org`,
   `api.openalex.org`, dan `api.datacite.org`, sebagai parameter URL dan header
   `User-Agent` di setiap permintaan. Ketiganya lembaga akademik nirlaba, tapi
   alamatmu tetap meninggalkan mesinmu. Kosongkan bila kamu keberatan.
-- **Judul dan penulis sumber yang kamu verifikasi juga dikirim** ke API itu —
-  itu memang cara kerjanya.
+- **Judul dan penulis sumber yang kamu verifikasi juga dikirim** ke API itu.
+  Memang begitu cara kerjanya.
 - **Naskah skripsimu tidak pernah dikirim ke mana pun** oleh skrip plugin ini.
 - **Respons API disimpan di cache lokal** `.skripsi-cache/` supaya API tidak
   dihubungi berulang. Tambahkan ke `.gitignore`.
-- **Jangan simpan data sensitif di ledger** — rekaman wawancara, kontak
-  responden, kredensial. Ledger itu untuk keputusan proyek, bukan arsip data.
+- **Jangan simpan data sensitif di ledger**, seperti rekaman wawancara, kontak
+  responden, atau kredensial. Ledger itu untuk keputusan proyek.
 
 ---
 
@@ -529,14 +521,11 @@ claude plugin validate .
 claude plugin validate .claude-plugin/marketplace.json
 ```
 
-Tes unit menguji skripnya. Eval menguji perilaku modelnya — apakah ia benar
-menolak menebak, benar membedakan status sitasi. Delapan kasusnya dijelaskan di
-[`evals/README.md`](evals/README.md).
+Tes unit menguji skripnya. Eval menguji perilaku modelnya: apakah ia menolak
+menebak, apakah ia membedakan status sitasi dengan benar. Delapan kasusnya
+dijelaskan di [`evals/README.md`](evals/README.md).
 
-```bash
-```
-
-Memasang salinan lokal untuk dikembangkan — pakai **jalur absolut**, `.` tidak
+Memasang salinan lokal untuk dikembangkan. Pakai jalur absolut, `.` tidak
 diterima:
 
 ```bash
@@ -544,7 +533,7 @@ claude plugin marketplace add /jalur/absolut/ke/uii-skripsi-research
 claude plugin install uii-skripsi-research@uii-skripsi
 ```
 
-Suntingan tidak langsung berlaku: naikkan `version` di **kedua** manifest
+Suntingan tidak langsung berlaku. Naikkan `version` di kedua manifest
 (`plugin.json` dan `marketplace.json` harus cocok), lalu:
 
 ```bash
@@ -553,9 +542,9 @@ claude plugin update uii-skripsi-research@uii-skripsi
 
 dan restart sesi.
 
-Aturan arsitektur yang perlu dijaga ada di [`CLAUDE.md`](CLAUDE.md) — terutama:
-jangan memindahkan pemeriksaan yang bisa dihitung kembali menjadi prosa, dan
-jangan memperkenalkan kembali ketergantungan pihak ketiga.
+Aturan arsitektur yang perlu dijaga ada di [`CLAUDE.md`](CLAUDE.md), terutama
+dua hal: jangan memindahkan pemeriksaan yang bisa dihitung kembali menjadi
+prosa, dan jangan memperkenalkan kembali ketergantungan pihak ketiga.
 
 ---
 
