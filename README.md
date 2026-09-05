@@ -399,6 +399,10 @@ Semua skrip bisa dipanggil tanpa Claude Code. Ganti `<plugin>` dengan
 python3 <plugin>/scripts/verify_citation.py --doi 10.1145/3313831.3376234
 python3 <plugin>/scripts/verify_citation.py --title "Judul" --author "Keluarga" --year 2024
 
+# sumber non-jurnal: sertakan --tipe, kalau tidak hasilnya NOT_FOUND yang keliru
+python3 <plugin>/scripts/verify_citation.py --title "Statistik UMKM 2024" \
+  --author BPS --year 2024 --tipe institusi
+
 # seluruh ledger, tulis balik statusnya
 python3 <plugin>/scripts/verify_citation.py --ledger references/sources.md --write
 

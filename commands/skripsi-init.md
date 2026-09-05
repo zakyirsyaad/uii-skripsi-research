@@ -24,14 +24,14 @@ Siapkan proyek skripsi di direktori kerja saat ini.
 4. **Pastikan KBBI terpasang — init belum selesai tanpa ini.** Jalankan:
 
    ```bash
-   python3 <plugin>/scripts/kbbi_lookup.py --check "analisa"
+   python3 ${CLAUDE_PLUGIN_ROOT}/scripts/kbbi_lookup.py --check "analisa"
    ```
 
    Bila keluar dengan kode 2 (belum dikonfigurasi), hentikan langkah berikutnya
    dan tawarkan mengunduhnya:
 
    ```bash
-   python3 <plugin>/scripts/setup_kbbi.py
+   python3 ${CLAUDE_PLUGIN_ROOT}/scripts/setup_kbbi.py
    ```
 
    Sampaikan lebih dulu bahwa data kamusnya milik Badan Pengembangan dan

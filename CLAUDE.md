@@ -255,6 +255,26 @@ whether a README explanation is *correct*; only that it exists.
 Each of those assertions was verified to fail when the rule is deleted. A
 documentation test that never fails is decoration.
 
+## `--tipe` is what keeps a real source from being called fake
+
+`verify.py` only takes the `UNVERIFIABLE` branch when `claim.tipe` is set. A
+single-source check without `--tipe` sends a real BPS or news citation to
+Crossref/OpenAlex, finds nothing, and returns `NOT_FOUND` — which every skill
+and command instructs the model to report as a probable fabrication. Verified:
+the same claim returns `NOT_FOUND` without the flag and `UNVERIFIABLE` with it.
+
+`--ledger` mode is safe because it reads the `tipe` column. It is the ad-hoc
+single-source path that needs the flag, and it went undocumented everywhere for
+thirteen versions. `tests/test_dokumentasi.py` now requires `--tipe` in the
+README, `/skripsi-cek`, and `skripsi-sitasi`.
+
+## Commands need `${CLAUDE_PLUGIN_ROOT}`, skills use `<plugin>`
+
+Skill bodies address the reader in prose and write `<plugin>`; the model
+substitutes it. Command files are executed, so their bash blocks need the real
+variable. `/skripsi-init` mixed both in one file and two of its blocks could not
+run as written. A test now rejects `<plugin>` anywhere under `commands/`.
+
 ## Naming
 
 Skills, commands, and agents share **one namespace**. A skill directory and a

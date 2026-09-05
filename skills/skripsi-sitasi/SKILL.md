@@ -15,6 +15,7 @@ skripnya.
 ```bash
 python3 <plugin>/scripts/verify_citation.py --doi 10.1145/3313831.3376234
 python3 <plugin>/scripts/verify_citation.py --title "Judul" --author "Keluarga" --year 2024
+python3 <plugin>/scripts/verify_citation.py --title "Statistik UMKM 2024" --author BPS --year 2024 --tipe institusi
 python3 <plugin>/scripts/verify_citation.py --ledger references/sources.md --write
 python3 <plugin>/scripts/audit_references.py                       # kuota, kebaruan
 python3 <plugin>/scripts/export_mendeley.py --format bibtex        # entri verified saja
@@ -31,9 +32,13 @@ Enam status, dan **beda di antaranya menentukan tindakan**:
 | `UNVERIFIED` | Jaringan gagal | **Bukan bukti apa-apa.** Jangan laporkan sebagai aman maupun fiktif; ulangi nanti |
 | `UNVERIFIABLE` | Jenis sumber ini tidak diindeks Crossref/OpenAlex | Periksa manual: tautan hidup, penerbit bernama, tanggal ada |
 
-Ketiga status "tidak OK" itu artinya berbeda-beda dan **tidak boleh dicampur**.
-Penjelasan tiap perbedaannya, dan kenapa tipe `institusi` serta `artikel` hampir
-selalu berakhir `UNVERIFIABLE`, ada di `references/status-sitasi.md`.
+Saat memeriksa satu sumber non-jurnal, **sertakan `--tipe`**. Tanpa itu sumber
+BPS atau berita yang nyata dicari di Crossref/OpenAlex, tidak ketemu, lalu
+dilaporkan `NOT_FOUND` — tuduhan fiktif terhadap sumber yang benar ada. Mode
+`--ledger` membacanya dari kolom `tipe`, jadi tidak perlu flag.
+
+Ketiga status "tidak OK" tidak boleh dicampur. Bedanya, dan kenapa `institusi`
+serta `artikel` hampir selalu `UNVERIFIABLE`, ada di `references/status-sitasi.md`.
 
 ## Sumber mana yang boleh
 
@@ -44,12 +49,10 @@ hanya untuk konteks terbatas, maksimum `floor(total × 0.20)`.
 Berita, editorial, dan blog komersial tetap `artikel` meski penerbitnya
 kredibel. **Jangan melabelinya ulang jadi `institusi` untuk menghindari kuota.**
 Tipe `institusi` terhitung akademik, jadi pelabelan ulang benar-benar menghapus
-pelanggarannya; yang menahan hal itu adalah kejujuran, bukan skrip.
-`audit_references.py` hanya mendaftarkan tiap sumber `institusi` untuk
-dikonfirmasi bahwa lembaganya betul pemilik data.
+pelanggarannya; yang menahannya kejujuran, bukan skrip. `audit_references.py`
+sekadar mendaftarkan tiap sumber `institusi` untuk dikonfirmasi.
 
-Kriteria kelayakan lengkap, dan apa yang membuat sebuah artikel ditolak, ada di
-`references/kelayakan-sumber.md`.
+Kriteria kelayakan lengkap ada di `references/kelayakan-sumber.md`.
 
 ## Gaya sitasi: APA 6th
 

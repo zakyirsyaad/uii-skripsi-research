@@ -12,7 +12,10 @@ Cari literatur untuk: $ARGUMENTS
    literatur relevan.
 3. Jalankan untuk tiap kueri:
    `python3 ${CLAUDE_PLUGIN_ROOT}/scripts/search_literature.py "<kueri>" --since <tahun> --limit 15`
-   Ambil `--since` dari `recency_years` di `.skripsi.yaml`.
+   `--since` adalah **tahun terbit paling awal**, bukan lama tahun. Hitung dari
+   tahun sekarang dikurangi `recency_years` di `.skripsi.yaml` — dengan
+   `recency_years: 5` pada 2026, berarti `--since 2021`. Mengisikan angka 5
+   langsung akan menyaring dari tahun 5 Masehi.
 4. Bila hasilnya banyak dan mentah, delegasikan ke subagent
    `skripsi-pencari-pustaka` agar konteks utama tidak terisi hasil mentah.
 5. Sajikan kandidat tersaring: penulis, tahun, judul, venue, DOI, ketersediaan

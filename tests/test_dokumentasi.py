@@ -115,6 +115,56 @@ class TestAturanPentingTercantum(unittest.TestCase):
         self.assertRegex(README, r"bukan sumber|tidak pernah masuk")
 
 
+class TestBatasBaris(unittest.TestCase):
+    """SKILL.md dibatasi ~120 baris supaya kedalaman pindah ke references/.
+
+    Batas ini sudah dilewati dua kali sambil menambahkan aturan yang sah, dan
+    dua kali ketahuannya baru saat menghitung manual.
+    """
+
+    BATAS = 120
+
+    def test_skill_tidak_melewati_batas(self):
+        for f in sorted((ROOT / "skills").glob("*/SKILL.md")):
+            n = len(f.read_text(encoding="utf-8").splitlines())
+            self.assertLessEqual(
+                n, self.BATAS,
+                f"{f.parent.name}/SKILL.md {n} baris, batasnya {self.BATAS}. "
+                "Pindahkan kedalamannya ke references/, jangan naikkan batasnya.")
+
+
+class TestPerintahBisaDijalankan(unittest.TestCase):
+    """`<plugin>` adalah placeholder untuk pembaca manusia; command butuh env var.
+
+    /skripsi-init sempat memakai keduanya dalam satu berkas, jadi dua blok
+    bash-nya tidak bisa dijalankan apa adanya.
+    """
+
+    def test_command_tidak_memakai_placeholder_prosa(self):
+        for f in sorted((ROOT / "commands").glob("*.md")):
+            teks = f.read_text(encoding="utf-8")
+            self.assertNotIn(
+                "<plugin>", teks,
+                f"commands/{f.name} memakai '<plugin>'; pakai "
+                "${CLAUDE_PLUGIN_ROOT} supaya blok bash-nya bisa dijalankan")
+
+
+class TestTipeDidokumentasikan(unittest.TestCase):
+    """Tanpa --tipe, sumber institusi/artikel yang nyata dilaporkan NOT_FOUND.
+
+    verify.py hanya memilih jalur UNVERIFIABLE bila claim.tipe terisi. Memeriksa
+    satu sumber BPS tanpa flag itu menghasilkan tuduhan sitasi fiktif terhadap
+    sumber yang benar ada — persis false positive yang INDEXED_TYPES dibuat
+    untuk mencegah.
+    """
+
+    def test_flag_tipe_disebut_di_tempat_yang_memakainya(self):
+        for path in ("README.md", "commands/skripsi-cek.md",
+                     "skills/skripsi-sitasi/SKILL.md"):
+            teks = (ROOT / path).read_text(encoding="utf-8")
+            self.assertIn("--tipe", teks, f"{path} tidak menyebut --tipe")
+
+
 class TestRujukanTidakYatim(unittest.TestCase):
     def test_setiap_berkas_rujukan_ditautkan_skill_nya(self):
         """Rujukan yang tidak ditautkan tidak akan pernah dibaca model."""

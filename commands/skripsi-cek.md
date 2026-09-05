@@ -15,6 +15,19 @@ python3 ${CLAUDE_PLUGIN_ROOT}/scripts/audit_references.py
 Bila argumen berisi DOI atau judul, verifikasi satu itu saja dengan `--doi` atau
 `--title/--author/--year`.
 
+**Sertakan `--tipe` bila sumbernya bukan jurnal/prosiding/buku/standar.** Tanpa
+itu, sumber BPS atau berita yang nyata dicari di Crossref/OpenAlex, tidak
+ditemukan, lalu dilaporkan `NOT_FOUND` — tuduhan fiktif terhadap sumber yang
+benar ada. Dengan `--tipe institusi` atau `--tipe artikel`, hasilnya
+`UNVERIFIABLE` seperti seharusnya:
+
+```bash
+python3 ${CLAUDE_PLUGIN_ROOT}/scripts/verify_citation.py \
+  --title "Statistik UMKM 2024" --author BPS --year 2024 --tipe institusi
+```
+
+Mode `--ledger` tidak perlu ini: `tipe` dibaca dari kolomnya sendiri.
+
 Laporkan hasilnya dengan membedakan enam status secara tegas:
 
 - `NOT_FOUND` — sudah dicari di semua sumber dan tidak ada. Sebut ini sebagai
@@ -22,8 +35,9 @@ Laporkan hasilnya dengan membedakan enam status secara tegas:
 - `UNVERIFIED` — jaringan gagal. Ini **bukan** temuan; jangan laporkan sebagai
   aman maupun sebagai fiktif. Sarankan mengulang nanti.
 - `UNVERIFIABLE` — jenis sumbernya (institusi, artikel) memang tidak diindeks
-  Crossref/OpenAlex. Ini normal dan bukan tuduhan. Minta pengguna memeriksa
-  manual: tautannya hidup, penerbitnya bernama, tanggalnya ada.
+  Crossref/OpenAlex. Ini normal dan bukan tuduhan. Skrip sudah mengecek
+  tautannya bisa dijangkau dan menyebutkannya di catatan; teruskan hasil itu,
+  lalu minta pengguna memastikan penerbitnya bernama dan tanggalnya ada.
 - `MISMATCH` — karyanya ada, metadatanya salah. Tunjukkan bentuk kanoniknya dan
   tawarkan memperbaiki, jangan buang sumbernya.
 - `RETRACTED` — buang, lalu periksa klaim yang bersandar padanya.
