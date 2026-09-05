@@ -123,3 +123,26 @@ class TestSetiapKasusPunyaPenjaga(unittest.TestCase):
 
 if __name__ == "__main__":
     unittest.main()
+
+
+class TestAturanMenulisLedger(unittest.TestCase):
+    """Menambah sumber sendiri adalah komitmen atas nama mahasiswa."""
+
+    def test_baris_baru_butuh_permintaan_eksplisit(self):
+        t = isi("skills/skripsi-sitasi/SKILL.md")
+        self.assertRegex(t, r"tambah baris baru.*tidak|butuh permintaan eksplisit")
+
+    def test_status_verifikasi_boleh_ditulis_perkakas(self):
+        t = isi("skills/skripsi-sitasi/SKILL.md")
+        self.assertIn("status_verifikasi", t)
+        self.assertRegex(t, r"temuan perkakas|bukan komitmen")
+
+    def test_jelas_dibutuhkan_bukan_izin(self):
+        """Peffers untuk DSRM memang tak terhindarkan — itu tetap bukan izin."""
+        t = isi("skills/skripsi-sitasi/SKILL.md")
+        self.assertRegex(t, r"bukan izin")
+
+    def test_sajikan_siap_tempel_sebagai_gantinya(self):
+        t = isi("skills/skripsi-sitasi/SKILL.md")
+        self.assertRegex(t, r"siap tempel")
+        self.assertRegex(t, r"klaim.*dikosongkan|belum membacanya")
