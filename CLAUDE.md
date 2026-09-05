@@ -216,6 +216,27 @@ The eval suite was authored while `claude plugin eval` was still early access, s
 its **format has never been executed**. The content is considered; the schema is
 not verified.
 
+## Documentation drifts, and only tests stop it
+
+Three times during this plugin's development, docs fell behind code: a checklist
+that duplicated rules and rotted, skills that crept past the line limit, and a
+README that trailed six versions — far enough to promise something the plugin
+does not deliver (it said the Word hook "blocks" writes, with no mention of the
+Bash gap).
+
+All three were caught by manual audit. `tests/test_dokumentasi.py` now catches
+the mechanical part: every script, command, skill and agent named in README;
+no stale component names; the table of contents resolving both directions; every
+`references/*.md` linked from its own SKILL.md; both manifests on one version.
+
+It also asserts that specific user-facing rules appear in README — the same
+contract shape as `test_eval_kontrak.py`. That only covers rules someone
+remembered to add a test for, which is the honest limit. What it cannot check is
+whether a README explanation is *correct*; only that it exists.
+
+Each of those assertions was verified to fail when the rule is deleted. A
+documentation test that never fails is decoration.
+
 ## Naming
 
 Skills, commands, and agents share **one namespace**. A skill directory and a
