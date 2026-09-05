@@ -85,6 +85,31 @@ Ringan:
 Yang kedua lebih pendek, lebih jelas, dan **klaimnya lebih jujur** — ia tidak
 lagi menyembunyikan kekosongan bukti di balik "dapat dikatakan bahwa".
 
+### Berapa panjang yang wajar
+
+Contoh di atas dipangkas jauh untuk menunjukkan bedanya. Jangan jadikan
+panjangnya sebagai target.
+
+Pengukuran atas skripsi Informatika UII yang sudah lolos sidang menunjukkan
+ragam yang sebenarnya diterima:
+
+| | Angka |
+|---|---|
+| Rata-rata panjang kalimat | **19–23 kata** |
+| Median | 18–21 kata |
+| Kalimat di atas 25 kata | 21–35% |
+| Kalimat di atas 35 kata | 6–13% |
+
+Jadi sasarannya **sekitar 20 kata**, bukan 13. Kalimat panjang boleh ada, asal
+tidak mendominasi. Prosa yang seluruhnya di bawah 15 kata justru terbaca
+patah-patah dan tidak seperti skripsi.
+
+Yang perlu dipangkas adalah kalimat 35 kata ke atas, terutama yang bertingkat
+tiga klausa. Bukan setiap kalimat panjang.
+
+Ukur naskahmu sendiri dengan `analisis_dspace.py`, lalu bandingkan dengan
+rentang di atas.
+
 ### Batasnya
 
 Sederhana bukan berarti seadanya. Istilah teknis yang memang tepat tetap

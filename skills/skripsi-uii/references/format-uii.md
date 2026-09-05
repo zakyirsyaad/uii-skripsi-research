@@ -19,6 +19,59 @@ metodenya, lalu bandingkan **kerangkanya saja**:
 Bila sebuah item tidak bisa dibuka, katakan demikian dan pakai contoh lain yang
 bisa diakses. Jangan menyimpulkan isinya dari judul atau abstraknya.
 
+## Proporsi bab yang lazim
+
+Diukur dari tiga skripsi Informatika UII yang sudah lolos sidang. Persentase
+dihitung dari halaman isi (BAB I sampai BAB V), bukan total berkas.
+
+| Bab | Skripsi pengembangan sistem | Skripsi berbasis riset |
+|---|---|---|
+| I Pendahuluan | 7 hal (~9%) | 8 hal (~8%) |
+| II Kajian Pustaka / Landasan Teori | 7–8 hal (~10%) | 38 hal (~36%) |
+| III Metodologi Penelitian | **31–39 hal (~44%)** | 27 hal (~26%) |
+| IV Hasil dan Pembahasan | 15–20 hal (~20%) | 20 hal (~19%) |
+| V Kesimpulan dan Saran | 5–6 hal (~8%) | 12 hal (~11%) |
+
+Bedanya tajam dan menentukan. Pada **skripsi pengembangan sistem** — yang
+membangun aplikasi atau platform — bobot terbesar ada di BAB III, hampir
+separuh isi, karena analisis kebutuhan dan perancangan tinggal di sana. Kajian
+pustakanya justru tipis.
+
+Kalau kajian pustaka sebuah skripsi pengembangan membengkak sampai sepertiga
+isi, kemungkinan besar profilnya salah: ia ditulis seperti skripsi riset,
+padahal artefaknya yang dinilai.
+
+Urutan babnya seragam tanpa kecuali: Pendahuluan, Kajian Pustaka (sebagian
+menyebutnya Landasan Teori), Metodologi Penelitian, Hasil dan Pembahasan,
+Kesimpulan dan Saran.
+
+BAB I punya 7–8 subbab: Latar Belakang, Rumusan Masalah, Pertanyaan Penelitian
+(kadang digabung dengan rumusan masalah), Batasan Masalah, Tujuan, Manfaat,
+Metodologi ringkas, dan Sistematika Penulisan.
+
+BAB III pada skripsi pengembangan mengikuti alur kerja, bukan alur teori:
+analisis kebutuhan, perancangan (use case, activity diagram, basis data,
+antarmuka), pembuatan prototipe, iterasi, lalu pengujian.
+
+Daftar pustakanya lebih kecil dari dugaan banyak orang: sekitar **15–20 entri**.
+
+## Memeriksa sendiri
+
+DSpace UII berada di balik proteksi bot Cloudflare, sehingga tidak bisa dibuka
+secara otomatis. **Jangan mencoba menembusnya.** Minta pengguna membuka
+tautannya di peramban biasa dan menyimpan PDF-nya — itu hanya butuh satu menit
+dan tidak ada yang hilang.
+
+Setelah PDF-nya ada, jalankan:
+
+```bash
+python3 <plugin>/scripts/analisis_dspace.py ~/Downloads/skripsi-uii/
+```
+
+Skrip itu melaporkan kerangka bab, proporsi halaman, struktur subbab, statistik
+panjang kalimat, metode yang disebut, dan ukuran daftar pustaka. Ia sengaja
+tidak pernah mencetak kalimat dari sumbernya.
+
 ## Yang tidak boleh disalin
 
 Jangan menyalin prosa, abstrak, daftar sitasi, atau tabel dari item DSpace.

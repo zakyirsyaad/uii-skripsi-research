@@ -32,6 +32,11 @@ python3 -m unittest tests.test_verify -v     # one module
 There is no build, lint, or dependency install step, and **no third-party
 dependency at all** — stdlib only, Python 3.9+.
 
+One deliberate exception: `analisis_dspace.py` needs `pypdf`, because parsing
+PDFs from stdlib is not realistic. It is **optional** — nothing else imports it,
+and when absent the script exits with the exact `uv run --with pypdf` command
+rather than failing obscurely. Every core tool stays dependency-free.
+
 `scripts/skripsi/minyaml.py` exists so PyYAML is not required. Do not reintroduce
 `import yaml`: the two files it would parse are a flat format we define, and a
 "use PyYAML if present" fallback would make behaviour differ between machines.
@@ -151,6 +156,19 @@ worse than no check at all, because it grants false confidence.
 `setup_kbbi.py` downloads only `edisi-IV`. The `baku-nonbaku`, `sinonim`, and
 `antonim` datasets in the same repository are partly **AI-generated** and must
 never be treated as authoritative KBBI.
+
+## DSpace is unreachable to the plugin
+
+DSpace UII sits behind Cloudflare bot protection. The plugin **must not** try to
+get around it — no scrapers, no cookie lifting, no header tricks. Ask the user to
+open the link in an ordinary browser and save the PDF; it costs them a minute.
+
+`analisis_dspace.py` then reports shape from the saved PDFs. It never prints a
+sentence from the source, so there is nothing to copy even by accident.
+
+The chapter-proportion figures in `skills/skripsi-uii/references/format-uii.md`
+and the sentence-length range in `bahasa-akademik.md` came from running it on
+three real theses. Revise those numbers from measurement, never from impression.
 
 ## Naming
 

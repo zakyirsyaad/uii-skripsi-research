@@ -273,6 +273,18 @@ kedaluwarsa seperti data empiris.
 bab, urutan bagian, dan cara metode disajikan. Tidak pernah masuk sitasi,
 catatan kaki, daftar pustaka, atau tinjauan pustaka.
 
+DSpace berada di balik proteksi bot Cloudflare, jadi plugin tidak bisa
+membukanya sendiri — dan tidak akan mencoba menembusnya. Buka tautannya di
+peramban biasa, simpan PDF-nya, lalu:
+
+```bash
+python3 <plugin>/scripts/analisis_dspace.py ~/Downloads/skripsi-uii/
+```
+
+Skrip itu melaporkan kerangka bab, proporsi halaman, struktur subbab, statistik
+panjang kalimat, metode yang disebut, dan ukuran daftar pustaka — dan sengaja
+tidak pernah mencetak kalimat dari sumbernya.
+
 ---
 
 ## Enam status sitasi
@@ -346,6 +358,9 @@ python3 <plugin>/scripts/search_literature.py "kata kunci" --since 2021 --oa --l
 # ekspor ke Mendeley (hanya entri terverifikasi)
 python3 <plugin>/scripts/export_mendeley.py --format bibtex > pustaka.bib
 python3 <plugin>/scripts/export_mendeley.py --format ris > pustaka.ris
+
+# analisis bentuk skripsi UII lain sebagai rujukan kerangka
+python3 <plugin>/scripts/analisis_dspace.py ~/Downloads/skripsi-uii/
 
 # siapkan basis data KBBI (sekali saja)
 python3 <plugin>/scripts/setup_kbbi.py
