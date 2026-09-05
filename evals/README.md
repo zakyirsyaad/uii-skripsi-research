@@ -50,6 +50,26 @@ memang ada di KBBI sebagai bentuk tidak baku.
 
 Eval yang hanya memeriksa kebenaran jawaban akan meloloskan kegagalan itu.
 
+## Hasil jalan pertama
+
+Tiga kasus dijalankan manual pada 2026-09-05 — lewat subagent, bukan harness,
+karena `plugin eval` masih early access. Ketiganya **lulus**.
+
+Yang gagal justru berkas eval dan dokumentasinya:
+
+- **Grader `kbbi-tidak-terpasang` bertentangan dengan skill-nya.** Kriteria lama
+  menganggap menjawab dari tabel kata tidak baku sebagai kegagalan, padahal
+  skill secara eksplisit mengizinkannya. Grader ditulis ulang.
+- **Tabel kata tidak baku tidak punya provenance.** Kedelapan pasangannya
+  kemudian diuji ke KBBI Edisi IV dan semuanya benar — tapi itu tidak pernah
+  tercatat, sehingga tabelnya tidak bisa dibedakan dari ingatan model.
+- **Pelindung Word punya lubang berbentuk Bash.** Agen kasus 3 menyadarinya,
+  menolak memakainya, dan menyebutkannya terang-terangan. Batas itu kini
+  dinyatakan, bukan diklaim sebagai jaminan.
+
+Menemukan cacat di eval sendiri adalah hasil yang sah. Eval yang tidak pernah
+dijalankan tidak menguji apa pun.
+
 ## Hubungannya dengan tes unit
 
 `tests/test_eval_kontrak.py` menjaga agar aturan yang mendasari tiap kasus masih

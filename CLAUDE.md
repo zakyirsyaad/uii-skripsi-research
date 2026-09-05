@@ -139,6 +139,17 @@ is worse than a hook that misses one check. `guard_word_artifact.py` denies only
 Word suffixes and only when the path is absent from `.skripsi-word-authorized`;
 authorization is per-file, never blanket.
 
+**It guards `Write|Edit|NotebookEdit`, not Bash.** Unzipping a `.docx`, editing
+its XML and rezipping it is not intercepted. An eval run surfaced this: the agent
+spotted the hole and declined on principle — the behaviour we want, but not a
+guarantee we hold. Do not describe this hook as making the Word rule unbreakable;
+it makes carelessness hard, not circumvention impossible. The rule against
+circumventing it lives in `skripsi-naskah/SKILL.md`, where a model will read it.
+
+Widening the matcher to Bash was considered and rejected: Bash runs constantly,
+so the hook would fire on nearly every command for a rule that touches a handful
+of files.
+
 ## "Ada di KBBI" is not "baku"
 
 KBBI records **non-standard** forms as their own lemmas whose only definition is a
