@@ -20,7 +20,12 @@ python3 <plugin>/scripts/audit_naskah.py naskah.docx
 `audit_naskah.py` **membaca** naskah Word. Membaca berbeda dari menulis:
 menyunting `.docx` tetap diblokir hook, tapi memeriksanya justru wajib. Naskah
 yang diserahkan ke pembimbing berformat Word, dan sebagian cacat hanya kelihatan
-di sana. Skrip ini menemukan sisa teks template, daftar isi yang belum
+di sana.
+
+Menjalankannya berarti naik ke mode `read_only_audit` yang didefinisikan
+`skripsi-naskah`: hanya berkas yang disebut pengguna, tanpa menyimpan, mengubah,
+mengekspor, atau membuat salinan turunan. Turun kembali ke `markdown_only`
+setelah audit selesai. Skrip ini menemukan sisa teks template, daftar isi yang belum
 di-update, halaman awal yang hilang, dan gaya sitasi yang salah.
 
 Ini sudah menutup kuota 20%, kebaruan, duplikat, kelengkapan metadata, dan
@@ -67,10 +72,14 @@ Blocker minimal: sitasi `not_found` atau `retracted`, kuota 20% jebol, klaim
 faktual tanpa bukti, pertanyaan penelitian yang tidak terjawab, atau revisi
 yang belum selesai pada unit yang diklaim selesai.
 
-`audit_naskah.py` menutup sebagian celah Word, tapi tidak seluruhnya. Audit
-**tidak bisa** mengesahkan hal yang hanya ada di Word:
-penomoran halaman, field Mendeley, komentar, caption, daftar isi, referensi
-silang. Nyatakan batas ini, jangan diam-diam melewatinya.
+`audit_naskah.py` menutup sebagian celah Word: daftar isi yang basi, sisa teks
+template, halaman awal yang hilang, dan gaya sitasi yang salah. Yang **tetap
+tidak bisa** disahkan siapa pun dari luar Word: penomoran halaman, field
+Mendeley, komentar, caption, dan referensi silang. Nyatakan batas ini, jangan
+diam-diam melewatinya.
+
+Bila `audit_naskah.py` tidak dijalankan, daftar isi ikut masuk daftar yang tidak
+terperiksa.
 
 ## Audit besar
 

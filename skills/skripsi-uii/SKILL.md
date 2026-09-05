@@ -54,8 +54,10 @@ basi, bahkan ketika kalimat lamanya sudah disetujui.
 | `inference` | Simpulanmu dari hal lain; bukan bukti |
 
 Status keputusan (`proposed`/`approved`/`rejected`/`superseded`/`unconfirmed`)
-dan status bukti (`verified`/`unverified`/`retracted`/`superseded`) adalah dua
-sumbu terpisah. Usulan yang disetujui menjadi keputusan, bukan
+dan status bukti (`verified`/`unverified`/`unverifiable`/`mismatch`/
+`not_found`/`retracted`) adalah dua sumbu terpisah. Keduanya berbeda isi:
+`superseded` sah untuk keputusan, tapi ditolak parser bila ditulis ke
+`status_verifikasi`. Usulan yang disetujui menjadi keputusan, bukan
 fakta yang terverifikasi.
 
 Jangan mengubah saran, contoh, atau diskusi tentatif menjadi keputusan proyek.

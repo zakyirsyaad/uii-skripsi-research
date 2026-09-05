@@ -15,8 +15,13 @@ Susun inti akademik dengan urutan prioritas ini:
 
 Halaman berita, editorial, explainer, atau blog komersial tetap dihitung
 `artikel` meski penerbitnya kredibel. **Jangan melabelinya ulang sebagai
-`institusi` untuk menghindari kuota.** `audit_references.py` menghitung dari
-kolom `tipe`, jadi pelanggaran hanya berpindah, tidak hilang.
+`institusi` untuk menghindari kuota.**
+
+Perlu diketahui terang-terangan: pelabelan ulang itu **berhasil** menghapus
+pelanggaran kuota, karena `institusi` terhitung akademik. Mesin tidak bisa
+memutuskan apakah sebuah lembaga pemilik datanya, jadi tidak ada penangkal
+otomatis. `audit_references.py` mendaftarkan tiap sumber `institusi` sebagai
+peringatan untuk dikonfirmasi, dan di situlah pemeriksaannya berhenti.
 
 Tolak tulisan anonim, konten SEO, agregator sitasi, salinan hasil scraping, dan
 halaman tanpa penanggung jawab redaksi. Terima artikel hanya bila punya

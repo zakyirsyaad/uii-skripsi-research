@@ -42,9 +42,11 @@ lalu buku dan standar resmi, lalu sumber institusional primer. Artikel populer
 hanya untuk konteks terbatas, maksimum `floor(total × 0.20)`.
 
 Berita, editorial, dan blog komersial tetap `artikel` meski penerbitnya
-kredibel. **Jangan melabelinya ulang jadi `institusi` untuk menghindari kuota** —
-`audit_references.py` menghitung dari kolom `tipe`, jadi pelanggarannya hanya
-berpindah.
+kredibel. **Jangan melabelinya ulang jadi `institusi` untuk menghindari kuota.**
+Tipe `institusi` terhitung akademik, jadi pelabelan ulang benar-benar menghapus
+pelanggarannya; yang menahan hal itu adalah kejujuran, bukan skrip.
+`audit_references.py` hanya mendaftarkan tiap sumber `institusi` untuk
+dikonfirmasi bahwa lembaganya betul pemilik data.
 
 Kriteria kelayakan lengkap, dan apa yang membuat sebuah artikel ditolak, ada di
 `references/kelayakan-sumber.md`.

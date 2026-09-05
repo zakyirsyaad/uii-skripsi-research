@@ -110,6 +110,24 @@ ISO `YYYY-MM-DD` everywhere.
 `update_source_rows` touches only `status_verifikasi` and `tgl_verifikasi` —
 never a column the student wrote.
 
+## The 20% quota has no automatic deterrent
+
+`institusi` is in `ACADEMIC_TYPES`, so it is **not** counted against the article
+cap. Relabelling an `artikel` as `institusi` therefore removes the quota blocker
+outright — proven by running the audit both ways on the same ledger
+(`not_ready`/exit 1 becomes `ready_with_notes`/exit 0).
+
+For three versions the README and two skills claimed the opposite: that
+`audit_references.py` "counts from the `tipe` column, so the violation only
+moves". Counting from `tipe` is precisely what makes the evasion work.
+
+No machine can decide whether an institution owns its data, so there is no check
+to write. What the script can refuse to do is stay quiet: `institusi_konfirmasi`
+lists every `institusi` source as a warning. Do not upgrade it to a blocker — a
+legitimate BPS citation is normal — and do not restate the old claim.
+`tests/test_audit.py` pins both halves, and `tests/test_dokumentasi.py` fails if
+the README promises the deterrent again.
+
 ## Two axes that must not collapse
 
 Throughout the skills and the ledger, **decision status**

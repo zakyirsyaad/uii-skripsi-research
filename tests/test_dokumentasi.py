@@ -97,6 +97,19 @@ class TestAturanPentingTercantum(unittest.TestCase):
         self.assertRegex(README, r"APA 6th")
         self.assertRegex(README, r"bukan IEEE")
 
+    def test_kuota_tidak_diklaim_kebal_pelabelan_ulang(self):
+        """README pernah berjanji `audit_references.py` menangkap pelabelan ulang.
+
+        Tidak. Tipe `institusi` terhitung akademik, jadi melabeli ulang sebuah
+        `artikel` menghapus blocker kuota sepenuhnya. Yang ada hanya peringatan
+        yang mendaftarkan sumber `institusi` untuk dikonfirmasi. README harus
+        menyebut daftar itu, bukan menjanjikan penangkal.
+        """
+        self.assertRegex(README, r"institusi` didaftarkan|didaftarkan supaya")
+        self.assertNotRegex(
+            README, r"[Pp]elanggaran(nya)? hanya\s+berpindah",
+            "README kembali menjanjikan penangkal kuota yang tidak ada")
+
     def test_dspace_tidak_boleh_disitasi(self):
         self.assertIn("DSpace", README)
         self.assertRegex(README, r"bukan sumber|tidak pernah masuk")

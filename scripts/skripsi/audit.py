@@ -95,6 +95,25 @@ def audit_sources(sources: list[Source], cfg: Config,
             "Menambah satu artikel lagi akan melanggar batas.",
         ))
 
+    # -- sumber `institusi` minta konfirmasi -------------------------------
+    # `institusi` masuk ACADEMIC_TYPES, jadi TIDAK dihitung dalam kuota 20%.
+    # Artinya melabeli ulang sebuah `artikel` menjadi `institusi` benar-benar
+    # menghapus pelanggaran kuota, dan tidak ada cara mesin memutuskan apakah
+    # sebuah lembaga betul pemilik datanya. Yang bisa dilakukan skrip adalah
+    # menolak diam: daftarkan tiap sumber `institusi` supaya keputusannya
+    # dibuat sadar, bukan lolos begitu saja.
+    institusi = [s for s in sources if s.tipe == "institusi"]
+    if institusi:
+        rep.findings.append(Finding(
+            "warning", "institusi_konfirmasi",
+            f"{len(institusi)} sumber `institusi` tidak dihitung dalam kuota "
+            f"non-akademik: {', '.join(s.id for s in institusi)}. Pastikan tiap "
+            "lembaga itu benar PEMILIK datanya, bukan penerbit berita atau "
+            "explainer yang dilabeli ulang. Bila salah satunya sebenarnya "
+            "`artikel`, ubah `tipe`-nya dan jalankan ulang.",
+            [s.line for s in institusi],
+        ))
+
     # -- status verifikasi ------------------------------------------------
     by_status: dict[str, list[Source]] = {}
     for s in sources:

@@ -36,8 +36,10 @@ Buang lebih dulu, baru baca dalam:
 2. **Bisa diakses teks lengkapnya secara sah?** Kalau hanya abstrak, ia tidak
    bisa dipakai untuk klaim tingkat halaman. Catat sebagai keterbatasan.
 3. **Benar-benar tentang klaimmu?** Judul yang mirip sering membahas hal lain.
-4. **Masih dalam batas kebaruan** (`recency_years` di `.skripsi.yaml`), kecuali
-   ini teori, metode, atau standar mendasar, yang harus dijustifikasi terpisah.
+4. **Masih dalam batas kebaruan** (`recency_years` di `.skripsi.yaml`). Yang
+   dikecualikan skrip hanya tipe `buku` dan `standar`. Teori atau metode
+   mendasar yang terbit sebagai `jurnal` tetap ditandai, dan itu memang perlu
+   dijustifikasi terpisah, bukan didiamkan.
 
 Jumlah sitasi menunjukkan perhatian, bukan kebenaran. Paper baru yang relevan
 lebih berharga daripada paper lama yang banyak disitasi tapi menyerempet.

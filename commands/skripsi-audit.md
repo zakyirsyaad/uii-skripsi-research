@@ -12,7 +12,12 @@ dikerjakan hanya bila pengguna memintanya setelah melihat laporan.
    adanya — jangan menilai ulang kuota atau kebaruan dengan mata:
    ```bash
    python3 ${CLAUDE_PLUGIN_ROOT}/scripts/audit_references.py
-   python3 ${CLAUDE_PLUGIN_ROOT}/scripts/verify_citation.py --ledger references/sources.md
+   python3 ${CLAUDE_PLUGIN_ROOT}/scripts/verify_citation.py --ledger references/sources.md --only-unverified
+   ```
+   Bila pengguna menyebut berkas Word-nya, jalankan juga audit naskah terhadap
+   template resmi. Ini membaca, bukan menulis:
+   ```bash
+   python3 ${CLAUDE_PLUGIN_ROOT}/scripts/audit_naskah.py naskah.docx
    ```
 2. Baca `references/thesis-context.md` untuk keputusan `approved` terakhir.
 3. Untuk audit lintas bab, delegasikan pembacaan menyeluruh ke subagent
@@ -24,6 +29,8 @@ dikerjakan hanya bila pengguna memintanya setelah melihat laporan.
 Tutup dengan vonis `ready`, `ready_with_notes`, atau `not_ready`, diikuti daftar
 blocker dan perbaikan yang disarankan.
 
-Nyatakan secara eksplisit apa yang **tidak** bisa diaudit dari Markdown —
-penomoran halaman, field Mendeley, komentar, caption, daftar isi, dan referensi
-silang hanya ada di Word.
+Nyatakan secara eksplisit apa yang **tidak** bisa diaudit: penomoran halaman,
+field Mendeley, komentar, caption, dan referensi silang hanya ada di Word dan
+tidak terjangkau skrip mana pun. Daftar isi, sisa teks template, halaman awal,
+dan gaya sitasi terjangkau `audit_naskah.py` — jadi masukkan ke daftar tak
+terperiksa hanya bila skrip itu tidak dijalankan.

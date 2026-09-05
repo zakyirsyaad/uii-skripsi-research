@@ -12,8 +12,9 @@ schema_version: 1
 # konteks satu proyek terbawa ke proyek lain.
 project_id: skripsi-informatika-uii
 
-# Batas kebaruan sumber empiris, dalam tahun. Teori, metode, dan standar
-# fundamental boleh lebih tua, tapi harus dijustifikasi terpisah.
+# Batas kebaruan sumber empiris, dalam tahun. Yang dikecualikan otomatis hanya
+# tipe `buku` dan `standar`. Teori atau metode mendasar yang terbit sebagai
+# jurnal tetap ditandai audit, dan memang harus dijustifikasi terpisah.
 recency_years: 5
 
 # Porsi maksimum sumber non-akademik (tipe `artikel`) dalam daftar pustaka.

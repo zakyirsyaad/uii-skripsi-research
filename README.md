@@ -299,9 +299,14 @@ Susun inti akademik dengan urutan prioritas:
 4. Artikel populer untuk konteks terbatas, maksimum `floor(total × 0.20)`.
 
 Berita, editorial, explainer, dan blog komersial tetap dihitung `artikel` meski
-penerbitnya kredibel. Melabelinya ulang sebagai `institusi` tidak menolong,
-karena `audit_references.py` menghitung dari kolom `tipe`. Pelanggarannya hanya
-berpindah.
+penerbitnya kredibel.
+
+Melabelinya ulang sebagai `institusi` **memang menghapus pelanggaran kuota**,
+karena tipe itu terhitung akademik. Tidak ada cara mesin memutuskan apakah
+sebuah lembaga betul pemilik datanya, jadi tidak ada penangkal otomatis di sini.
+Yang dilakukan `audit_references.py` adalah menolak diam: tiap sumber
+`institusi` didaftarkan supaya keputusannya dibuat sadar. Penguji yang membuka
+daftar pustakamu tidak akan melihat kolom `tipe`, hanya penerbitnya.
 
 Batas kebaruan (`recency_years`, default 5 tahun) berlaku untuk bukti empiris.
 `buku` dan `standar` dikecualikan, karena teori mendasar dan standar resmi tidak

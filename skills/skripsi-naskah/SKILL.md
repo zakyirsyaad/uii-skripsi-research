@@ -88,7 +88,9 @@ Markdown adalah artefak kerja; dokumen Word adalah artefak yang dikelola
 pengguna untuk diserahkan. Tiga mode izin, dan izin **tidak berpindah** antar
 tugas, berkas, atau topik:
 
-- `markdown_only` (default) — jangan buka, parse, render, ekspor, atau ubah Word.
+- `markdown_only` (default) — jangan buka, parse, render, ekspor, atau ubah
+  Word. Satu pengecualian: `audit_naskah.py` atas berkas yang disebut pengguna
+  untuk audit, karena itu naik ke `read_only_audit` (lihat `skripsi-kesiapan`).
 - `read_only_audit` — periksa hanya berkas yang disebut pengguna untuk audit ini;
   jangan simpan, ubah, ekspor, atau buat salinan turunan.
 - `edit_authorized` — ubah hanya berkas yang disebut, hanya untuk perubahan yang

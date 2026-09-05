@@ -136,3 +136,41 @@ class TestDuplicateWithoutDoi(unittest.TestCase):
         b = src(1, tipe="institusi", doi_url="https://bps.go.id/publikasi/2025/")
         rep = audit_sources([a, b], CFG, ref_year=2026)
         self.assertTrue(any(f.code == "duplicate_doi" for f in rep.warnings))
+
+
+class TestInstitusiTidakKenaKuota(unittest.TestCase):
+    """`institusi` masuk ACADEMIC_TYPES, jadi kuota 20% tidak menyentuhnya.
+
+    Selama tiga versi README dan dua skill menyatakan melabeli ulang `artikel`
+    menjadi `institusi` "tidak menolong, pelanggarannya hanya berpindah". Itu
+    keliru: pelanggarannya hilang sama sekali. Tidak ada cara mesin memutuskan
+    apakah sebuah lembaga betul pemilik datanya, jadi yang bisa dijamin hanya
+    satu — skrip tidak boleh diam.
+    """
+
+    def test_melabeli_ulang_artikel_jadi_institusi_menghapus_blocker(self):
+        """Ini yang dulu diklaim tidak mungkin. Dikunci supaya tidak diklaim lagi."""
+        empat = [src(i) for i in range(4)]
+        dua_artikel = [src(4, tipe="artikel"), src(5, tipe="artikel")]
+        self.assertTrue(any(
+            f.code == "article_cap"
+            for f in audit_sources(empat + dua_artikel, CFG, ref_year=2026).blockers))
+
+        dua_institusi = [src(4, tipe="institusi"), src(5, tipe="institusi")]
+        rep = audit_sources(empat + dua_institusi, CFG, ref_year=2026)
+        self.assertFalse(any(f.code == "article_cap" for f in rep.blockers))
+
+    def test_tapi_sumber_institusi_selalu_didaftar_untuk_dikonfirmasi(self):
+        """Penggantinya: skrip mendaftarkannya, bukan meloloskannya diam-diam."""
+        empat = [src(i) for i in range(4)]
+        dua_institusi = [src(4, tipe="institusi"), src(5, tipe="institusi")]
+        rep = audit_sources(empat + dua_institusi, CFG, ref_year=2026)
+        temuan = [f for f in rep.warnings if f.code == "institusi_konfirmasi"]
+        self.assertEqual(1, len(temuan))
+        self.assertIn("s004", temuan[0].message)
+        self.assertIn("s005", temuan[0].message)
+
+    def test_tanpa_sumber_institusi_tidak_ada_temuan(self):
+        """Peringatan yang selalu muncul akan diabaikan."""
+        rep = audit_sources([src(i) for i in range(4)], CFG, ref_year=2026)
+        self.assertFalse(any(f.code == "institusi_konfirmasi" for f in rep.findings))
