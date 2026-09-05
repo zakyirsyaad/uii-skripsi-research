@@ -16,7 +16,7 @@ dicampur:
   sini, dan itu normal.
 
 Sebaliknya, **DOI yang tidak terdaftar tetap `NOT_FOUND` apa pun jenis
-sumbernya** — DOI palsu adalah bukti kuat, bukan soal cakupan indeks.
+sumbernya.** DOI palsu adalah bukti kuat, bukan soal cakupan indeks.
 
 ## Kesalahan yang paling mahal
 

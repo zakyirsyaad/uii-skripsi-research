@@ -17,11 +17,11 @@ subbab, atau item lain yang bernama jelas. Tiap unit punya satu status:
 Tandai `approved` **hanya** dari jawaban yang tidak ambigu dan merujuk unit itu
 — "setuju", "oke", "sudah". 
 
-**"lanjut" bukan persetujuan.** Itu instruksi untuk maju ke unit berikutnya. Ia
-tidak menyelesaikan keberatan yang sudah dinyatakan dan tidak mengesahkan draf
-yang masih ambigu. Bila ada keberatan yang belum dijawab lalu pengguna menulis
-"lanjut", majulah — tapi biarkan unit sebelumnya tetap `revision_requested`, dan
-katakan itu.
+**"lanjut" bukan persetujuan.** Itu instruksi untuk maju ke unit berikutnya.
+Perintah itu tidak menyelesaikan keberatan yang sudah dinyatakan dan tidak
+mengesahkan draf yang masih ambigu. Bila ada keberatan yang belum dijawab lalu
+pengguna menulis "lanjut", majulah, tapi biarkan unit sebelumnya tetap
+`revision_requested`, dan katakan itu.
 
 Saat pengguna meminta revisi, jaga versi sebelumnya tetap bisa ditelusuri.
 Tandai `superseded` hanya setelah penggantinya diterima.
@@ -58,7 +58,7 @@ ledger, sitasi, dan jejak sitasi.
 Laporkan tiap elemen sebagai `unaffected`, `needs_revision`, `superseded`, atau
 `needs_confirmation`. Berhenti memakai bahasa dan bukti yang sudah `superseded`.
 
-Untuk koreksi kecil dan lokal, jaga sweep tetap proporsional — laporkan hanya
+Untuk koreksi kecil dan lokal, jaga sweep tetap proporsional: laporkan hanya
 ketergantungan yang benar-benar ada. Sweep yang membengkak untuk perbaikan
 sepele sama tidak bergunanya dengan sweep yang dilewatkan.
 
@@ -71,15 +71,15 @@ python3 <plugin>/scripts/kbbi_lookup.py --word kualitatif
 python3 <plugin>/scripts/kbbi_lookup.py --check "analisa,sistim,praktek"
 ```
 
-Bila skrip keluar dengan kode 2 — KBBI belum terpasang — **jangan menyimpulkan
-baku atau tidak-baku dari ingatan.** Katakan bahwa kebakuannya belum
+Kode keluar 2 berarti KBBI belum terpasang. Dalam keadaan itu **jangan
+menyimpulkan baku atau tidak-baku dari ingatan.** Katakan bahwa kebakuannya belum
 terverifikasi, arahkan ke <https://kbbi.kemdikbud.go.id>, lalu lanjutkan menulis.
 
 Percayai keluaran skripnya: `baku`, `TIDAK BAKU -> pakai: X`, atau `TIDAK ADA`.
 Jangan menilai ulang dari ingatan. Alasannya, dan batas apa yang sebenarnya
 sahih diperiksa, ada di `references/kbbi.md`.
 
-KBBI hanya untuk bahasa. Ia **tidak pernah** menjadi bukti untuk klaim teknis
+KBBI hanya untuk bahasa dan **tidak pernah** menjadi bukti untuk klaim teknis
 atau ilmiah. Detail ragam akademik ada di `references/bahasa-akademik.md`.
 
 ## Word adalah artefak pengguna
@@ -96,8 +96,8 @@ tugas, berkas, atau topik:
 
 Kembali ke `markdown_only` setelah tugas yang diizinkan selesai.
 
-Hook plugin memblokir `Write`, `Edit`, dan `NotebookEdit` ke berkas Word. Ia
-**tidak** mencegat Bash — membongkar `.docx` lewat `unzip`, menyunting XML-nya,
+Hook plugin memblokir `Write`, `Edit`, dan `NotebookEdit` ke berkas Word. Hook
+**tidak** mencegat Bash: membongkar `.docx` lewat `unzip`, menyunting XML-nya,
 lalu memampatkannya kembali secara teknis bisa dilakukan.
 
 **Jangan lakukan itu.** Mengakali pelindung mengalahkan gunanya, dan risikonya
@@ -107,7 +107,7 @@ bukan tantangan untuk diakali.
 
 Jangan mengklaim format Word, field Mendeley, komentar, penomoran halaman,
 caption, daftar isi, atau referensi silang sudah diverifikasi dari Markdown.
-Status sinkronisasi adalah informasi yang dipelihara pengguna — jangan
+Status sinkronisasi adalah informasi yang dipelihara pengguna, jangan
 disimpulkan dari timestamp berkas. Bila statusnya tidak diketahui, lanjutkan
 dari Markdown sambil menyebut bahwa Word mungkin berbeda. Bila pengguna
 menyatakan Word lebih baru, minta Markdown terbaru sebelum mengubah bagian itu.

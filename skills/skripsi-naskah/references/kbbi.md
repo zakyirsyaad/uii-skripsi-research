@@ -25,7 +25,7 @@ menemukannya di sana tidak membuktikan kata itu baku.
 ### Ada di KBBI bukan berarti baku
 
 KBBI mencatat bentuk **tidak baku** sebagai lema tersendiri yang hanya merujuk ke
-bentuk bakunya — `analisa ? analisis`, `praktek Lihat praktik`. Karena itu
+bentuk bakunya: `analisa ? analisis`, `praktek Lihat praktik`. Karena itu
 "ketemu di kamus" tidak membuktikan apa pun.
 
 `kbbi_lookup.py --check` sudah mendeteksi rujukan silang ini dan melaporkan tiga
@@ -34,8 +34,8 @@ jangan menilai ulang dari ingatan.
 
 ### Batas basis data KBBI
 
-Yang sahih hanya pemeriksaan **ada/tidaknya lema di kamus utama** — itu turunan
-KBBI Edisi IV. Basis data yang beredar juga memuat tabel pasangan baku/tidak-baku,
+Yang sahih hanya pemeriksaan **ada/tidaknya lema di kamus utama**, turunan KBBI
+Edisi IV. Basis data yang beredar juga memuat tabel pasangan baku/tidak-baku,
 sinonim, dan antonim yang **sebagian dihasilkan AI**; jangan perlakukan tabel itu
 sebagai otoritas. Untuk kasus yang menentukan, KBBI Daring resmi tetap rujukannya.
 
@@ -43,7 +43,7 @@ sebagai otoritas. Untuk kasus yang menentukan, KBBI Daring resmi tetap rujukanny
 
 Ejaan bahasa Indonesia justru bidang yang sering salah diingat model. Bentuk
 tidak baku seperti `analisa`, `praktek`, dan `obyek` terasa benar karena sangat
-lazim dipakai sehari-hari — dan ketiganya memang ada di KBBI, hanya sebagai
+lazim dipakai sehari-hari, dan ketiganya memang ada di KBBI, hanya sebagai
 rujukan ke bentuk bakunya.
 
 Menebak di sini bukan sekadar berisiko salah; ia salah dengan cara yang

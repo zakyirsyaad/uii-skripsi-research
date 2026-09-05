@@ -49,4 +49,4 @@ berhenti membacanya, dan ledger yang tidak dibaca sama saja dengan tidak ada.
 
 Dengan izin menulis berkas, buat ledger ringkas hanya dari keputusan eksplisit
 pengguna dan artefak terverifikasi saat ini. Tanpa izin itu, berikan templat
-Markdown yang siap tempel — jangan menulis diam-diam.
+Markdown yang siap tempel. Jangan menulis diam-diam.

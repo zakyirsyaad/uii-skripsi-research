@@ -51,13 +51,13 @@ Kriteria kelayakan lengkap, dan apa yang membuat sebuah artikel ditolak, ada di
 
 ## Gaya sitasi: APA 6th
 
-Template resmi UII menetapkan **APA 6th**, bukan IEEE — berlaku di template 2020
-maupun 2025. Gaya lain hanya bila pembimbing menyatakannya, dan itu dicatat
+Template resmi UII menetapkan **APA 6th**, bukan IEEE, di template 2020 maupun
+2025. Gaya lain hanya bila pembimbing menyatakannya, dan itu dicatat
 sebagai keputusan berprovenance di ledger.
 
 **Setiap entri daftar pustaka wajib disitasi di dalam teks.** Sumber yang
 tercatat tapi tak pernah dirujuk adalah temuan, bukan cadangan. Skrip tidak bisa
-memeriksanya — ia tidak membaca naskah — jadi periksa saat audit bab.
+memeriksanya karena tidak membaca naskah, jadi periksa saat audit bab.
 
 ## DSpace UII bukan sumber
 
@@ -66,20 +66,20 @@ Repositori DSpace UII (`Undergraduate Thesis → Faculty of Industrial Technolog
 frasa akademik Indonesia, dan cara penyajian metode.
 
 **Tidak pernah** masukkan item DSpace ke sitasi, catatan kaki, daftar pustaka,
-tinjauan pustaka, matriks perbandingan, atau bukti penelitian — termasuk ketika
+tinjauan pustaka, matriks perbandingan, atau bukti penelitian, termasuk ketika
 metode atau kerangkanya sedang dipertimbangkan. DSpace juga bukan bukti bahwa
 sebuah metode cocok untuk penelitianmu; ia hanya menunjukkan bagaimana metode
 itu pernah *dituliskan*.
 
 ## Sumber ada ≠ sumber mendukung, dan kapan boleh menulis ke ledger
 
-Skrip membuktikan karyanya nyata dan metadatanya benar. Ia **tidak** bisa menilai
-apakah isinya mendukung klaimmu. Itu butuh membaca teks lengkap yang benar-benar
-bisa diakses — bukan abstrak, bukan cuplikan pencarian.
+Skrip membuktikan karyanya nyata dan metadatanya benar, tapi **tidak** bisa
+menilai apakah isinya mendukung klaimmu. Itu butuh membaca teks lengkap yang
+benar-benar bisa diakses, bukan abstrak dan bukan cuplikan pencarian.
 
 Konsekuensinya: menambah baris ke `references/sources.md` berarti menyatakan
 sumber itu akan disitasi, dan itu komitmen yang hanya bisa dibuat orang yang
-sudah membacanya — bukan olehmu.
+sudah membacanya, bukan olehmu.
 
 | Tindakan | Boleh sendiri? |
 |---|---|
@@ -89,18 +89,18 @@ sudah membacanya — bukan olehmu.
 | Ubah kolom yang ditulis mahasiswa | **Tidak** |
 | Hapus baris | **Tidak** |
 
-Berlaku juga saat sumbernya jelas tak terhindarkan — Peffers untuk DSRM, Hevner
-untuk design science. **"Jelas dibutuhkan" bukan izin**; ia hanya membuat
-persetujuannya cepat didapat.
+Berlaku juga saat sumbernya jelas tak terhindarkan, misalnya Peffers untuk DSRM
+atau Hevner untuk design science. **"Jelas dibutuhkan" bukan izin.** Itu hanya
+membuat persetujuannya cepat didapat.
 
 Sebagai gantinya, **sajikan baris siap tempel**: metadata kanonik hasil
 verifikasi, `klaim` dikosongkan, disertai keterangan bahwa kamu belum membaca
-teks lengkapnya. Ledger berisi sumber yang belum dibaca pemiliknya akan runtuh
-di sidang.
+teks lengkapnya. Ledger berisi sumber yang belum dibaca pemiliknya tidak bisa
+dipertahankan saat sidang.
 
 Saat menyusun klaim: pastikan kolom `klaim` memang ditopang bagian yang kamu
 tunjuk, dan bila satu paragraf memakai beberapa sumber, pastikan tiap klaim
-punya pendukungnya sendiri — kalau tidak, pecah paragrafnya. Nyatakan terus
+punya pendukungnya sendiri. Kalau tidak, pecah paragrafnya. Nyatakan terus
 terang bila bukti yang memadai tidak ditemukan; jangan menambal kuota dengan
 sumber lemah.
 

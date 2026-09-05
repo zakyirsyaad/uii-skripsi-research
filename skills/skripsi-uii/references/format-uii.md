@@ -95,7 +95,7 @@ Dua skripsi pengembangan yang ditulis orang berbeda berselisih hanya 68 kata
 dari total 13.500, dan BAB I keduanya berselisih 5 kata. Itu konvensi, bukan
 kebetulan.
 
-Angka ini untuk isi BAB I sampai BAB V — tanpa lampiran, daftar pustaka, dan
+Angka ini untuk isi BAB I sampai BAB V, tanpa lampiran, daftar pustaka, dan
 halaman awal.
 
 ### Kepadatan halaman
@@ -106,16 +106,16 @@ halaman awal.
 | III | 175–186 |
 | IV | 119–163 |
 
-BAB III yang 39 halaman bukan 39 halaman tulisan — sebagian besar diagram,
+BAB III yang 39 halaman bukan 39 halaman tulisan. Sebagian besar diagram,
 tabel, dan rancangan antarmuka. BAB IV lebih jauh lagi: 119 kata per halaman
 berarti halamannya didominasi tangkapan layar.
 
 Jadi menargetkan "BAB IV dua puluh halaman" sebenarnya hanya berarti sekitar
 2.500 kata tulisan. Jangan panik melihat jumlah halaman yang harus diisi.
 
-Bedanya tajam dan menentukan. Pada **skripsi pengembangan sistem** — yang
-membangun aplikasi atau platform — bobot terbesar ada di BAB III, hampir
-separuh isi, karena analisis kebutuhan dan perancangan tinggal di sana. Kajian
+Bedanya tajam dan menentukan. Pada **skripsi pengembangan sistem**, yang
+membangun aplikasi atau platform, bobot terbesar ada di BAB III, hampir separuh
+isi, karena analisis kebutuhan dan perancangan tinggal di sana. Kajian
 pustakanya justru tipis.
 
 Kalau kajian pustaka sebuah skripsi pengembangan membengkak sampai sepertiga
@@ -140,7 +140,7 @@ Daftar pustakanya lebih kecil dari dugaan banyak orang: sekitar **15–20 entri*
 
 DSpace UII berada di balik proteksi bot Cloudflare, sehingga tidak bisa dibuka
 secara otomatis. **Jangan mencoba menembusnya.** Minta pengguna membuka
-tautannya di peramban biasa dan menyimpan PDF-nya — itu hanya butuh satu menit
+tautannya di peramban biasa dan menyimpan PDF-nya. Itu hanya butuh satu menit
 dan tidak ada yang hilang.
 
 Setelah PDF-nya ada, jalankan:
@@ -167,8 +167,8 @@ ke pembimbing sekarang, bukan nanti. Jangan biarkan pengguna memperlakukannya
 semata sebagai bahan tinjauan pustaka yang bagus.
 
 Cara mengambil nilai dari skripsi itu tanpa menyitasinya: **tambang daftar
-pustakanya**. Ia pasti menyitasi jurnal dan prosiding asli — itulah yang layak
-masuk daftar pustakamu, setelah kamu buka sumber primernya, baca teks
+pustakanya**. Skripsi itu pasti menyitasi jurnal dan prosiding asli, dan itulah
+yang layak masuk daftar pustakamu, setelah kamu buka sumber primernya, baca teks
 lengkapnya, dan verifikasi. Jangan pernah menyalin sitasi tangan kedua.
 
 ## Yang tidak boleh disalin
@@ -183,10 +183,10 @@ plagiarisme, dan sistem pemeriksa kemiripan kampus akan menemukannya.
 
 Repositori ini **bukan** basis data jurnal. Ia tidak pernah masuk sitasi,
 catatan kaki, daftar pustaka, tinjauan pustaka, matriks perbandingan, atau bukti
-penelitian — termasuk ketika metode atau kerangkanya sedang dipertimbangkan.
+penelitian, termasuk ketika metode atau kerangkanya sedang dipertimbangkan.
 
 Ia juga bukan bukti bahwa sebuah metode **cocok** untuk penelitianmu. Bahwa
 sebuah skripsi memakai DSRM tidak menjadikan DSRM tepat untuk penelitian lain;
 itu hanya menunjukkan bagaimana DSRM pernah dituliskan. Kelayakan metode
-diturunkan dari aktivitas penelitian yang benar-benar akan dijalankan — lihat
+diturunkan dari aktivitas penelitian yang benar-benar akan dijalankan. Lihat
 bagian "Memilih metode" di SKILL.md.

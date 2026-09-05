@@ -1,6 +1,6 @@
 {
   "name": "uii-skripsi-research",
-  "version": "1.11.0",
+  "version": "1.11.1",
   "description": "Skripsi S1 Informatika UII: verifikasi sitasi ke Crossref/OpenAlex, pencarian literatur, audit naskah, dan kontinuitas konteks antar-sesi.",
   "author": {
     "name": "Local developer"

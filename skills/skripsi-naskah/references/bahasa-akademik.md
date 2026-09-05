@@ -4,7 +4,7 @@
 
 Kesalahan tersering pada skripsi Informatika adalah bentuk tidak baku yang
 terlanjur lazim di industri. Periksa dengan `kbbi_lookup.py`, jangan dari
-ingatan — daftar ini contoh, bukan penggantinya:
+ingatan. Daftar ini contoh, bukan penggantinya:
 
 | Tidak baku | Baku |
 |---|---|
@@ -24,12 +24,12 @@ bakunya; `resiko`, `standarisasi`, `kwalitas`, dan `jadual` tidak ada sama
 sekali.
 
 Karena itu memakai tabel ini untuk kedelapan kata tersebut **sah**. Untuk kata
-di luar daftar, jalankan `kbbi_lookup.py` — daftar ini tidak pernah menjadi
+di luar daftar, jalankan `kbbi_lookup.py`. Daftar ini tidak pernah menjadi
 alasan menebak.
 
 Istilah teknis asing yang belum punya padanan baku ditulis miring pada
 kemunculan pertama, lalu konsisten. Jangan memaksakan padanan yang tidak dikenal
-pembaca — konsistensi lebih penting daripada kemurnian.
+pembaca. Konsistensi lebih penting daripada kemurnian.
 
 ## Kalimat
 
@@ -48,7 +48,7 @@ mengira makin berat bahasanya makin ilmiah, lalu menulis kalimat yang pengujinya
 sendiri harus baca dua kali.
 
 Penguji menilai apakah gagasanmu terbaca. Kalimat yang sulit dibaca tidak
-terlihat pintar — ia terlihat seperti penulis yang belum yakin dengan
+terlihat pintar. Ia terlihat seperti tulisan penulis yang belum yakin dengan
 gagasannya.
 
 ### Kata kerja, bukan kata benda
@@ -92,7 +92,7 @@ Ringan:
 > Hasil pengujian menunjukkan pengguna dapat mendanai proyek melalui sistem ini
 > tanpa hambatan berarti.
 
-Yang kedua lebih pendek, lebih jelas, dan **klaimnya lebih jujur** — ia tidak
+Yang kedua lebih pendek, lebih jelas, dan **klaimnya lebih jujur**. Ia tidak
 lagi menyembunyikan kekosongan bukti di balik "dapat dikatakan bahwa".
 
 ### Berapa panjang yang wajar
@@ -123,7 +123,7 @@ rentang di atas.
 ### Batasnya
 
 Sederhana bukan berarti seadanya. Istilah teknis yang memang tepat tetap
-dipakai — `smart contract` tidak perlu diganti "kontrak pintar" kalau bidangmu
+dipakai: `smart contract` tidak perlu diganti "kontrak pintar" kalau bidangmu
 memakai istilah aslinya. Yang dibuang adalah kerumitan yang tidak menambah
 makna, bukan ketelitiannya.
 
@@ -142,7 +142,7 @@ Sesuaikan kekuatan kata kerja dengan kekuatan bukti:
 
 ## Konsistensi terminologi
 
-Satu konsep, satu istilah, sepanjang naskah. Bila istilah berubah di tengah —
-misalnya "pengguna" menjadi "pemakai" — itu bukan variasi gaya, itu cacat yang
-akan ditanyakan penguji. Perubahan istilah setelah ada bab yang disetujui
+Satu konsep, satu istilah, sepanjang naskah. Bila istilah berubah di tengah,
+misalnya "pengguna" menjadi "pemakai", itu bukan variasi gaya melainkan cacat
+yang akan ditanyakan penguji. Perubahan istilah setelah ada bab yang disetujui
 memicu impact sweep.

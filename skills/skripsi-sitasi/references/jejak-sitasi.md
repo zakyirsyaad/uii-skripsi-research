@@ -4,7 +4,7 @@ Dibaca saat pengguna meminta jejak sitasi, atau saat mode jejak sitasi aktif
 untuk drafting paragraf demi paragraf.
 
 Tujuannya satu: penguji harus bisa membuka sumbernya dan menemukan persis
-kalimat yang mendukung klaim — tanpa bertanya kepadamu.
+kalimat yang mendukung klaim, tanpa bertanya kepadamu.
 
 ## Isi wajib tiap komentar
 
@@ -33,13 +33,13 @@ tunjuk bagian, tabel, gambar, atau paragrafnya.
 
 Verifikasi teks lengkap sebelum memberi informasi tingkat halaman. **Jangan
 pernah** menyimpulkan nomor halaman dari abstrak, metadata, cuplikan hasil
-pencarian, atau sitasi sekunder — ini cara paling halus sebuah jejak sitasi
+pencarian, atau sitasi sekunder. Ini cara paling halus sebuah jejak sitasi
 menjadi fiktif meski sumbernya nyata.
 
 Bila lokasi bukti tidak bisa dipastikan, tandai jejaknya sebagai belum
 terverifikasi dan jangan sajikan sitasinya sebagai final. Bila referensi sebuah
 paragraf ternyata tidak mendukung semua klaim di dalamnya, pecah atau revisi
-paragrafnya — jangan longgarkan jejaknya agar terlihat cocok.
+paragrafnya. Jangan longgarkan jejaknya agar terlihat cocok.
 
 ## Batas Markdown
 

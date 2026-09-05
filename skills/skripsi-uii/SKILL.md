@@ -40,7 +40,7 @@ Ledger **bukan bukti ilmiah** dan tidak pernah boleh disitasi.
 Ungkapkan konflik material, jangan diam-diam memilih salah satu.
 
 Keputusan pengguna yang lebih baru boleh menggantikan pilihan proyek
-sebelumnya — tapi **tidak** memverifikasi klaim faktual eksternal. Sebaliknya,
+sebelumnya, tapi **tidak** memverifikasi klaim faktual eksternal. Sebaliknya,
 bukti terverifikasi yang lebih baru boleh menggantikan rekaman faktual yang
 basi, bahkan ketika kalimat lamanya sudah disetujui.
 
@@ -55,7 +55,7 @@ basi, bahkan ketika kalimat lamanya sudah disetujui.
 
 Status keputusan (`proposed`/`approved`/`rejected`/`superseded`/`unconfirmed`)
 dan status bukti (`verified`/`unverified`/`retracted`/`superseded`) adalah dua
-sumbu terpisah. Usulan yang disetujui tetap usulan yang jadi keputusan — bukan
+sumbu terpisah. Usulan yang disetujui menjadi keputusan, bukan
 fakta yang terverifikasi.
 
 Jangan mengubah saran, contoh, atau diskusi tentatif menjadi keputusan proyek.

@@ -15,7 +15,7 @@ Susun inti akademik dengan urutan prioritas ini:
 
 Halaman berita, editorial, explainer, atau blog komersial tetap dihitung
 `artikel` meski penerbitnya kredibel. **Jangan melabelinya ulang sebagai
-`institusi` untuk menghindari kuota** — `audit_references.py` menghitung dari
+`institusi` untuk menghindari kuota.** `audit_references.py` menghitung dari
 kolom `tipe`, jadi pelanggaran hanya berpindah, tidak hilang.
 
 Tolak tulisan anonim, konten SEO, agregator sitasi, salinan hasil scraping, dan
@@ -29,5 +29,5 @@ Kuota 20% bukan soal gengsi akademik. Artikel populer menyaring dan
 menyederhanakan temuan orang lain; menyandarkan argumen padanya berarti
 menyitasi tafsiran, bukan penelitiannya.
 
-Batasnya `floor(total × 0.20)` — dihitung `audit_references.py`, bukan
+Batasnya `floor(total × 0.20)`, dihitung `audit_references.py` dan bukan
 diperkirakan. Dengan 12 sumber, jatahnya 2. Dengan 19 sumber, tetap 3.

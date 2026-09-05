@@ -7,11 +7,10 @@ description: Use when searching for academic literature for a UII Informatics th
 
 ## Kandidat bukan sitasi
 
-Hasil pencarian adalah **kandidat**. Ia baru menjadi sitasi setelah teks
+Hasil pencarian adalah **kandidat**, dan baru menjadi sitasi setelah teks
 lengkapnya dibaca dan terbukti mendukung klaim yang dimaksud. Kesalahan paling
 umum adalah menyalin judul dan abstrak dari hasil pencarian langsung ke daftar
-pustaka — itu menghasilkan sitasi yang nyata tapi tidak relevan, dan penguji
-akan menemukannya.
+pustaka. Hasilnya sitasi yang nyata tapi tidak relevan.
 
 ```bash
 python3 <plugin>/scripts/search_literature.py "kata kunci" --since 2021 --oa --limit 15
@@ -38,12 +37,12 @@ Buang lebih dulu, baru baca dalam:
    bisa dipakai untuk klaim tingkat halaman. Catat sebagai keterbatasan.
 3. **Benar-benar tentang klaimmu?** Judul yang mirip sering membahas hal lain.
 4. **Masih dalam batas kebaruan** (`recency_years` di `.skripsi.yaml`), kecuali
-   ini teori, metode, atau standar mendasar — yang harus dijustifikasi terpisah.
+   ini teori, metode, atau standar mendasar, yang harus dijustifikasi terpisah.
 
 Jumlah sitasi menunjukkan perhatian, bukan kebenaran. Paper baru yang relevan
 lebih berharga daripada paper lama yang banyak disitasi tapi menyerempet.
 
-Waspadai `!! DITARIK` pada keluaran — karya yang ditarik kadang tetap banyak
+Waspadai `!! DITARIK` pada keluaran. Karya yang ditarik kadang tetap banyak
 disitasi karena orang menyalin daftar pustaka tanpa memeriksa.
 
 ## Menemukan celah penelitian
@@ -57,8 +56,8 @@ pencarianmu kurang dalam. Celah yang bisa dipertahankan berbentuk:
 - Ada asumsi yang tidak pernah diuji.
 
 Bila kamu menyimpulkan celah, tunjukkan pencarian yang mendasarinya. Klaim
-"belum ada penelitian" tanpa jejak pencarian adalah inferensi, bukan temuan —
-tandai sebagai `inference` di ledger konteks, bukan `factual_claim`.
+"belum ada penelitian" tanpa jejak pencarian adalah inferensi, bukan temuan.
+Tandai sebagai `inference` di ledger konteks, bukan `factual_claim`.
 
 ## Setelah menemukan sumber
 
@@ -67,7 +66,7 @@ tandai sebagai `inference` di ledger konteks, bukan `factual_claim`.
 3. Jalankan `audit_references.py` untuk memastikan kuota dan kebaruan aman.
 
 Detail kelayakan sumber, kuota 20%, dan larangan DSpace ada di skill
-`skripsi-sitasi` — baca itu saat memutuskan boleh-tidaknya sebuah sumber, bukan
+`skripsi-sitasi`. Baca itu saat memutuskan boleh-tidaknya sebuah sumber, bukan
 saat mencari.
 
 ## Beban pencarian besar
