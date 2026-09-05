@@ -122,7 +122,7 @@ Kalau kajian pustaka sebuah skripsi pengembangan membengkak sampai sepertiga
 isi, kemungkinan besar profilnya salah: ia ditulis seperti skripsi riset,
 padahal artefaknya yang dinilai.
 
-Urutan babnya seragam tanpa kecuali: Pendahuluan, Kajian Pustaka (sebagian
+Urutan babnya seragam pada ketiga sampel: Pendahuluan, Kajian Pustaka (sebagian
 menyebutnya Landasan Teori), Metodologi Penelitian, Hasil dan Pembahasan,
 Kesimpulan dan Saran.
 

@@ -38,20 +38,9 @@ Lima status, dan **beda di antaranya menentukan tindakan**:
 | `UNVERIFIED` | Jaringan gagal | **Bukan bukti apa-apa.** Jangan laporkan sebagai aman maupun fiktif; ulangi nanti |
 | `UNVERIFIABLE` | Jenis sumber ini tidak diindeks Crossref/OpenAlex | Periksa manual: tautan hidup, penerbit bernama, tanggal ada |
 
-Tiga status "tidak OK" itu punya arti yang sama sekali berbeda dan tidak boleh
-dicampur:
-
-- `NOT_FOUND` adalah **temuan** — sudah dicari di tempat yang memang
-  mengindeksnya, dan tidak ada.
-- `UNVERIFIED` adalah **ketiadaan temuan** — jaringan gagal, tidak ada yang
-  dipelajari.
-- `UNVERIFIABLE` adalah **di luar jangkauan** — halaman BPS atau artikel Kontan
-  memang tidak pernah masuk basis data sitasi ilmiah. Menandainya fiktif berarti
-  menuduh sumber sah. Jenis `institusi` dan `artikel` hampir selalu berakhir di
-  sini, dan itu normal.
-
-Sebaliknya, **DOI yang tidak terdaftar tetap `NOT_FOUND` apa pun jenis
-sumbernya** — DOI palsu adalah bukti kuat, bukan soal cakupan indeks.
+Ketiga status "tidak OK" itu artinya berbeda-beda dan **tidak boleh dicampur**.
+Penjelasan tiap perbedaannya, dan kenapa tipe `institusi` serta `artikel` hampir
+selalu berakhir `UNVERIFIABLE`, ada di `references/status-sitasi.md`.
 
 ## Sumber mana yang boleh
 
