@@ -224,6 +224,13 @@ real headings were filled in — reading it as structure produces false findings
 `tests/` covers the scripts. It cannot test model behaviour — that needs an
 agent run.
 
+`sources.py` is the network layer and went untested longest, because
+`FakeClient` in `test_verify.py` stands in for it — which exercises the
+callers, not the code. `tests/test_sources.py` taps `urlopen` directly and
+covers the transport (404 vs failure, 429 backoff, cache, polite pool), the
+three metadata mappers, and the Crossref → OpenAlex → DataCite tiering.
+Six deliberate mutations were introduced to confirm it fails on each.
+
 `evals/` covers behaviour: nine cases, each targeting a failure whose answer can
 be **accidentally right**. A model that says "analisa is non-standard" without
 running the lookup gave the correct answer and still fails, because it guessed.
