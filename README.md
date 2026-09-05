@@ -112,12 +112,28 @@ memperkenalkan diri.
 - Boleh dikosongkan — verifikasi tetap jalan, hanya jauh lebih lambat.
 - Bacalah [Privasi dan data](#privasi-dan-data) sebelum memutuskan.
 
-### `kbbi_db_path` (opsional, kosongkan bila tidak punya)
+### `kbbi_db_path` (wajib untuk validasi bahasa)
 
-Jalur ke basis data SQLite KBBI lokal, dipakai untuk memeriksa kata baku. Basis
-datanya **tidak disertakan** plugin. Bila ingin, unduh dari
-[dyazincahya/KBBI-SQL-database](https://github.com/dyazincahya/KBBI-SQL-database),
-simpan di mana saja, lalu tunjuk jalurnya.
+Jalur ke basis data SQLite KBBI. Tanpa ini, kebakuan kata **tidak bisa
+diverifikasi** — dan plugin akan menolak menebaknya, bukan diam-diam melewatinya.
+
+Belum punya? Unduh dengan:
+
+```bash
+python3 <plugin>/scripts/setup_kbbi.py
+```
+
+Skrip itu mengambil KBBI Edisi IV (115.978 lema, ~26 MB), menormalkannya, dan
+memverifikasi hasilnya. `/skripsi-init` juga akan menawarkannya bila belum ada.
+
+> **Hak cipta.** Data kamusnya milik Badan Pengembangan dan Pembinaan Bahasa
+> (Kemendikbud); sumbernya menyatakan penggunaan komersial dilarang, tunduk pada
+> UU No. 28 Tahun 2014. Skrip ini tidak mendistribusikan ulang data itu — ia
+> mengunduhkannya atas namamu untuk skripsimu sendiri.
+>
+> Hanya kamus utama Edisi IV yang diambil. Tabel baku/tidak-baku, sinonim, dan
+> antonim di repositori yang sama **sebagian dihasilkan AI** dan sengaja tidak
+> diunduh.
 
 Mengubah keduanya kapan saja:
 
@@ -330,9 +346,26 @@ python3 <plugin>/scripts/search_literature.py "kata kunci" --since 2021 --oa --l
 python3 <plugin>/scripts/export_mendeley.py --format bibtex > pustaka.bib
 python3 <plugin>/scripts/export_mendeley.py --format ris > pustaka.ris
 
+# siapkan basis data KBBI (sekali saja)
+python3 <plugin>/scripts/setup_kbbi.py
+
 # periksa kata baku
 python3 <plugin>/scripts/kbbi_lookup.py --check "analisa,sistim,praktek"
 ```
+
+Keluaran pemeriksaan kebakuan menyebut bentuk yang benar, bukan sekadar menandai:
+
+```
+Diperiksa 3 kata; 3 bermasalah.
+  TIDAK BAKU  analisa -> pakai: analisis
+  TIDAK BAKU  sistim -> pakai: sistem
+  TIDAK BAKU  praktek -> pakai: praktik
+```
+
+**"Ada di KBBI" tidak berarti baku.** KBBI mencatat bentuk tidak baku sebagai
+lema tersendiri yang merujuk ke bentuk bakunya, jadi `analisa`, `praktek`, dan
+`obyek` semuanya *ada* di kamus. Plugin mendeteksi rujukan silang itu; pemeriksa
+yang hanya mengecek keberadaan kata akan meloloskan ketiganya.
 
 Tambahkan `--json` pada hampir semua skrip untuk keluaran yang bisa diolah.
 
@@ -381,6 +414,9 @@ Penting kamu tahu batasnya, supaya tidak salah bersandar padanya.
   penomoran halaman, field Mendeley, komentar, caption, daftar isi, referensi
   silang.
 - **Tidak memeriksa plagiarisme atau kemiripan.** Pakai perkakas kampus untuk itu.
+- **Pemeriksaan bahasa terbatas pada kebakuan lema.** Ia tidak menilai tata
+  kalimat, koherensi paragraf, atau ketepatan istilah dalam konteks. Untuk kasus
+  yang menentukan, KBBI Daring resmi tetap rujukannya.
 - **Tidak menulis skripsimu untukmu.** Ia menjaga disiplin bukti dan
   konsistensi; isi dan gagasannya tetap tanggung jawabmu.
 - **Tidak menjamin kelulusan.** Vonis `ready` berarti pemeriksaan otomatis

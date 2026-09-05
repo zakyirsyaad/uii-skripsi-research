@@ -127,6 +127,24 @@ is worse than a hook that misses one check. `guard_word_artifact.py` denies only
 Word suffixes and only when the path is absent from `.skripsi-word-authorized`;
 authorization is per-file, never blanket.
 
+## "Ada di KBBI" is not "baku"
+
+KBBI records **non-standard** forms as their own lemmas whose only definition is a
+cross-reference to the standard form — `analisa ? analisis`, `praktek Lihat
+praktik` (the source arrow `→` is already mangled to `?` upstream).
+
+A presence check therefore passes `analisa`, `praktek`, `obyek`, and `sistim`.
+`classify()` in `kbbi_lookup.py` exists for this: a lemma is non-standard only
+when **every** entry is a cross-reference, so a word like `bisa` — which has a
+real meaning alongside one — stays valid.
+
+Do not simplify this back to "found in dictionary = correct". That failure is
+worse than no check at all, because it grants false confidence.
+
+`setup_kbbi.py` downloads only `edisi-IV`. The `baku-nonbaku`, `sinonim`, and
+`antonim` datasets in the same repository are partly **AI-generated** and must
+never be treated as authoritative KBBI.
+
 ## Naming
 
 Skills, commands, and agents share **one namespace**. A skill directory and a

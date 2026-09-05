@@ -18,14 +18,35 @@ Siapkan proyek skripsi di direktori kerja saat ini.
 
    **Jangan tanyakan `mailto` maupun `kbbi_db_path`.** Keduanya setelan tingkat
    pengguna yang sudah ditanyakan sekali saat plugin dipasang, dan dibaca
-   otomatis dari konfigurasi plugin. Bila `audit_references.py` mengeluh
-   `mailto` kosong, arahkan ke `/plugin configure uii-skripsi-research` —
-   jangan menambahkannya ke `.skripsi.yaml`, dan jangan mengisinya sendiri dari
-   sumber mana pun.
-4. Isi frontmatter `references/thesis-context.md` dengan `project_id` yang sama.
-5. Validasi hasilnya:
+   otomatis dari konfigurasi plugin. Jangan menambahkannya ke `.skripsi.yaml`,
+   dan jangan mengisi `mailto` sendiri dari sumber mana pun.
+
+4. **Pastikan KBBI terpasang — init belum selesai tanpa ini.** Jalankan:
+
+   ```bash
+   python3 <plugin>/scripts/kbbi_lookup.py --check "analisa"
+   ```
+
+   Bila keluar dengan kode 2 (belum dikonfigurasi), hentikan langkah berikutnya
+   dan tawarkan mengunduhnya:
+
+   ```bash
+   python3 <plugin>/scripts/setup_kbbi.py
+   ```
+
+   Sampaikan lebih dulu bahwa data kamusnya milik Badan Pengembangan dan
+   Pembinaan Bahasa, penggunaan komersial dilarang, dan unduhan itu atas nama
+   pengguna sendiri. **Jangan jalankan dengan `--yes`** — biarkan pengguna yang
+   mengonfirmasi. Setelah selesai, arahkan ke
+   `/plugin configure uii-skripsi-research` untuk mengisi jalurnya.
+
+   Tanpa KBBI, kebakuan kata tidak bisa diverifikasi dan naskah berisiko tidak
+   sesuai standar. Bila pengguna menolak memasangnya, lanjutkan tetapi katakan
+   dengan jelas bahwa validasi bahasa tidak akan tersedia.
+5. Isi frontmatter `references/thesis-context.md` dengan `project_id` yang sama.
+6. Validasi hasilnya:
    `python3 ${CLAUDE_PLUGIN_ROOT}/scripts/audit_references.py`
-6. Laporkan apa yang dibuat dan apa langkah berikutnya.
+7. Laporkan apa yang dibuat, status KBBI, dan langkah berikutnya.
 
 Jangan mengisi keputusan, sumber, atau item terbuka apa pun. Ledger baru harus
 kosong sampai pengguna menetapkan isinya.

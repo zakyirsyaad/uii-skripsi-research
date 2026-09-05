@@ -1,6 +1,6 @@
 {
   "name": "uii-skripsi-research",
-  "version": "1.1.0",
+  "version": "1.2.0",
   "description": "Skripsi S1 Informatika UII: verifikasi sitasi ke Crossref/OpenAlex, pencarian literatur, audit naskah, dan kontinuitas konteks antar-sesi.",
   "author": {
     "name": "Local developer"
@@ -25,8 +25,8 @@
     },
     "kbbi_db_path": {
       "type": "string",
-      "title": "Jalur basis data SQLite KBBI (opsional)",
-      "description": "Hanya untuk memeriksa kata baku bahasa Indonesia. Basis datanya tidak disertakan plugin; kosongkan bila tidak punya.",
+      "title": "Jalur basis data SQLite KBBI (wajib untuk validasi bahasa)",
+      "description": "Wajib agar kebakuan kata bisa diperiksa, bukan ditebak. Belum punya? Jalankan scripts/setup_kbbi.py untuk mengunduh KBBI Edisi IV. Data kamusnya milik Badan Pengembangan dan Pembinaan Bahasa; penggunaan komersial dilarang.",
       "default": ""
     }
   }

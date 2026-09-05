@@ -15,6 +15,7 @@ from __future__ import annotations
 
 import argparse
 import json
+import re
 import sqlite3
 import sys
 from pathlib import Path
@@ -25,6 +26,17 @@ from skripsi.config import load_config  # noqa: E402
 
 # Skema hulu (dyazincahya/KBBI-SQL-database) memakai tabel `dictionary`
 # berkolom word/arti/type, tapi salinan lokal bisa berbeda — jadi diintrospeksi.
+# KBBI mencatat bentuk TIDAK BAKU sebagai lema tersendiri yang hanya merujuk ke
+# bentuk bakunya — "ana·li·sa ? analisis", "prak.tek Lihat praktik". Karena itu
+# "ada di kamus" TIDAK berarti baku; tanpa mendeteksi rujukan silang ini, sebuah
+# pemeriksa justru meloloskan analisa, praktek, obyek, dan sistim.
+#
+# Tanda panah aslinya (→) hilang menjadi "?" saat data ini di-scrape dari KBBI,
+# jadi keduanya diterima.
+_CROSSREF = re.compile(
+    r"^\S+(?:\s*/[^/]*/)?\s*(?:\?|→|->)\s*([\w'-]+)\s*$", re.UNICODE)
+_LIHAT = re.compile(r"^\S+(?:\s*/[^/]*/)?\s*Lihat\s+([\w'-]+)\s*$", re.I | re.UNICODE)
+
 WORD_COLUMNS = ("word", "kata", "lema", "entri")
 MEANING_COLUMNS = ("arti", "meaning", "definisi", "makna")
 TYPE_COLUMNS = ("type", "jenis", "kelas", "kelas_kata")
@@ -50,6 +62,32 @@ def discover_schema(conn: sqlite3.Connection) -> tuple[str, str, str, str]:
         f"Tidak menemukan tabel dengan kolom kata. Tabel tersedia: {', '.join(tables)}")
 
 
+def standard_form(arti: str) -> str | None:
+    """Bila definisi ini hanya rujukan silang, kembalikan bentuk bakunya."""
+    for pattern in (_CROSSREF, _LIHAT):
+        m = pattern.match((arti or "").strip())
+        if m:
+            return m.group(1)
+    return None
+
+
+def classify(hits: list[dict]) -> tuple[str, str]:
+    """Kembalikan (status, bentuk_baku).
+
+    status: `baku` | `tidak_baku` | `tidak_ada`
+
+    Sebuah lema dinilai tidak baku hanya bila SELURUH entrinya berupa rujukan
+    silang. Satu entri berdefinisi sungguhan sudah cukup membuatnya sah — kata
+    seperti `bisa` punya makna sendiri di samping rujukan.
+    """
+    if not hits:
+        return "tidak_ada", ""
+    forms = [standard_form(h["arti"]) for h in hits]
+    if all(forms):
+        return "tidak_baku", forms[0] or ""
+    return "baku", ""
+
+
 def lookup(conn, schema, word: str, exact: bool = True) -> list[dict]:
     table, wcol, mcol, tcol = schema
     select = [f'"{wcol}" AS kata']
@@ -57,8 +95,8 @@ def lookup(conn, schema, word: str, exact: bool = True) -> list[dict]:
     select.append(f'"{tcol}" AS jenis' if tcol else "'' AS jenis")
     op, value = ("=", word) if exact else ("LIKE", f"{word}%")
     rows = conn.execute(
-        f'SELECT {", ".join(select)} FROM "{table}" WHERE lower("{wcol}") {op} lower(?) '
-        f"LIMIT 25", (value,),
+        f'SELECT {", ".join(select)} FROM "{table}" '
+        f'WHERE lower(trim("{wcol}")) {op} lower(?) LIMIT 25', (value,),
     ).fetchall()
     return [{"kata": r[0], "arti": r[1], "jenis": r[2]} for r in rows]
 
@@ -79,8 +117,13 @@ def main() -> int:
     cfg = load_config()
     db_path = Path(args.db).expanduser() if args.db else cfg.resolved_kbbi_path()
     if db_path is None:
-        print("Basis data KBBI belum dikonfigurasi. Isi `kbbi_db_path` di "
-              ".skripsi.yaml, atau berikan --db.", file=sys.stderr)
+        print(
+            "KBBI belum dikonfigurasi, jadi kebakuan kata TIDAK BISA diverifikasi.\n"
+            "Jangan menyimpulkan baku/tidak-baku dari ingatan — periksa manual di "
+            "https://kbbi.kemdikbud.go.id dan tandai sebagai belum terverifikasi.\n"
+            "Untuk mengaktifkan: /plugin configure uii-skripsi-research "
+            "(isi kbbi_db_path), atau berikan --db.",
+            file=sys.stderr)
         return 2
     if not db_path.is_file():
         print(f"Basis data KBBI tidak ditemukan: {db_path}", file=sys.stderr)
@@ -103,15 +146,25 @@ def main() -> int:
         return 0 if hits else 1
 
     words = [w.strip() for w in args.check.split(",") if w.strip()]
-    missing = [w for w in words if not lookup(conn, schema, w)]
+    hasil = []
+    for w in words:
+        status, baku = classify(lookup(conn, schema, w))
+        hasil.append({"kata": w, "status": status, "bentuk_baku": baku})
+
+    bermasalah = [h for h in hasil if h["status"] != "baku"]
     if args.json:
-        print(json.dumps({"diperiksa": words, "tidak_ditemukan": missing},
-                         indent=2, ensure_ascii=False))
+        print(json.dumps({"hasil": hasil}, indent=2, ensure_ascii=False))
     else:
-        print(f"Diperiksa {len(words)} kata; {len(missing)} tidak ditemukan.")
-        for w in missing:
-            print(f"  tidak baku / tidak ada: {w}")
-    return 1 if missing else 0
+        print(f"Diperiksa {len(words)} kata; {len(bermasalah)} bermasalah.")
+        for h in hasil:
+            if h["status"] == "tidak_baku":
+                print(f"  TIDAK BAKU  {h['kata']} -> pakai: {h['bentuk_baku']}")
+            elif h["status"] == "tidak_ada":
+                print(f"  TIDAK ADA   {h['kata']} (bukan lema KBBI; "
+                      "bisa jadi salah eja atau istilah asing)")
+        if not bermasalah:
+            print("  Semua baku.")
+    return 1 if bermasalah else 0
 
 
 if __name__ == "__main__":
