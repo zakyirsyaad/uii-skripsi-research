@@ -269,6 +269,11 @@ Batas kebaruan (`recency_years`, default 5 tahun) berlaku untuk bukti empiris.
 `buku` dan `standar` dikecualikan, karena teori mendasar dan standar resmi tidak
 kedaluwarsa seperti data empiris.
 
+**Gaya sitasi APA 6th**, bukan IEEE. Template resmi Informatika UII
+menetapkannya eksplisit, dan `templates/skripsi.yaml` sudah memakai itu sebagai
+bawaan. Template juga mewajibkan **setiap entri daftar pustaka disitasi di dalam
+teks** — sumber yang tercatat tapi tak pernah dirujuk adalah temuan.
+
 **Repositori DSpace UII bukan sumber.** Ia hanya rujukan untuk memeriksa nama
 bab, urutan bagian, dan cara metode disajikan. Tidak pernah masuk sitasi,
 catatan kaki, daftar pustaka, atau tinjauan pustaka.

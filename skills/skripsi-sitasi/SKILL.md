@@ -76,6 +76,19 @@ halaman tanpa penanggung jawab redaksi. Terima artikel hanya bila punya
 penerbit bernama, penulis atau redaksi yang bertanggung jawab, tanggal terbit,
 URL stabil, dan hubungan langsung dengan klaim.
 
+## Gaya sitasi: APA 6th
+
+Template resmi Informatika UII menetapkan **APA 6th**, bukan IEEE. Ini berlaku
+pada template 2020 maupun 2025. Jangan menawarkan gaya lain kecuali pembimbing
+menyatakannya secara eksplisit — dan bila itu terjadi, catat sebagai keputusan
+di ledger beserta provenance-nya.
+
+**Setiap entri daftar pustaka wajib disitasi di dalam teks.** Sumber yang
+tercatat di `references/sources.md` tapi tidak pernah dirujuk di naskah adalah
+temuan yang harus dilaporkan, bukan cadangan yang tidak apa-apa dibiarkan.
+`audit_references.py` tidak bisa memeriksa ini sendiri — ia tidak membaca
+naskahmu — jadi periksalah saat audit bab.
+
 ## DSpace UII bukan sumber
 
 Repositori DSpace UII (`Undergraduate Thesis → Faculty of Industrial Technology

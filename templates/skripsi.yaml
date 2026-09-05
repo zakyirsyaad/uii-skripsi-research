@@ -20,7 +20,10 @@ recency_years: 5
 # Batas absolut dihitung floor(total_sumber * rasio).
 article_cap_ratio: 0.20
 
-citation_style: IEEE
+# APA 6th. Ini BUKAN pilihan bebas: template resmi Informatika UII menyatakan
+# "Jangan lupa gunakan format APA6th" — berlaku pada template 2020 (Indonesia)
+# maupun 2025 (International Program).
+citation_style: APA6
 
 cache_dir: .skripsi-cache
 

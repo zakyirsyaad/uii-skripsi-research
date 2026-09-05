@@ -3,6 +3,47 @@
 Dibaca saat menyusun kerangka bab, menimbang penamaan bagian, atau mencari
 contoh cara sebuah metode disajikan dalam skripsi Informatika UII.
 
+## Template resmi adalah otoritasnya
+
+Sampel di DSpace menunjukkan bagaimana mahasiswa lain menafsirkan aturan.
+**Template resmi menetapkan aturannya.** Bila keduanya berbeda, template menang.
+
+Unduh dari <https://informatics.uii.ac.id/unduh/> (tab Tugas Akhir):
+
+- Template Tugas Akhir (Skripsi) versi 2020 — program reguler, bahasa Indonesia
+- IP Informatics Final Thesis Template Version 2025 — International Program
+
+### Yang ditetapkan template
+
+| Hal | Aturan |
+|---|---|
+| Gaya sitasi | **APA 6th**, disebut eksplisit di kedua template |
+| Reference manager | Mendeley, Qiqqa, Zotero, DocEar, atau fitur References MS Word |
+| Font isi | Times New Roman, minimum 11 |
+| Kode dan pseudocode | Courier New minimum 9, spasi 1, diperlakukan sebagai gambar |
+| Penomoran subbab | 2 angka; anak subbab 3 angka; setelah itu huruf kapital tebal |
+| Judul gambar dan tabel | Rata tengah, font normal — **bukan** tebal |
+| Paragraf | Baris pertama menjorok 1 cm, rata kanan-kiri |
+| Lampiran | Diberi huruf kapital (LAMPIRAN A, B, …); hanya kata "LAMPIRAN" masuk daftar isi |
+
+**Setiap entri di daftar pustaka wajib disitasi di dalam teks.** Template
+menyatakannya eksplisit. Daftar pustaka yang memuat sumber yang tidak pernah
+dirujuk adalah temuan, bukan kelebihan.
+
+### Halaman awal yang diminta
+
+Halaman Judul · Pengesahan Dosen Pembimbing · Pengesahan Dosen Penguji ·
+Pernyataan Keaslian · Persembahan · Moto · Kata Pengantar · **Glosarium** ·
+Daftar Isi · Daftar Tabel · Daftar Gambar
+
+Glosarium sering terlewat karena tidak semua contoh di DSpace memakainya.
+
+### Jumlah bab
+
+Template menyediakan slot **BAB I sampai BAB VI**, tanpa mewajibkan jumlahnya —
+judul babnya pun kosong untuk diisi sendiri. Praktik yang terlihat di DSpace
+memakai lima bab. Enam bab sah bila memang dibutuhkan.
+
 ## Cara memakai DSpace UII
 
 Koleksi yang relevan: `Undergraduate Thesis → Faculty of Industrial Technology

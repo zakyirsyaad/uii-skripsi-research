@@ -29,19 +29,23 @@ Setelah skrip bersih, periksa yang tidak bisa dihitung mesin:
    bukan disamarkan dengan sitasi yang menyerempet.
 2. **Sitasi mendukung klaimnya.** Sumbernya nyata (sudah dipastikan skrip), tapi
    apakah bagian yang ditunjuk benar menopang kalimat itu?
-3. **Keselarasan rantai.** Rumusan masalah → pertanyaan penelitian → tujuan →
+3. **Tiap sumber benar-benar dipakai.** Bandingkan `references/sources.md`
+   dengan sitasi di naskah. Entri yang tidak pernah dirujuk melanggar aturan
+   template resmi dan harus dibuang atau dipakai. Skrip tidak bisa memeriksa
+   ini — ia tidak membaca naskahmu.
+4. **Keselarasan rantai.** Rumusan masalah → pertanyaan penelitian → tujuan →
    metodologi → implementasi → evaluasi → kesimpulan. Setiap pertanyaan
    terjawab? Setiap tujuan tercapai atau dinyatakan tidak tercapai?
-4. **Konsistensi terminologi.** Satu konsep satu istilah, sepanjang naskah.
-5. **Status unit drafting.** Ada revisi yang belum selesai? Untuk materi lama
+5. **Konsistensi terminologi.** Satu konsep satu istilah, sepanjang naskah.
+6. **Status unit drafting.** Ada revisi yang belum selesai? Untuk materi lama
    yang ditulis borongan tanpa riwayat status, laporkan status "tidak diketahui"
    hanya bila itu menyembunyikan revisi yang belum tuntas — kalau tidak,
    perlakukan sebagai catatan, bukan penghalang.
-6. **Keputusan cocok dengan ledger.** Yang tertulis di naskah sesuai keputusan
+7. **Keputusan cocok dengan ledger.** Yang tertulis di naskah sesuai keputusan
    `approved` terakhir, bukan yang sudah `superseded`.
-7. **Konsistensi internal Markdown.** Hierarki heading, penomoran tabel dan
+8. **Konsistensi internal Markdown.** Hierarki heading, penomoran tabel dan
    gambar, referensi silang, dan entri daftar pustaka.
-8. **Celah yang harus dinyatakan.** Teks lengkap yang tidak bisa diakses,
+9. **Celah yang harus dinyatakan.** Teks lengkap yang tidak bisa diakses,
    metadata yang belum tuntas, dan status sinkronisasi Word.
 
 ## Vonis
