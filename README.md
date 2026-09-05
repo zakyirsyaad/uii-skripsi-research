@@ -61,8 +61,17 @@ OpenAlex, dan DataCite untuk memastikan karyanya ada.
 - **Python 3.9 atau lebih baru**, ada di PATH.
 - **Git for Windows (Git Bash)**, hanya bagi pengguna Windows.
 
-Tidak ada dependensi pihak ketiga. Tidak perlu `pip install`. Seluruh skrip
-memakai pustaka standar Python.
+Seluruh perkakas inti memakai pustaka standar Python saja, jadi tidak perlu
+`pip install`.
+
+Satu pengecualian: `analisis_dspace.py` butuh `pypdf`, karena membaca PDF dari
+pustaka standar tidak realistis. Skrip itu opsional dan tidak dipakai perkakas
+lain. Bila `pypdf` belum ada, skrip berhenti sambil menyebut perintah yang perlu
+dijalankan:
+
+```bash
+uv run --with pypdf analisis_dspace.py <berkas.pdf>
+```
 
 Cek Python-mu:
 
@@ -161,9 +170,10 @@ Setelah itu isi beberapa sumber di `references/sources.md`, lalu:
 /skripsi-cek
 ```
 
-Plugin menghubungi Crossref, OpenAlex, dan DataCite untuk tiap sumber,
-menuliskan status verifikasinya kembali ke berkas, dan melaporkan kuota sumber
-non-akademik.
+Plugin menghubungi Crossref, OpenAlex, dan DataCite untuk sumber yang memang
+mereka indeks, menuliskan status verifikasinya kembali ke berkas, dan melaporkan
+kuota sumber non-akademik. Sumber `institusi` dan `artikel` tanpa DOI tidak
+dikirim ke sana sama sekali; lihat [Enam status sitasi](#enam-status-sitasi).
 
 ---
 
@@ -330,7 +340,7 @@ dari sumbernya.
 | `NOT_FOUND` | Dicari di tempat yang mengindeksnya, tidak ada | **Dugaan kuat sitasi fiktif.** Jangan pakai |
 | `RETRACTED` | Karya sudah ditarik | Buang, dan periksa klaim yang bersandar padanya |
 | `UNVERIFIED` | Jaringan gagal | Belum sempat dicari. Ulangi nanti |
-| `UNVERIFIABLE` | Jenis sumbernya tidak diindeks | Periksa manual: tautan hidup, penerbit bernama, tanggal ada |
+| `UNVERIFIABLE` | Jenis sumbernya tidak diindeks | Skrip mengecek tautannya masih hidup; penerbit dan tanggal periksa sendiri |
 
 Tiga status terakhir sering tertukar padahal artinya jauh berbeda. `NOT_FOUND`
 adalah temuan: pencarian sudah dilakukan di tempat yang tepat dan karyanya tidak
@@ -365,11 +375,12 @@ echo "naskah/bab3.docx" >> .skripsi-word-authorized
 
 Izinnya per berkas, bukan menyeluruh. Berkas `.docx` lain tetap terblokir.
 
-**Batasnya.** Hook ini menjaga operasi tulis-berkas (`Write`, `Edit`), bukan
-Bash. Membongkar `.docx` lewat `unzip`, menyunting XML-nya, lalu memampatkan
-ulang tidak dicegat. Aturan untuk tidak melakukannya ada di skill, dan model
-mematuhinya saat diuji, tapi hook ini membuat kelalaian sulit dan bukan
-pengakalan mustahil. Jangan perlakukan sebagai jaminan mutlak.
+**Batasnya.** Hook ini menjaga operasi tulis-berkas (`Write`, `Edit`,
+`NotebookEdit`), bukan Bash. Membongkar `.docx` lewat `unzip`, menyunting
+XML-nya, lalu memampatkan ulang tidak dicegat. Aturan untuk tidak
+melakukannya ada di skill, dan model mematuhinya saat diuji, tapi hook ini
+membuat kelalaian sulit dan bukan pengakalan mustahil. Jangan perlakukan
+sebagai jaminan mutlak.
 
 ---
 
@@ -443,8 +454,9 @@ Restart Claude Code. Perubahan plugin hanya berlaku di sesi baru. Lalu cek
 `/plugin configure uii-skripsi-research`.
 
 **Sumber BPS atau artikel berita ditandai `UNVERIFIABLE`.**
-Itu normal. Basis data sitasi ilmiah tidak mengindeks jenis sumber itu. Periksa
-manual bahwa tautannya hidup dan penerbitnya bernama.
+Itu normal. Basis data sitasi ilmiah tidak mengindeks jenis sumber itu. Skrip
+sudah mengecek tautannya masih hidup dan melaporkannya; yang perlu kamu periksa
+sendiri adalah penerbit bernama dan tanggal terbit.
 
 **Hook tidak jalan di Windows.**
 Pastikan Git for Windows (Git Bash) terpasang dan Python ada di PATH. Bila
@@ -500,11 +512,16 @@ isinya temuan, bukan komitmen. Itulah yang `--write` lakukan.
 ## Privasi dan data
 
 - **`mailto` benar-benar dikirim keluar**, ke `api.crossref.org`,
-  `api.openalex.org`, dan `api.datacite.org`, sebagai parameter URL dan header
-  `User-Agent` di setiap permintaan. Ketiganya lembaga akademik nirlaba, tapi
-  alamatmu tetap meninggalkan mesinmu. Kosongkan bila kamu keberatan.
+  `api.openalex.org`, dan `api.datacite.org`. Crossref dan OpenAlex menerimanya
+  sebagai parameter URL sekaligus header `User-Agent`; DataCite hanya lewat
+  header. Ketiganya lembaga akademik nirlaba, tapi alamatmu tetap meninggalkan
+  mesinmu. Kosongkan bila kamu keberatan.
 - **Judul dan penulis sumber yang kamu verifikasi juga dikirim** ke API itu.
   Memang begitu cara kerjanya.
+- **Untuk sumber `institusi` dan `artikel`, plugin menghubungi situs sumbernya
+  langsung**, misalnya bps.go.id atau portal berita, dengan permintaan `HEAD`
+  untuk mengecek tautannya masih hidup. Situs itu melihat kunjungan dari
+  mesinmu. `mailto` tidak ikut dikirim ke sana.
 - **Naskah skripsimu tidak pernah dikirim ke mana pun** oleh skrip plugin ini.
 - **Respons API disimpan di cache lokal** `.skripsi-cache/` supaya API tidak
   dihubungi berulang. Tambahkan ke `.gitignore`.

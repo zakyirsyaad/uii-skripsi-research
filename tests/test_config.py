@@ -81,6 +81,23 @@ class TestProjectScopedSettings(ConfigCase):
         self.assertEqual(2, cfg.article_cap(12))
         self.assertEqual(0, cfg.article_cap(4))
 
+    def test_gaya_sitasi_bawaan_apa_bukan_ieee(self):
+        """Template resmi Informatika UII mewajibkan APA 6th.
+
+        Bawaannya pernah IEEE selama delapan versi sementara template, README,
+        dan skill semuanya menyatakan APA. Proyek yang `.skripsi.yaml`-nya tidak
+        memuat kunci ini mendarat di gaya yang justru dilarang template, dan
+        `audit_naskah.py` memperingatkan bawaan pluginnya sendiri.
+        """
+        self.write(MINIMAL)
+        self.assertEqual("APA6", load_config(self.root).citation_style)
+
+    def test_templat_yang_dikirim_memakai_gaya_yang_sama(self):
+        """Templat dan bawaan skrip tidak boleh berbeda gaya sitasi."""
+        root = Path(__file__).resolve().parents[1]
+        templat = (root / "templates" / "skripsi.yaml").read_text(encoding="utf-8")
+        self.assertIn("citation_style: APA6", templat)
+
     def test_broken_config_raises_instead_of_silently_defaulting(self):
         """Config rusak tidak boleh diam-diam jadi default — itu menyembunyikan galat."""
         self.write("project_id: uji\n  nested: tidak-didukung\n")

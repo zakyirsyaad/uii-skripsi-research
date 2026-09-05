@@ -28,6 +28,9 @@ USER_SCOPED = {
     "kbbi_db_path": "CLAUDE_PLUGIN_OPTION_KBBI_DB_PATH",
 }
 
+# `citation_style` bawaannya APA6, bukan pilihan bebas: template resmi
+# Informatika UII menetapkannya, dan proyek yang `.skripsi.yaml`-nya tidak
+# memuat kunci ini harus tetap mendarat di gaya yang benar.
 DEFAULTS = {
     "schema_version": 1,
     "project_id": "",
@@ -35,7 +38,7 @@ DEFAULTS = {
     "kbbi_db_path": "",
     "recency_years": 5,
     "article_cap_ratio": 0.20,
-    "citation_style": "IEEE",
+    "citation_style": "APA6",
     "cache_dir": ".skripsi-cache",
 }
 
@@ -48,7 +51,7 @@ class Config:
     kbbi_db_path: str = ""
     recency_years: int = 5
     article_cap_ratio: float = 0.20
-    citation_style: str = "IEEE"
+    citation_style: str = "APA6"
     cache_dir: str = ".skripsi-cache"
     root: Path = field(default_factory=Path.cwd)
     source_path: Path | None = None

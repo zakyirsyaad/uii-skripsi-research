@@ -262,6 +262,14 @@ user's setting.
 `.skripsi.yaml`. Everything else there (`project_id`, `recency_years`,
 `article_cap_ratio`, `citation_style`) is genuinely per-project.
 
+`citation_style` defaults to `APA6`, and that is not a free choice: the
+official UII template mandates APA 6th. The default sat at `IEEE` for eight
+versions while the shipped template, the README, and `skripsi-sitasi` all said
+APA — so any project whose `.skripsi.yaml` omitted the key landed on the one
+style the template forbids, and `audit_naskah.py` warned against the plugin's
+own default. Nothing tested it, which is why it survived. `tests/test_config.py`
+now pins both the default and the shipped template to the same value.
+
 ## Hooks must survive Windows
 
 `hooks.json` never invokes `python3` directly. It calls `hooks/run-hook.sh` with
