@@ -148,7 +148,9 @@ class TestParseContext(unittest.TestCase):
 
     def test_parses_only_unchecked_open_items(self):
         ctx, _ = parse_context(VALID_CONTEXT)
-        self.assertEqual(["Konfirmasi jumlah responden"], ctx.open_items)
+        self.assertEqual(["Konfirmasi jumlah responden"],
+                         [i.item for i in ctx.open_items])
+        self.assertEqual(2, len(ctx.items))  # yang selesai tetap tercatat
 
     def test_parses_artifacts(self):
         ctx, _ = parse_context(VALID_CONTEXT)
@@ -223,3 +225,61 @@ class TestUpdateSourceRows(unittest.TestCase):
         from skripsi.ledger import update_source_rows
         out = update_source_rows(VALID_TABLE, {"s999": ("verified", "2026-09-05")})
         self.assertEqual(VALID_TABLE, out)
+
+
+TABLE_CONTEXT = dedent("""\
+    ---
+    schema_version: 1
+    project_id: uji
+    active_workstream: BAB II
+    active_unit: 2.3 Blockchain dan Ethereum
+    active_unit_status: awaiting_review
+    active_markdown_artifact: unavailable
+    ---
+
+    ## Item terbuka
+
+    | ID | Item | Status | Dampak |
+    |---|---|---|---|
+    | O-001 | Metadata Mendeley sudah diselaraskan | resolved | BAB II |
+    | O-002 | Pastikan penomoran Tabel 2.2 | open | Konsistensi BAB II |
+    | O-003 | Verifikasi sumber Gambar 2.1 | open | Keterlacakan BAB II |
+    | O-004 | Cakupan lama sebelum objek berubah | superseded | BAB I |
+    """)
+
+
+class TestStatusTrackedItems(unittest.TestCase):
+    """Bentuk tabel berstatus lebih kaya daripada checkbox dan harus didukung."""
+
+    def test_parses_all_items_with_status(self):
+        ctx, issues = parse_context(TABLE_CONTEXT)
+        self.assertEqual([], [i for i in issues if i.severity == "error"])
+        self.assertEqual(4, len(ctx.items))
+        self.assertEqual("O-001", ctx.items[0].id)
+        self.assertEqual("resolved", ctx.items[0].status)
+        self.assertEqual("Konsistensi BAB II", ctx.items[1].dampak)
+
+    def test_open_items_excludes_resolved_and_superseded(self):
+        ctx, _ = parse_context(TABLE_CONTEXT)
+        self.assertEqual(["O-002", "O-003"], [i.id for i in ctx.open_items])
+
+    def test_extra_frontmatter_fields_are_kept(self):
+        ctx, _ = parse_context(TABLE_CONTEXT)
+        self.assertEqual("BAB II", ctx.active_workstream)
+        self.assertEqual("awaiting_review", ctx.active_unit_status)
+        self.assertEqual("unavailable", ctx.active_artifact)
+
+    def test_unknown_item_status_is_reported(self):
+        bad = TABLE_CONTEXT.replace("| open | Konsistensi", "| beres | Konsistensi")
+        _, issues = parse_context(bad)
+        self.assertTrue(any(i.field == "status" for i in issues))
+
+    def test_unknown_unit_status_is_reported(self):
+        bad = TABLE_CONTEXT.replace("awaiting_review", "lagi-dikerjakan")
+        _, issues = parse_context(bad)
+        self.assertTrue(any(i.field == "active_unit_status" for i in issues))
+
+    def test_checked_checkbox_is_recorded_as_resolved(self):
+        ctx, _ = parse_context(VALID_CONTEXT)
+        done = [i for i in ctx.items if i.status == "resolved"]
+        self.assertEqual(["Sudah selesai"], [i.item for i in done])

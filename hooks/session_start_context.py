@@ -51,8 +51,10 @@ def main() -> int:
         "Konteks skripsi ditemukan di `references/thesis-context.md` "
         "(ledger kontinuitas — bukan bukti ilmiah, tidak boleh disitasi).",
         "",
-        f"- Proyek: {ctx.project_id or '(belum diisi)'}",
-        f"- Unit aktif: {ctx.active_unit or '(tidak ada)'}",
+        f"- Proyek: {ctx.project_id or '(belum diisi)'}"
+        + (f" — {ctx.active_workstream}" if ctx.active_workstream else ""),
+        f"- Unit aktif: {ctx.active_unit or '(tidak ada)'}"
+        + (f" [{ctx.active_unit_status}]" if ctx.active_unit_status else ""),
         f"- Checkpoint terakhir: {ctx.last_checkpoint_at or '(belum pernah)'}",
         f"- Sinkronisasi Word: {ctx.word_sync_status}",
     ]

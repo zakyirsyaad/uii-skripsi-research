@@ -25,6 +25,10 @@ DECISION_COLUMNS = [
     "id", "kind", "pernyataan", "status", "provenance", "scope", "pengganti",
 ]
 ARTIFACT_COLUMNS = ["peran", "path"]
+# Item terbuka boleh berupa tabel berstatus, bukan sekadar checkbox. Bentuk tabel
+# ini lebih kaya — ia membedakan yang selesai dari yang digantikan, dan mencatat
+# dampaknya — jadi didukung sebagai warga kelas satu, bukan sekadar kompatibilitas.
+ITEM_COLUMNS = ["id", "item", "status", "dampak"]
 
 ACADEMIC_TYPES = {"jurnal", "prosiding", "buku", "standar", "institusi"}
 ARTICLE_TYPES = {"artikel"}
@@ -35,6 +39,8 @@ VERIFY_STATES = {"verified", "unverified", "unverifiable", "mismatch",
 DECISION_KINDS = {"factual_claim", "user_decision", "assistant_proposal", "inference"}
 DECISION_STATES = {"proposed", "approved", "rejected", "superseded", "unconfirmed"}
 WORD_SYNC_STATES = {"unknown", "markdown_newer", "word_newer", "in_sync"}
+ITEM_STATES = {"open", "resolved", "superseded"}
+UNIT_STATES = {"draft", "awaiting_review", "approved", "revision_requested", "superseded"}
 
 _ISO_DATE = re.compile(r"^\d{4}-\d{2}-\d{2}$")
 _SEPARATOR_ROW = re.compile(r"^\s*\|[\s:|-]+\|\s*$")
@@ -94,6 +100,22 @@ class Decision:
 
 
 @dataclass
+class OpenItem:
+    id: str = ""
+    item: str = ""
+    status: str = "open"
+    dampak: str = ""
+    line: int = 0
+
+    @property
+    def is_open(self) -> bool:
+        return self.status == "open"
+
+    def __str__(self) -> str:
+        return f"[{self.id}] {self.item}" if self.id else self.item
+
+
+@dataclass
 class ThesisContext:
     schema_version: int = 1
     project_id: str = ""
@@ -102,13 +124,20 @@ class ThesisContext:
     word_sync_status: str = "unknown"
     active_unit: str = ""
     active_artifact: str = ""
+    active_workstream: str = ""
+    active_unit_status: str = ""
     decisions: list[Decision] = field(default_factory=list)
-    open_items: list[str] = field(default_factory=list)
+    items: list[OpenItem] = field(default_factory=list)
     artifacts: dict[str, str] = field(default_factory=dict)
 
     @property
     def approved_decisions(self) -> list[Decision]:
         return [d for d in self.decisions if d.status == "approved"]
+
+    @property
+    def open_items(self) -> list[OpenItem]:
+        """Hanya yang benar-benar belum selesai — bukan yang resolved/superseded."""
+        return [i for i in self.items if i.is_open]
 
 
 # --------------------------------------------------------------------------
@@ -310,7 +339,10 @@ def parse_context(text: str) -> tuple[ThesisContext, list[Issue]]:
         last_checkpoint_source=str(meta.get("last_checkpoint_source") or ""),
         word_sync_status=str(meta.get("word_sync_status") or "unknown"),
         active_unit=str(meta.get("active_unit") or ""),
-        active_artifact=str(meta.get("active_artifact") or ""),
+        active_artifact=str(meta.get("active_artifact")
+                           or meta.get("active_markdown_artifact") or ""),
+        active_workstream=str(meta.get("active_workstream") or ""),
+        active_unit_status=str(meta.get("active_unit_status") or ""),
     )
 
     if meta and not ctx.project_id:
@@ -381,10 +413,42 @@ def parse_context(text: str) -> tuple[ThesisContext, list[Issue]]:
     elif any(_looks_like_table_header(ln, DECISION_COLUMNS) for ln in lines):
         issues.append(_column_issue(lines, DECISION_COLUMNS, "keputusan"))
 
-    for line in lines:
-        m = re.match(r"^\s*[-*]\s*\[ \]\s+(.+?)\s*$", line)
-        if m:
-            ctx.open_items.append(m.group(1))
+    if ctx.active_unit_status and ctx.active_unit_status not in UNIT_STATES:
+        issues.append(Issue(
+            1, "active_unit_status",
+            f"Status unit tidak dikenal: {ctx.active_unit_status!r}. "
+            f"Pilih: {', '.join(sorted(UNIT_STATES))}.",
+        ))
+
+    # Bentuk tabel lebih dulu; bila tidak ada, jatuh ke checkbox sederhana.
+    found = _find_table(lines, ITEM_COLUMNS)
+    if found is not None:
+        header_idx, _ = found
+        for lineno, cells in _table_rows(lines, header_idx, len(ITEM_COLUMNS)):
+            if len(cells) != len(ITEM_COLUMNS):
+                issues.append(Issue(
+                    lineno, "row",
+                    f"Baris item punya {len(cells)} kolom, "
+                    f"seharusnya {len(ITEM_COLUMNS)}.",
+                ))
+                continue
+            row = dict(zip(ITEM_COLUMNS, cells))
+            item = OpenItem(line=lineno, **row)
+            if item.status not in ITEM_STATES:
+                issues.append(Issue(
+                    lineno, "status",
+                    f"Status item tidak dikenal: {item.status!r}. "
+                    f"Pilih: {', '.join(sorted(ITEM_STATES))}.",
+                ))
+            ctx.items.append(item)
+    else:
+        for lineno, line in enumerate(lines, start=1):
+            m = re.match(r"^\s*[-*]\s*\[([ xX])\]\s+(.+?)\s*$", line)
+            if m:
+                ctx.items.append(OpenItem(
+                    item=m.group(2), line=lineno,
+                    status="open" if m.group(1) == " " else "resolved",
+                ))
 
     found = _find_table(lines, ARTIFACT_COLUMNS)
     if found is not None:

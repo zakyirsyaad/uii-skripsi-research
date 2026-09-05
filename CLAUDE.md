@@ -92,6 +92,13 @@ them anywhere. That forces the parsers to be strict and to report line numbers.
   Missing tables are valid (a new ledger has no decisions); a missing sources
   table is an error. That asymmetry is intentional.
 
+  Open items accept **two shapes**: a status table (`ID | Item | Status | Dampak`,
+  statuses `open`/`resolved`/`superseded`) or plain `- [ ]` checkboxes. The table
+  came from a real ledger that predates this plugin and is strictly richer — it
+  distinguishes resolved from superseded and records impact. `ctx.open_items`
+  filters to `open`; `ctx.items` keeps everything, because a resolved item is
+  history worth keeping, not noise.
+
 Cells escape pipes as `\|`; `_split_row`/`_join_row` round-trip this. Dates are
 ISO `YYYY-MM-DD` everywhere.
 
