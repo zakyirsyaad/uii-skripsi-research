@@ -22,7 +22,7 @@ def isi(*jalur: str) -> str:
 class TestStrukturEval(unittest.TestCase):
     def test_setiap_kasus_punya_prompt_dan_grader(self):
         kasus = [d for d in EVALS.iterdir() if d.is_dir() and d.name != "results"]
-        self.assertGreaterEqual(len(kasus), 8, "suite eval menyusut")
+        self.assertGreaterEqual(len(kasus), 9, "suite eval menyusut")
         for d in kasus:
             self.assertTrue((d / "prompt.md").is_file(), f"{d.name}: prompt.md hilang")
             grader = list((d / "graders").glob("*.md")) if (d / "graders").is_dir() else []
@@ -115,6 +115,7 @@ class TestSetiapKasusPunyaPenjaga(unittest.TestCase):
             "setuju-paragraf-bukan-verifikasi": "persetujuan_kata_bukan_verifikasi_klaim",
             "word-tidak-ditulisi": "word_tidak_ditulisi_secara_bawaan",
             "metode-dari-aktivitas": "metode_dari_aktivitas_bukan_judul",
+            "ledger-tidak-ditulisi-sendiri": "baris_baru_butuh_permintaan_eksplisit",
         }
         for nama in kasus:
             self.assertIn(nama, petakan, f"kasus '{nama}' belum punya tes kontrak")

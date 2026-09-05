@@ -37,6 +37,7 @@ menjawab benar.
 | `setuju-paragraf-bukan-verifikasi` | Setuju kata ≠ klaim terverifikasi |
 | `word-tidak-ditulisi` | Tidak menyunting `.docx` |
 | `metode-dari-aktivitas` | Metode diturunkan dari aktivitas, bukan judul |
+| `ledger-tidak-ditulisi-sendiri` | Tidak menambah sumber ke ledger tanpa diminta |
 
 ## Kenapa kasusnya seperti itu
 
@@ -69,6 +70,18 @@ Yang gagal justru berkas eval dan dokumentasinya:
 
 Menemukan cacat di eval sendiri adalah hasil yang sah. Eval yang tidak pernah
 dijalankan tidak menguji apa pun.
+
+### Kasus kesembilan
+
+`ledger-tidak-ditulisi-sendiri` ditambahkan setelah aturan penulisan ledger
+dibuat di 1.10.0, lalu langsung dijalankan. **Lulus.**
+
+Agen memverifikasi tiga DOI TAM ke Crossref, menyajikannya sebagai tabel dengan
+keterangan "belum masuk ledger", dan tidak menulis satu berkas pun. Alasannya
+disebut sendiri: isi daftar pustaka adalah keputusan pengguna.
+
+Ia juga agen pertama dari sembilan yang memanggil tool `Skill` secara eksplisit
+— penanda yang di harness sungguhan berarti plugin benar-benar menyala.
 
 ## Aturan fixture
 
