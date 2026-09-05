@@ -186,6 +186,25 @@ themselves.
 the text of its last render, so it can show template placeholders long after the
 real headings were filled in — reading it as structure produces false findings.
 
+## Two test layers, and what each cannot do
+
+`tests/` covers the scripts. It cannot test model behaviour — that needs an
+agent run.
+
+`evals/` covers behaviour: eight cases, each targeting a failure whose answer can
+be **accidentally right**. A model that says "analisa is non-standard" without
+running the lookup gave the correct answer and still fails, because it guessed.
+An eval that only scores correctness would pass it.
+
+`tests/test_eval_kontrak.py` bridges them: it asserts the rule behind each eval
+case is still written in the skill. Deleting a rule fails in milliseconds instead
+of waiting for an expensive eval run. Adding an eval case without its contract
+test fails too — there is a test enforcing that.
+
+The eval suite was authored while `claude plugin eval` was still early access, so
+its **format has never been executed**. The content is considered; the schema is
+not verified.
+
 ## Naming
 
 Skills, commands, and agents share **one namespace**. A skill directory and a

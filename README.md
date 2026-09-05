@@ -470,9 +470,17 @@ Penting kamu tahu batasnya, supaya tidak salah bersandar padanya.
 ```bash
 git clone https://github.com/zakyirsyaad/uii-skripsi-research
 cd uii-skripsi-research
-python3 -m unittest discover -s tests -v     # 94 tes, nol menyentuh jaringan
+python3 -m unittest discover -s tests -v     # tes unit, nol menyentuh jaringan
+claude plugin eval .                         # eval perilaku skill (early access)
 claude plugin validate .
 claude plugin validate .claude-plugin/marketplace.json
+```
+
+Tes unit menguji skripnya. Eval menguji perilaku modelnya — apakah ia benar
+menolak menebak, benar membedakan status sitasi. Delapan kasusnya dijelaskan di
+[`evals/README.md`](evals/README.md).
+
+```bash
 ```
 
 Memasang salinan lokal untuk dikembangkan — pakai **jalur absolut**, `.` tidak
