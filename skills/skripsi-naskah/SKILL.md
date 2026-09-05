@@ -94,9 +94,16 @@ tugas, berkas, atau topik:
 - `edit_authorized` — ubah hanya berkas yang disebut, hanya untuk perubahan yang
   diminta eksplisit.
 
-Kembali ke `markdown_only` setelah tugas yang diizinkan selesai. Hook plugin ini
-memblokir penulisan ke `.docx`/`.doc` secara deterministik; hook itu jaring
-pengaman, bukan pengganti aturan di atas.
+Kembali ke `markdown_only` setelah tugas yang diizinkan selesai.
+
+Hook plugin memblokir `Write`, `Edit`, dan `NotebookEdit` ke berkas Word. Ia
+**tidak** mencegat Bash — membongkar `.docx` lewat `unzip`, menyunting XML-nya,
+lalu memampatkannya kembali secara teknis bisa dilakukan.
+
+**Jangan lakukan itu.** Mengakali pelindung mengalahkan gunanya, dan risikonya
+justru lebih besar: memampatkan ulang arsip Word dengan tangan bisa merusak
+bagian yang tidak kamu sentuh. Hook adalah jaring pengaman untuk kelalaian,
+bukan tantangan untuk diakali.
 
 Jangan mengklaim format Word, field Mendeley, komentar, penomoran halaman,
 caption, daftar isi, atau referensi silang sudah diverifikasi dari Markdown.

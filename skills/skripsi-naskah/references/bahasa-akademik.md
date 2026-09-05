@@ -17,6 +17,16 @@ ingatan — daftar ini contoh, bukan penggantinya:
 | obyek | objek |
 | jadual | jadwal |
 
+Kedelapan pasangan di atas **sudah diverifikasi terhadap KBBI Edisi IV**
+(115.978 lema) pada 2026-09-05, bukan ditulis dari ingatan. `analisa`,
+`sistim`, `praktek`, dan `obyek` ada di KBBI sebagai rujukan silang ke bentuk
+bakunya; `resiko`, `standarisasi`, `kwalitas`, dan `jadual` tidak ada sama
+sekali.
+
+Karena itu memakai tabel ini untuk kedelapan kata tersebut **sah**. Untuk kata
+di luar daftar, jalankan `kbbi_lookup.py` — daftar ini tidak pernah menjadi
+alasan menebak.
+
 Istilah teknis asing yang belum punya padanan baku ditulis miring pada
 kemunculan pertama, lalu konsisten. Jangan memaksakan padanan yang tidak dikenal
 pembaca — konsistensi lebih penting daripada kemurnian.
