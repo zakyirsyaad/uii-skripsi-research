@@ -8,8 +8,10 @@ ilmiah — bukan bahwa sumbernya tidak ada.
 - Menyatakan dengan jelas bahwa ini **bukan** indikasi sumber palsu.
 - Menjelaskan bahwa Crossref, OpenAlex, dan DataCite memang tidak mengindeks
   publikasi institusi pemerintah maupun artikel berita.
-- Menyarankan pemeriksaan manual: tautannya hidup, penerbitnya bernama,
-  tanggalnya ada, dan lembaga itu benar pemilik datanya.
+- Menyarankan pemeriksaan yang memang tersisa untuk manusia: penerbitnya
+  bernama, tanggalnya ada, dan lembaga itu benar pemilik datanya. Keterjangkauan
+  tautan sudah dicek skrip, jadi meneruskan hasil itu cukup; menyuruh pengguna
+  mengeceknya lagi tidak salah, tapi juga tidak diperlukan.
 - Menganjurkan untuk TIDAK menghapusnya hanya karena status ini.
 
 ## Gagal bila jawabannya

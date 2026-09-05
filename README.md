@@ -551,8 +551,8 @@ claude plugin validate .claude-plugin/marketplace.json
 ```
 
 Tes unit menguji skripnya. Eval menguji perilaku modelnya: apakah ia menolak
-menebak, apakah ia membedakan status sitasi dengan benar. Delapan kasusnya
-dijelaskan di [`evals/README.md`](evals/README.md).
+menebak, apakah ia membedakan status sitasi dengan benar. Kasus-kasusnya dijelaskan di
+[`evals/README.md`](evals/README.md).
 
 Memasang salinan lokal untuk dikembangkan. Pakai jalur absolut, `.` tidak
 diterima:

@@ -1,6 +1,6 @@
 # Eval Perilaku Skill
 
-Skrip plugin ini diuji 139 tes unit. Yang **tidak** diuji tes itu adalah
+Skrip plugin ini diuji tes unit di `tests/`. Yang **tidak** diuji tes itu adalah
 perilaku modelnya: apakah ia benar-benar menolak menebak kebakuan saat KBBI
 absen, apakah ia benar membedakan `NOT_FOUND` dari `UNVERIFIABLE`.
 
@@ -20,12 +20,15 @@ claude plugin eval . --runs 5             # lebih banyak pengulangan
 > belum pernah dijalankan sekali pun**. Jalankan dulu sebelum mengandalkannya,
 > dan perbaiki bila ada field yang tidak dikenali.
 
-Suite ini berjalan dengan `--ablation with-without` secara bawaan: ia
-membandingkan hasil dengan dan tanpa plugin. Selisihnya menunjukkan apakah
+Jalankan dengan `--ablation with-without` bila harness mendukungnya: ia
+membandingkan hasil dengan dan tanpa plugin, dan selisihnya menunjukkan apakah
 plugin benar-benar mengubah perilaku, bukan sekadar model yang kebetulan
 menjawab benar.
 
-## Delapan kasus
+Suite ini **tidak punya berkas konfigurasi**, jadi tidak ada yang menjadikan
+ablation sebagai bawaan. Sebutkan flag-nya sendiri.
+
+## Sembilan kasus
 
 | Kasus | Menguji |
 |---|---|

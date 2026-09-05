@@ -165,6 +165,57 @@ class TestTipeDidokumentasikan(unittest.TestCase):
             self.assertIn("--tipe", teks, f"{path} tidak menyebut --tipe")
 
 
+class TestEvalTerdaftar(unittest.TestCase):
+    """evals/README.md sempat berjudul "Delapan kasus" di atas tabel sembilan baris.
+
+    Berkas yang sama bahkan punya bagian "Kasus kesembilan", jadi ia tahu ada
+    sembilan dan tetap salah menghitung. README.md dan CLAUDE.md ikut salah.
+    """
+
+    def kasus(self):
+        return {d.name for d in (ROOT / "evals").iterdir()
+                if d.is_dir() and d.name != "results"}
+
+    def baris_tabel(self):
+        """Hanya baris tabel. Nama kasus juga muncul di prosa di bawahnya, jadi
+        memeriksa keberadaan di seluruh berkas akan meloloskan baris yang hilang.
+        """
+        teks = (ROOT / "evals" / "README.md").read_text(encoding="utf-8")
+        return set(re.findall(r"^\| `([a-z-]+)` \|", teks, re.M))
+
+    def test_tabel_cocok_persis_dengan_kasus_yang_ada(self):
+        tabel, kasus = self.baris_tabel(), self.kasus()
+        self.assertEqual(
+            kasus, tabel,
+            f"tabel evals/README.md tidak cocok. Hilang: {sorted(kasus - tabel)}; "
+            f"tidak ada berkasnya: {sorted(tabel - kasus)}")
+
+    def test_jumlah_kasus_yang_tertulis_benar(self):
+        """Judulnya menyebut angka; angka itu harus cocok dengan isinya."""
+        angka = {"delapan": 8, "sembilan": 9, "sepuluh": 10, "sebelas": 11}
+        teks = (ROOT / "evals" / "README.md").read_text(encoding="utf-8")
+        m = re.search(r"^## (\w+) kasus$", teks, re.M)
+        self.assertIsNotNone(m, "evals/README.md kehilangan judul '## <angka> kasus'")
+        kata = m.group(1).lower()
+        self.assertIn(kata, angka, f"angka '{kata}' tidak dikenali")
+        self.assertEqual(len(self.kasus()), angka[kata],
+                         f"judul menyebut {kata} kasus, yang ada {len(self.kasus())}")
+
+
+class TestTanpaHitunganTesYangMembusuk(unittest.TestCase):
+    """"diuji 139 tes unit" basi begitu satu tes ditambahkan.
+
+    Angka yang tidak dihitung ulang oleh apa pun akan selalu tertinggal.
+    """
+
+    def test_dokumen_tidak_memaku_jumlah_tes(self):
+        for path in ("README.md", "evals/README.md", "CLAUDE.md"):
+            teks = (ROOT / path).read_text(encoding="utf-8")
+            self.assertNotRegex(
+                teks, r"\b\d{2,4}\s+tes\b|\b\d{2,4}\s+tests?\b",
+                f"{path} memaku jumlah tes; angka itu akan membusuk")
+
+
 class TestRujukanTidakYatim(unittest.TestCase):
     def test_setiap_berkas_rujukan_ditautkan_skill_nya(self):
         """Rujukan yang tidak ditautkan tidak akan pernah dibaca model."""

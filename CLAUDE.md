@@ -220,7 +220,7 @@ real headings were filled in — reading it as structure produces false findings
 `tests/` covers the scripts. It cannot test model behaviour — that needs an
 agent run.
 
-`evals/` covers behaviour: eight cases, each targeting a failure whose answer can
+`evals/` covers behaviour: nine cases, each targeting a failure whose answer can
 be **accidentally right**. A model that says "analisa is non-standard" without
 running the lookup gave the correct answer and still fails, because it guessed.
 An eval that only scores correctness would pass it.
@@ -274,6 +274,34 @@ Skill bodies address the reader in prose and write `<plugin>`; the model
 substitutes it. Command files are executed, so their bash blocks need the real
 variable. `/skripsi-init` mixed both in one file and two of its blocks could not
 run as written. A test now rejects `<plugin>` anywhere under `commands/`.
+
+## Delegating an audit must not drop the Word half
+
+`skripsi-kesiapan` requires `audit_naskah.py`, then tells the model to hand
+cross-chapter audits to the `skripsi-auditor` subagent — which never ran that
+script. The Word audit vanished exactly when the manuscript was large enough to
+need delegating. The agent now runs it too.
+
+The same stale sentence ("what I cannot check because it only exists in Word")
+had to be corrected in four places: README, `skripsi-kesiapan`,
+`/skripsi-audit`, and the agent. When a claim about coverage is repeated in more
+than one layer, fixing one is never finishing.
+
+## Counts in prose rot; let a test hold them
+
+`evals/README.md` sat at "Delapan kasus" above a nine-row table, in a file that
+also contains a section headed "Kasus kesembilan". README and CLAUDE.md repeated
+the wrong number. Separately it pinned a unit-test count in prose that was
+stale by twenty-seven.
+
+`tests/test_dokumentasi.py` now compares the eval table against the case
+directories and rejects any hardcoded test count in the docs. Write "the tests in
+`tests/`", never a number nothing recomputes.
+
+A first version of the eval-table test only checked that each case name appeared
+*somewhere* in the file — and the names also appear in the prose below the table,
+so deleting a table row still passed. A guard verified only against the happy
+path is not a guard.
 
 ## Naming
 

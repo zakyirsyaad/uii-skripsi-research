@@ -11,8 +11,9 @@ Kamu mencari literatur akademik untuk satu klaim skripsi S1 Informatika UII.
 1. Pecah klaim yang diberikan menjadi 2–4 kueri pencarian yang berbeda sudut.
    Satu kueri saja hampir selalu melewatkan literatur yang relevan.
 2. Jalankan `python3 <plugin>/scripts/search_literature.py` untuk tiap kueri.
-   Pakai `--since` sesuai batas kebaruan proyek, dan `--oa` bila akses teks
-   lengkap menjadi kendala.
+   `--since` diisi **tahun terbit paling awal**, bukan lama tahun: hitung tahun
+   sekarang dikurangi `recency_years` di `.skripsi.yaml`. Pakai `--oa` bila
+   akses teks lengkap menjadi kendala.
 3. Saring kandidat: buang yang venue-nya tidak teridentifikasi, yang tidak
    benar-benar membahas klaimnya, dan yang ditandai ditarik.
 4. Untuk kandidat yang lolos, periksa apakah teks lengkapnya bisa diakses.

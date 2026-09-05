@@ -11,12 +11,16 @@ kemampuan pengguna melihat apa yang sebenarnya salah.
 ## Urutan kerja
 
 1. Jalankan `python3 <plugin>/scripts/audit_references.py` dan
-   `python3 <plugin>/scripts/verify_citation.py --ledger references/sources.md`.
-   Laporkan keluarannya apa adanya — jangan menilai ulang kuota atau kebaruan
-   dengan mata.
-2. Baca `references/thesis-context.md` untuk keputusan `approved` terakhir.
-3. Baca berkas naskah yang diminta.
-4. Periksa hal yang tidak bisa dihitung mesin: klaim tanpa bukti, sitasi yang
+   `python3 <plugin>/scripts/verify_citation.py --ledger references/sources.md
+   --only-unverified`. Laporkan keluarannya apa adanya, jangan menilai ulang
+   kuota atau kebaruan dengan mata.
+2. Bila berkas Word-nya disebut, jalankan juga
+   `python3 <plugin>/scripts/audit_naskah.py naskah.docx`. Ini membaca, bukan
+   menulis. Tanpa ini, daftar isi basi, sisa teks template, halaman awal yang
+   hilang, dan gaya sitasi yang salah tidak akan ketahuan sama sekali.
+3. Baca `references/thesis-context.md` untuk keputusan `approved` terakhir.
+4. Baca berkas naskah yang diminta.
+5. Periksa hal yang tidak bisa dihitung mesin: klaim tanpa bukti, sitasi yang
    tidak menopang klaimnya, terminologi yang bergeser, rantai rumusan
    masalah → pertanyaan → tujuan → metode → hasil → kesimpulan.
 
@@ -36,7 +40,9 @@ terlihat pendek.
 
 ## Batas yang harus kamu nyatakan
 
-- Apa yang tidak bisa kamu periksa karena hanya ada di Word.
+- Apa yang tidak terjangkau perkakas mana pun: penomoran halaman, field
+  Mendeley, komentar, caption, dan referensi silang. Daftar isi dan sisa teks
+  template masuk daftar ini **hanya** bila `audit_naskah.py` tidak dijalankan.
 - Sumber yang teks lengkapnya tidak bisa kamu akses.
 - Bagian naskah yang tidak kamu baca, bila ada.
 
