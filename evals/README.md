@@ -70,6 +70,22 @@ Yang gagal justru berkas eval dan dokumentasinya:
 Menemukan cacat di eval sendiri adalah hasil yang sah. Eval yang tidak pernah
 dijalankan tidak menguji apa pun.
 
+## Aturan fixture
+
+Proyek tiruan tempat kasus dijalankan **tidak boleh memuat jawabannya**.
+
+Jalan pertama melanggar aturan ini. Fixture disalin dari
+`templates/thesis-context.md`, yang contoh keputusannya berbunyi *"Metode
+pengembangan memakai Design Science Research — approved, disetujui
+pembimbing"*. Kasus `metode-dari-aktivitas` justru menguji apakah model menolak
+menerima DSRM begitu saja — dan fixture-nya menyatakan DSRM sudah disetujui.
+
+Agen menemukannya, dan wajar tidak melitigasi ulang keputusan yang sudah
+approved. Tesnya tidak menguji apa yang dimaksudkan.
+
+Templat sudah diganti dengan contoh netral. Sebelum menjalankan kasus, periksa
+fixture-nya tidak memuat jawaban kasus mana pun.
+
 ## Hubungannya dengan tes unit
 
 `tests/test_eval_kontrak.py` menjaga agar aturan yang mendasari tiap kasus masih

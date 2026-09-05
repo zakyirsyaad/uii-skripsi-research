@@ -153,6 +153,24 @@ Skrip itu melaporkan kerangka bab, proporsi halaman, struktur subbab, statistik
 panjang kalimat, metode yang disebut, dan ukuran daftar pustaka. Ia sengaja
 tidak pernah mencetak kalimat dari sumbernya.
 
+## Kemiripan berlebihan adalah sinyal bahaya
+
+Menemukan skripsi DSpace yang topik **dan** metodenya persis sama bukan kabar
+baik. Itu risiko kebaruan.
+
+Kalau ada skripsi seangkatan dari prodi yang sama dengan topik dan metode
+identik, pertanyaan pertama penguji adalah apa bedanya. Mahasiswa yang baru
+menyadarinya saat sidang tidak punya waktu memperbaikinya.
+
+Saat kemiripan setinggi itu muncul, katakan terus terang: ini perlu dibicarakan
+ke pembimbing sekarang, bukan nanti. Jangan biarkan pengguna memperlakukannya
+semata sebagai bahan tinjauan pustaka yang bagus.
+
+Cara mengambil nilai dari skripsi itu tanpa menyitasinya: **tambang daftar
+pustakanya**. Ia pasti menyitasi jurnal dan prosiding asli — itulah yang layak
+masuk daftar pustakamu, setelah kamu buka sumber primernya, baca teks
+lengkapnya, dan verifikasi. Jangan pernah menyalin sitasi tangan kedua.
+
 ## Yang tidak boleh disalin
 
 Jangan menyalin prosa, abstrak, daftar sitasi, atau tabel dari item DSpace.

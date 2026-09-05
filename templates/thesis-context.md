@@ -25,7 +25,7 @@ Klaim faktual tetap harus menunjuk ke `references/sources.md`.
 
 | id | kind | pernyataan | status | provenance | scope | pengganti |
 |---|---|---|---|---|---|---|
-| d001 | user_decision | Metode pengembangan memakai Design Science Research | approved | Percakapan 2026-09-01, disetujui pembimbing | Bab 3 | |
+| d001 | user_decision | Contoh: ganti baris ini dengan keputusanmu sendiri | approved | Contoh: percakapan tanggal berapa, disetujui siapa | Bab berapa | |
 
 ## Item terbuka
 
