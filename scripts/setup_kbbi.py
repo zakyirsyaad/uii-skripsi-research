@@ -38,15 +38,15 @@ NOTICE = """\
 Akan mengunduh basis data KBBI Edisi IV (~26 MB) dari:
   {url}
 
-HAK CIPTA: data kamus ini milik Badan Pengembangan dan Pembinaan Bahasa
-(Kemendikbud). Sumbernya menyatakan penggunaan komersial dilarang, tunduk pada
-UU No. 28 Tahun 2014. Unduhan ini untuk keperluan penulisan skripsimu sendiri,
-dan kamu yang bertanggung jawab atas pemakaiannya.
+HAK CIPTA. Isi kamus ini milik Badan Pengembangan dan Pembinaan Bahasa
+(Kemendikbud). Sumbernya melarang penggunaan komersial, mengacu pada UU No. 28
+Tahun 2014. Unduhan ini untuk menulis skripsimu sendiri, dan kamu yang
+bertanggung jawab atas pemakaiannya.
 
-Hanya kamus utama Edisi IV yang diambil. Tabel baku/tidak-baku, sinonim, dan
-antonim di repositori itu sebagian dihasilkan AI dan tidak diunduh.
+Yang diunduh hanya kamus utamanya. Tabel baku/tidak-baku, sinonim, dan antonim
+di sumber yang sama sebagian dibuat AI, jadi tidak dipakai.
 
-Tujuan: {dest}
+Disimpan ke: {dest}
 """
 
 

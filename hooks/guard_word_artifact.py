@@ -76,14 +76,13 @@ def main() -> int:
         return 0
 
     deny(
-        f"Penulisan ke dokumen Word diblokir: {raw}\n\n"
-        "Dokumen Word adalah artefak yang kamu kelola sendiri dan diserahkan ke "
+        f"Penulisan ke file Word diblokir: {raw}\n\n"
+        "File Word ini kamu sendiri yang kelola, dan kamu serahkan ke "
         "pembimbing. Menimpanya bisa menghapus komentar pembimbing, field "
-        "Mendeley, penomoran, dan riwayat revisi yang tidak terlihat dari "
-        "Markdown.\n\n"
-        "Kerjakan perubahannya di Markdown, lalu pindahkan sendiri ke Word.\n\n"
-        f"Bila kamu memang ingin berkas ini boleh diubah, daftarkan di "
-        f"`{MARKER}` pada root proyek:\n"
+        "Mendeley, nomor halaman, dan riwayat revisi. Semua itu tidak terlihat "
+        "dari Markdown, jadi mudah hilang tanpa disadari.\n\n"
+        "Kerjakan perubahannya di Markdown dulu, lalu salin sendiri ke Word.\n\n"
+        f"Kalau file ini memang boleh diubah, daftarkan di `{MARKER}`:\n"
         f"    echo \"{raw}\" >> {MARKER}"
     )
     return 0

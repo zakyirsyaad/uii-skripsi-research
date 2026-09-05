@@ -31,7 +31,7 @@ dan menjaga konteks skripsimu tetap konsisten antar-sesi.
 
 ## Kenapa ini ada
 
-Model bahasa gagal pada skripsi dengan cara yang bisa diramalkan:
+Model bahasa punya beberapa kesalahan khas saat dipakai menulis skripsi:
 
 - **Mengarang sitasi.** Judul, penulis, tahun, bahkan DOI yang terdengar sangat
   meyakinkan — tapi karyanya tidak pernah ada. Ini kegagalan paling berbahaya,
@@ -40,17 +40,17 @@ Model bahasa gagal pada skripsi dengan cara yang bisa diramalkan:
 - **Melupakan keputusan.** Sesi kemarin sudah sepakat memakai satu metode; sesi
   hari ini mengusulkan metode lain seolah pembicaraan itu tak pernah terjadi.
 
-Plugin ini menempatkan setiap aturan pada lapis termurah yang masih andal:
+Plugin ini membagi tugas jadi tiga. Apa pun yang bisa dihitung komputer,
+dihitung — tidak diserahkan pada ingatan model.
 
-| Lapis | Untuk | Contoh |
+| Bagian | Mengerjakan apa | Contoh |
 |---|---|---|
-| **Skrip** | Yang bisa diputuskan komputer | DOI ini terdaftar? kuota 20% jebol? |
-| **Skill** | Yang butuh pemahaman | Apakah sumber ini benar mendukung klaimnya? |
-| **Hook** | Yang tidak boleh terlupa | Muat konteks; lindungi dokumen Word |
+| **Skrip** | Hal yang jawabannya pasti | DOI ini terdaftar? Kuota 20% sudah lewat? |
+| **Skill** | Hal yang perlu dibaca dan dinilai | Sumber ini benar mendukung klaimnya? |
+| **Hook** | Hal yang gampang terlupa | Memuat konteks; melindungi file Word |
 
-Intinya: **yang bisa dihitung, dihitung** — tidak diserahkan pada ingatan model.
-Saat kamu menulis sitasi, plugin ini benar-benar menghubungi Crossref, OpenAlex,
-dan DataCite untuk memastikan karyanya ada.
+Jadi saat kamu menulis sitasi, plugin ini benar-benar menghubungi Crossref,
+OpenAlex, dan DataCite untuk memastikan karyanya ada.
 
 ---
 
@@ -286,13 +286,14 @@ catatan kaki, daftar pustaka, atau tinjauan pustaka.
 | `UNVERIFIED` | Jaringan gagal | **Bukan bukti apa-apa.** Ulangi nanti |
 | `UNVERIFIABLE` | Jenis sumbernya tidak diindeks | Periksa manual: tautan hidup, penerbit bernama, tanggal ada |
 
-Tiga status "tidak OK" itu **berbeda dan tidak boleh dicampur**:
+Tiga status "tidak OK" itu artinya berbeda-beda:
 
-- `NOT_FOUND` adalah **temuan** — sudah dicari, tidak ada.
-- `UNVERIFIED` adalah **ketiadaan temuan** — jaringan gagal, tidak ada yang dipelajari.
-- `UNVERIFIABLE` adalah **di luar jangkauan** — publikasi BPS dan artikel berita
-  memang tidak pernah masuk basis data sitasi ilmiah. Menandainya fiktif akan
-  menuduh sumber yang sah.
+- `NOT_FOUND` — sudah dicari di tempat yang tepat, dan memang tidak ada.
+  Ini temuan, dan tanda bahaya.
+- `UNVERIFIED` — jaringannya gagal, jadi belum sempat dicari. Ini **bukan**
+  tanda bahaya; coba lagi nanti.
+- `UNVERIFIABLE` — sumbernya jenis yang tidak pernah masuk basis data sitasi
+  ilmiah, seperti publikasi BPS atau artikel berita. Wajar, dan bukan tuduhan.
 
 Hanya `jurnal`, `prosiding`, `buku`, dan `standar` yang benar-benar diindeks.
 Tipe `institusi` dan `artikel` hampir selalu berakhir `UNVERIFIABLE`, dan itu

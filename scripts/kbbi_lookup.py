@@ -118,11 +118,12 @@ def main() -> int:
     db_path = Path(args.db).expanduser() if args.db else cfg.resolved_kbbi_path()
     if db_path is None:
         print(
-            "KBBI belum dikonfigurasi, jadi kebakuan kata TIDAK BISA diverifikasi.\n"
-            "Jangan menyimpulkan baku/tidak-baku dari ingatan — periksa manual di "
-            "https://kbbi.kemdikbud.go.id dan tandai sebagai belum terverifikasi.\n"
-            "Untuk mengaktifkan: /plugin configure uii-skripsi-research "
-            "(isi kbbi_db_path), atau berikan --db.",
+            "KBBI belum dipasang, jadi kebakuan kata BELUM BISA dicek.\n"
+            "Jangan menebak baku atau tidak baku dari ingatan. Cek sendiri di "
+            "https://kbbi.kemdikbud.go.id, dan tandai kata itu sebagai belum "
+            "diperiksa.\n"
+            "Cara memasang: jalankan setup_kbbi.py, lalu isi jalurnya lewat "
+            "/plugin configure uii-skripsi-research.",
             file=sys.stderr)
         return 2
     if not db_path.is_file():
