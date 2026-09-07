@@ -359,6 +359,29 @@ Its first version loaded modules by bare name, which cannot resolve under
 `tests.test_*`; nothing ran and the guard reported success on an empty suite.
 Check that a guard actually executes what it claims to cover.
 
+## A half-configured plugin must say so at session start
+
+`/plugin configure` opens an interactive terminal dialog that some interfaces do
+not have — the desktop app's Code tab among them. Four places told the user to
+run it and none offered an alternative, so this plugin's own author hit a dead
+end: the thesis session kept pointing at a command that could not open, while
+KBBI sat unconfigured and language validation was silently off.
+
+Two fixes, and the first matters more. `session_start_context.py` now reports
+what is missing and how to fix it, scoped to directories that actually have a
+ledger so other repos stay quiet. It also treats a `kbbi_db_path` pointing at a
+nonexistent file as missing — a typo'd path looks configured while validation is
+just as dead.
+
+The docs now name the env-var route (`CLAUDE_PLUGIN_OPTION_*` in
+`~/.claude/settings.json`) everywhere `/plugin configure` appears, and
+`tests/test_dokumentasi.py` fails if any of them offers only the panel again.
+
+The rule this generalises was already in this file for a missing interpreter: a
+plugin whose tooling cannot run should say so, not appear to work. It had never
+been applied to empty configuration. When a capability can be off, something the
+user sees without asking must say it is off.
+
 ## Naming
 
 Skills, commands, and agents share **one namespace**. A skill directory and a

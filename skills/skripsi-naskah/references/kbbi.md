@@ -14,7 +14,10 @@ Yang harus dilakukan:
 1. Katakan bahwa kebakuan kata itu **belum terverifikasi**, jangan diam-diam
    dilewati.
 2. Arahkan pengguna memeriksa manual di <https://kbbi.kemdikbud.go.id>, atau
-   memasang basis datanya lewat `/plugin configure uii-skripsi-research`.
+   memasang basis datanya lewat `/plugin configure uii-skripsi-research`, atau —
+   bila perintah itu tidak tersedia di antarmukanya — lewat
+   `CLAUDE_PLUGIN_OPTION_KBBI_DB_PATH` di blok `env` pada
+   `~/.claude/settings.json`, diikuti sesi baru.
 3. Lanjutkan menulis. Kebakuan satu kata bukan alasan menghentikan drafting —
    tapi juga bukan sesuatu yang boleh diklaim sudah benar.
 

@@ -110,6 +110,22 @@ class TestAturanPentingTercantum(unittest.TestCase):
             README, r"[Pp]elanggaran(nya)? hanya\s+berpindah",
             "README kembali menjanjikan penangkal kuota yang tidak ada")
 
+    def test_konfigurasi_punya_jalan_selain_panel_interaktif(self):
+        """Empat tempat menyuruh `/plugin configure`; nol menyebut alternatif.
+
+        Perintah itu membuka dialog interaktif yang tidak tersedia di semua
+        antarmuka. Penulis plugin ini sendiri buntu di situ. Menyebut satu cara
+        yang bisa gagal, tanpa cara kedua, adalah jalan buntu.
+        """
+        for path in ("README.md", "commands/skripsi-init.md",
+                     "skills/skripsi-naskah/references/kbbi.md"):
+            teks = (ROOT / path).read_text(encoding="utf-8")
+            if "plugin configure" not in teks:
+                continue
+            self.assertIn(
+                "CLAUDE_PLUGIN_OPTION", teks,
+                f"{path} menyuruh /plugin configure tanpa menyebut jalur env var")
+
     def test_dspace_tidak_boleh_disitasi(self):
         self.assertIn("DSpace", README)
         self.assertRegex(README, r"bukan sumber|tidak pernah masuk")

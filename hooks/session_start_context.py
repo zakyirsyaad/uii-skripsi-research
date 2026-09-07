@@ -28,6 +28,52 @@ def emit(text: str) -> None:
     }}))
 
 
+def setup_lines(root: Path) -> list[str]:
+    """Sebutkan setelan yang belum diisi, beserta cara memperbaikinya.
+
+    Sebelum ini plugin diam saja saat setengah terkonfigurasi: validasi
+    kebakuan mati tanpa pemberitahuan, dan verifikasi sitasi berjalan di luar
+    polite pool. Mahasiswa baru tahu setelah menabrak exit code 2 di tengah
+    pekerjaan. Perkakas yang tidak bisa berjalan harus mengatakannya.
+
+    Hanya dipanggil untuk direktori yang memang punya ledger, jadi repo lain
+    tidak ikut diberi peringatan.
+    """
+    try:
+        from skripsi.config import load_config
+        cfg = load_config(root)
+    except Exception:
+        return []          # konfigurasi rusak sudah dilaporkan skripnya sendiri
+
+    kurang: list[str] = []
+
+    kbbi = cfg.resolved_kbbi_path()
+    if not kbbi or not Path(kbbi).is_file():
+        kurang.append(
+            "- KBBI belum terpasang, jadi validasi kebakuan kata TIDAK AKTIF. "
+            "Jangan menebak baku/tidak baku dari ingatan; katakan saja belum "
+            "terverifikasi. Unduh sekali: "
+            "`python3 <plugin>/scripts/setup_kbbi.py`")
+
+    if not cfg.mailto.strip():
+        kurang.append(
+            "- `mailto` belum diisi, jadi verifikasi sitasi memakai rate limit "
+            "paling ketat dan bisa lambat. Opsional, dan alamatnya dikirim ke "
+            "Crossref/OpenAlex/DataCite.")
+
+    if not kurang:
+        return []
+
+    return ["", "SETELAN BELUM LENGKAP:"] + kurang + [
+        "    Isi lewat `/plugin configure uii-skripsi-research` di terminal "
+        "`claude` interaktif. Bila panel itu tidak tersedia (mis. tab Code di "
+        "aplikasi desktop), tambahkan ke blok `env` di `~/.claude/settings.json`: "
+        "`CLAUDE_PLUGIN_OPTION_KBBI_DB_PATH` dan `CLAUDE_PLUGIN_OPTION_MAILTO`, "
+        "lalu mulai sesi baru. Jangan tulis `mailto` ke `.skripsi.yaml` — berkas "
+        "itu dilacak git.",
+    ]
+
+
 def main() -> int:
     try:
         payload = json.load(sys.stdin)
@@ -41,6 +87,7 @@ def main() -> int:
 
     sys.path.insert(0, str(Path(__file__).resolve().parents[1] / "scripts"))
     try:
+        from skripsi.config import load_config
         from skripsi.ledger import errors, load_context
     except ImportError:
         return 0
@@ -80,6 +127,8 @@ def main() -> int:
                      "sebagian konteks mungkin tidak terbaca:")
         for i in parse_errors[:3]:
             lines.append(f"    · {i}")
+
+    lines += setup_lines(root)
 
     lines += [
         "",

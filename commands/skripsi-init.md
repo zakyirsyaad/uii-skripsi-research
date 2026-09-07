@@ -38,7 +38,12 @@ Siapkan proyek skripsi di direktori kerja saat ini.
    Pembinaan Bahasa, penggunaan komersial dilarang, dan unduhan itu atas nama
    pengguna sendiri. **Jangan jalankan dengan `--yes`** — biarkan pengguna yang
    mengonfirmasi. Setelah selesai, arahkan ke
-   `/plugin configure uii-skripsi-research` untuk mengisi jalurnya.
+   `/plugin configure uii-skripsi-research` untuk mengisi jalurnya. **Bila
+   pengguna melaporkan perintah itu tidak bisa dibuka** (dialog interaktif tidak
+   tersedia di semua antarmuka, mis. tab Code), tawarkan menambahkan
+   `CLAUDE_PLUGIN_OPTION_KBBI_DB_PATH` ke blok `env` di
+   `~/.claude/settings.json`, lalu ingatkan bahwa perubahannya baru berlaku di
+   sesi baru. Jangan menuliskan jalurnya ke `.skripsi.yaml`.
 
    Tanpa KBBI, kebakuan kata tidak bisa diverifikasi dan naskah berisiko tidak
    sesuai standar. Bila pengguna menolak memasangnya, lanjutkan tetapi katakan

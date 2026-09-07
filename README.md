@@ -151,6 +151,29 @@ Mengubah keduanya kapan saja:
 /plugin configure uii-skripsi-research
 ```
 
+### Kalau perintah itu tidak bisa dibuka
+
+`/plugin configure` membuka dialog interaktif di terminal. Di sebagian
+antarmuka — misalnya tab Code aplikasi desktop — dialog itu tidak tersedia,
+sama seperti `/permissions` dan `/hooks`.
+
+Skripnya sendiri hanya membaca env var, jadi kamu bisa mengisinya langsung.
+Tambahkan blok `env` ke `~/.claude/settings.json`:
+
+```json
+"env": {
+  "CLAUDE_PLUGIN_OPTION_MAILTO": "emailmu@contoh.ac.id",
+  "CLAUDE_PLUGIN_OPTION_KBBI_DB_PATH": "/Users/kamu/.skripsi/kbbi-edisi-iv.sqlite"
+}
+```
+
+Lalu **mulai sesi baru** — env var dibaca saat sesi dimulai, jadi sesi yang
+sedang berjalan belum melihatnya.
+
+Setelan ini tingkat pengguna, jadi berlaku di semua proyek skripsimu dan
+tidak ikut masuk git proyek. **Jangan menulis `mailto` ke `.skripsi.yaml`** —
+berkas itu dilacak git, jadi alamatmu akan masuk riwayat repositori permanen.
+
 ---
 
 ## Mulai cepat
@@ -459,8 +482,10 @@ Restart Claude Code. Perubahan plugin hanya berlaku di sesi baru. Lalu cek
 `claude plugin list`.
 
 **Verifikasi sitasi sangat lambat.**
-`mailto` belum diisi, jadi kamu masuk jalur rate limit paling ketat. Jalankan
-`/plugin configure uii-skripsi-research`.
+`mailto` belum diisi, jadi kamu masuk jalur rate limit paling ketat. Isi lewat
+`/plugin configure uii-skripsi-research`, atau lewat `~/.claude/settings.json`
+bila perintah itu tidak tersedia — lihat
+[Setelan pertama kali](#setelan-pertama-kali).
 
 **Sumber BPS atau artikel berita ditandai `UNVERIFIABLE`.**
 Itu normal. Basis data sitasi ilmiah tidak mengindeks jenis sumber itu. Skrip
