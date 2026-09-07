@@ -100,6 +100,31 @@ class TestAturanMasihTertulis(unittest.TestCase):
         self.assertIn("bukan ieee", t)
 
 
+class TestAturanLihatLedgerDulu(unittest.TestCase):
+    """Menandai klaim tanpa sumber tanpa membuka ledgernya dulu.
+
+    Ditemukan dari pemakaian nyata: sesi drafting menandai klaim ERC-20 sebagai
+    belum bersumber, padahal ada entri terverifikasi bertopik sama di ledger
+    yang tidak pernah dilihat.
+    """
+
+    def test_skill_menyuruh_membuka_sources_md_dulu(self):
+        t = isi("skills/skripsi-naskah/SKILL.md")
+        self.assertIn("sumber belum ditetapkan", t)
+        self.assertIn("references/sources.md", t)
+
+    def test_skill_menyuruh_menyebut_entri_yang_bersinggungan(self):
+        """Menandai tanpa menyebut apa yang diperiksa tidak bisa ditindaklanjuti."""
+        t = isi("skills/skripsi-naskah/SKILL.md")
+        self.assertRegex(t, r"sebut entri dan celahnya|sebut entrinya")
+        self.assertRegex(t, r"sudah diperiksa|yang sudah kamu periksa")
+
+    def test_rujukannya_ada_dan_tidak_melonggarkan_aturan_sitasi(self):
+        t = isi("skills/skripsi-naskah/references/sumber-saat-drafting.md")
+        self.assertIn("sumber ada ≠ sumber mendukung", t)
+        self.assertIn("tanpa diminta", t)
+
+
 class TestSetiapKasusPunyaPenjaga(unittest.TestCase):
     def test_tidak_ada_kasus_eval_tanpa_tes_kontrak(self):
         """Kasus eval baru harus disertai tes yang menjaga aturannya."""
@@ -116,6 +141,7 @@ class TestSetiapKasusPunyaPenjaga(unittest.TestCase):
             "word-tidak-ditulisi": "word_tidak_ditulisi_secara_bawaan",
             "metode-dari-aktivitas": "metode_dari_aktivitas_bukan_judul",
             "ledger-tidak-ditulisi-sendiri": "baris_baru_butuh_permintaan_eksplisit",
+            "lihat-ledger-sebelum-menandai": "skill_menyuruh_membuka_sources_md_dulu",
         }
         for nama in kasus:
             self.assertIn(nama, petakan, f"kasus '{nama}' belum punya tes kontrak")

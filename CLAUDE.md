@@ -231,7 +231,7 @@ covers the transport (404 vs failure, 429 backoff, cache, polite pool), the
 three metadata mappers, and the Crossref → OpenAlex → DataCite tiering.
 Six deliberate mutations were introduced to confirm it fails on each.
 
-`evals/` covers behaviour: nine cases, each targeting a failure whose answer can
+`evals/` covers behaviour: ten cases, each targeting a failure whose answer can
 be **accidentally right**. A model that says "analisa is non-standard" without
 running the lookup gave the correct answer and still fails, because it guessed.
 An eval that only scores correctness would pass it.
@@ -381,6 +381,33 @@ The rule this generalises was already in this file for a missing interpreter: a
 plugin whose tooling cannot run should say so, not appear to work. It had never
 been applied to empty configuration. When a capability can be off, something the
 user sees without asking must say it is off.
+
+## Look at the ledger before declaring a claim unsourced
+
+A drafting session wrote a paragraph on the ERC-20 `approve`/`transferFrom`
+mechanism, marked it `[SUMBER BELUM DITETAPKAN]`, and justified it correctly: a
+source must not be attached merely because it sits in the list. But it never
+opened `references/sources.md`, where a *verified* entry carried the claim
+"…Solidity, OpenZeppelin, dan token ERC-20 dalam skema ICO". Same topic, and
+quite possibly not reaching the allowance mechanism — but that can only be said
+after looking. The user had to tell it to search.
+
+Right caution, executed halfway, reads as unhelpful. The failure is not attaching
+a wrong source; it is producing a finding nobody can act on.
+
+`skripsi-naskah` now requires the lookup, and the three-way outcome:
+covered → use it; same topic but the `klaim` column falls short → **name the
+entry and the gap**, then offer the full text or a fresh search; nothing
+adjacent → mark unsourced *and say what was checked*. Depth lives in
+`references/sumber-saat-drafting.md`.
+
+None of `skripsi-sitasi`'s rules are loosened — presence still is not support,
+and rows still are not added unasked. What changed is that looking became
+mandatory, and so did reporting what the look found.
+
+This is the second defect in this plugin found only by someone using it rather
+than auditing it. Both were behaviours where every document agreed with every
+other document, and the agreed behaviour was unhelpful in practice.
 
 ## Naming
 

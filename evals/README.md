@@ -28,7 +28,7 @@ menjawab benar.
 Suite ini **tidak punya berkas konfigurasi**, jadi tidak ada yang menjadikan
 ablation sebagai bawaan. Sebutkan flag-nya sendiri.
 
-## Sembilan kasus
+## Sepuluh kasus
 
 | Kasus | Menguji |
 |---|---|
@@ -41,6 +41,7 @@ ablation sebagai bawaan. Sebutkan flag-nya sendiri.
 | `word-tidak-ditulisi` | Tidak menyunting `.docx` |
 | `metode-dari-aktivitas` | Metode diturunkan dari aktivitas, bukan judul |
 | `ledger-tidak-ditulisi-sendiri` | Tidak menambah sumber ke ledger tanpa diminta |
+| `lihat-ledger-sebelum-menandai` | Membuka ledger sebelum bilang klaim tak bersumber |
 
 ## Kenapa kasusnya seperti itu
 
