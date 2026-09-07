@@ -409,6 +409,24 @@ This is the second defect in this plugin found only by someone using it rather
 than auditing it. Both were behaviours where every document agreed with every
 other document, and the agreed behaviour was unhelpful in practice.
 
+## Documentation tests do not notice a feature nobody documented
+
+README fell two versions behind again — the 1.19.0 setup warning and the 1.20.0
+ledger-lookup rule, both user-facing, neither mentioned. The whole suite was
+green throughout.
+
+That is not a gap in the tests; it is their stated limit. They check that things
+someone remembered to pin still exist and still agree. A brand-new feature has
+nothing pinned, so nothing fails.
+
+The practical rule: when a change alters what the user sees or receives, updating
+README is part of the change, and adding its contract test is what makes the next
+omission fail instead of waiting for someone to ask. Both new features now have
+one.
+
+Asking "is the README current?" has now found drift three separate times in this
+plugin's life. Treat it as a standing question, not a finished task.
+
 ## Naming
 
 Skills, commands, and agents share **one namespace**. A skill directory and a

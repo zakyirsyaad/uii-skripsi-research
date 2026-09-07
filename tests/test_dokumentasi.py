@@ -126,6 +126,15 @@ class TestAturanPentingTercantum(unittest.TestCase):
                 "CLAUDE_PLUGIN_OPTION", teks,
                 f"{path} menyuruh /plugin configure tanpa menyebut jalur env var")
 
+    def test_hook_yang_menyebut_setelan_kurang_didokumentasikan(self):
+        """Fitur utama 1.19.0 tidak masuk README sampai audit manual menemukannya."""
+        self.assertRegex(README, r"setelan yang belum lengkap|SETELAN BELUM LENGKAP")
+
+    def test_aturan_lihat_ledger_didokumentasikan(self):
+        """Perilaku 1.20.0. Pengguna perlu tahu bentuk laporan yang akan diterima."""
+        self.assertIn("SUMBER BELUM DITETAPKAN", README)
+        self.assertRegex(README, r"sudah diperiksa|yang diperiksa")
+
     def test_dspace_tidak_boleh_disitasi(self):
         self.assertIn("DSpace", README)
         self.assertRegex(README, r"bukan sumber|tidak pernah masuk")

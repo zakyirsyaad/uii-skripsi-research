@@ -24,6 +24,7 @@ pustaka, dan menjaga konteks skripsi tetap konsisten antar-sesi.
 - [Perlindungan dokumen Word](#perlindungan-dokumen-word)
 - [Menjalankan skripnya langsung](#menjalankan-skripnya-langsung)
 - [Masalah umum](#masalah-umum)
+- [Klaim tanpa sumber menyebut apa yang diperiksa](#klaim-tanpa-sumber-menyebut-apa-yang-diperiksa)
 - [Plugin tidak menambah sumber sendiri](#plugin-tidak-menambah-sumber-sendiri)
 - [Yang TIDAK bisa dilakukan plugin ini](#yang-tidak-bisa-dilakukan-plugin-ini)
 - [Privasi dan data](#privasi-dan-data)
@@ -203,7 +204,8 @@ dikirim ke sana sama sekali; lihat [Enam status sitasi](#enam-status-sitasi).
 ## Alur kerja sehari-hari
 
 ```
-Buka sesi   →  hook memuat ringkasan konteks otomatis
+Buka sesi   →  hook memuat ringkasan konteks otomatis, dan menyebut
+               setelan yang belum lengkap bila ada
             →  /skripsi-lanjut     lanjutkan dari unit terakhir
 
 Butuh sumber →  /skripsi-cari "klaim yang perlu didukung"
@@ -505,6 +507,23 @@ Naikkan `version` di kedua manifest, jalankan `claude plugin update`, lalu
 restart. `update` menolak menyegarkan bila nomor versinya sama.
 
 ---
+
+## Klaim tanpa sumber menyebut apa yang diperiksa
+
+Saat menulis paragraf yang butuh sumber, plugin membuka
+`references/sources.md` lebih dulu. Ada tiga kemungkinan:
+
+- Kolom `klaim` sebuah entri menutupi klaim itu — entri itu dipakai.
+- Ada entri bertopik sama tapi kolom `klaim`-nya tidak sejauh itu — **entri
+  dan celahnya disebutkan**, lalu ditawarkan memeriksa teks lengkapnya atau
+  mencari sumber baru.
+- Tidak ada yang bersinggungan — baru ditandai belum bersumber, disertai
+  daftar apa saja yang sudah diperiksa.
+
+Jadi kamu tidak akan menerima `[SUMBER BELUM DITETAPKAN]` kosong yang tidak
+bisa ditindaklanjuti. Sumber tetap **tidak** ditempelkan hanya karena ia ada
+di ledger — yang berubah adalah plugin wajib melihat dulu, lalu melaporkan
+hasil melihatnya.
 
 ## Plugin tidak menambah sumber sendiri
 
